@@ -1,0 +1,9 @@
+C:\Users\survi\Documents\proyecto-equipo-b\ServicioCuentasDeUsuario\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\survi\Documents\proyecto-equipo-b\ServicioCuentasDeUsuario\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\survi\Documents\proyecto-equipo-b\ServicioCuentasDeUsuario\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Users\survi\Documents\proyecto-equipo-b\ServicioCuentasDeUsuario\obj\Debug\netcoreapp3.1\ServicioCuentasDeUsuario.csprojAssemblyReference.cache
+C:\Users\survi\Documents\proyecto-equipo-b\ServicioCuentasDeUsuario\obj\Debug\netcoreapp3.1\ServicioCuentasDeUsuario.AssemblyInfoInputs.cache
+C:\Users\survi\Documents\proyecto-equipo-b\ServicioCuentasDeUsuario\obj\Debug\netcoreapp3.1\ServicioCuentasDeUsuario.AssemblyInfo.cs
+C:\Users\survi\Documents\proyecto-equipo-b\ServicioCuentasDeUsuario\obj\Debug\netcoreapp3.1\ServicioCuentasDeUsuario.RazorTargetAssemblyInfo.cache
+C:\Users\survi\Documents\proyecto-equipo-b\ServicioCuentasDeUsuario\obj\Debug\netcoreapp3.1\staticwebassets\ServicioCuentasDeUsuario.StaticWebAssets.Manifest.cache
+C:\Users\survi\Documents\proyecto-equipo-b\ServicioCuentasDeUsuario\obj\Debug\netcoreapp3.1\staticwebassets\ServicioCuentasDeUsuario.StaticWebAssets.xml

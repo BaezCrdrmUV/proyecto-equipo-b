@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "1dsJe2Ed9TJcAHUbnYMLx0Vj+j4BsVRWTJK1RX1GVXaPXGshGjLU2gvchHbDCLIYNVtvgyfzX1/jytsSn06fqg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\survi\\Documents\\proyecto-equipo-b\\ServicioCuentasDeUsuario\\ServicioCuentasDeUsuario.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\survi\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.9\\microsoft.visualstudio.azure.containers.tools.targets.1.10.9.nupkg.sha512"
+  ],
+  "logs": []
+}
