@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Button Content="Iniciar sesión" HorizontalAlignment="Left" Margin="429,291,0,0" VerticalAlignment="Top" Width="75" Click="iniciarSesion"/>
+        <Button Content="Registrarse" HorizontalAlignment="Left" Margin="341,291,0,0" VerticalAlignment="Top" Width="75" Click="registrarUsuario"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="341,44,0,0" VerticalAlignment="Top" Width="100"/>
+        <TextBox Name="correoU" HorizontalAlignment="Left" Height="23" Margin="341,170,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="163"/>
+        <Label Content="Correo" HorizontalAlignment="Left" Margin="341,144,0,0" VerticalAlignment="Top"/>
+        <Label Content="Contraseña" HorizontalAlignment="Left" Margin="341,211,0,0" VerticalAlignment="Top"/>
+        <PasswordBox Name="contraseñaU" HorizontalAlignment="Left" Margin="341,242,0,0" VerticalAlignment="Top" Width="163" Height="23"/>
+
     </Grid>
 </Window>
