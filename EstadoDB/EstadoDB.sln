@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servicio_Estado", "Servicio_Estado.csproj", "{48DC4E0B-0EF6-49B5-853B-F3218E9D77C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EstadoDB", "EstadoDB.csproj", "{1040B201-A395-4E3D-B900-71B63E7F1641}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{48DC4E0B-0EF6-49B5-853B-F3218E9D77C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{48DC4E0B-0EF6-49B5-853B-F3218E9D77C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{48DC4E0B-0EF6-49B5-853B-F3218E9D77C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{48DC4E0B-0EF6-49B5-853B-F3218E9D77C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1040B201-A395-4E3D-B900-71B63E7F1641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1040B201-A395-4E3D-B900-71B63E7F1641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1040B201-A395-4E3D-B900-71B63E7F1641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1040B201-A395-4E3D-B900-71B63E7F1641}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {42D7FBAE-FA2B-402E-B3EC-B3786EDFD359}
+		SolutionGuid = {D22D74C8-C104-4953-A0AA-50F6F3612051}
 	EndGlobalSection
 EndGlobal
