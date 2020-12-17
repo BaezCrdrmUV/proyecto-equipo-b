@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="chatModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="amigo">
+          <Key>
+            <PropertyRef Name="idAmigo" />
+          </Key>
+          <Property Name="idAmigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCuenta" Type="int" Nullable="false" />
+          <Property Name="amigoId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="chat">
+          <Key>
+            <PropertyRef Name="idChat" />
+          </Key>
+          <Property Name="idChat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombreChat" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="tipoChat" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mensaje">
+          <Key>
+            <PropertyRef Name="idMensaje" />
+          </Key>
+          <Property Name="idMensaje" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+          <Property Name="favorito" Type="tinyint" Nullable="false" />
+          <Property Name="mensaje" Type="varchar" MaxLength="1000" />
+          <Property Name="TipoMensaje_idTipoMensaje" Type="int" Nullable="false" />
+          <Property Name="Chat_idChat" Type="int" Nullable="false" />
+          <Property Name="tipoMensaje" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="idMensajeImagen" Type="int" Nullable="false" />
+          <Property Name="idMensajeAudio" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reaccion">
+          <Key>
+            <PropertyRef Name="idReaccion" />
+          </Key>
+          <Property Name="idReaccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="UsuarioChat_idUsuarioChat" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reaccion_has_mensaje">
+          <Key>
+            <PropertyRef Name="Reaccion_idReaccion" />
+            <PropertyRef Name="Mensaje_idMensaje" />
+          </Key>
+          <Property Name="Reaccion_idReaccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mensaje_idMensaje" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuariochat">
+          <Key>
+            <PropertyRef Name="idUsuarioChat" />
+          </Key>
+          <Property Name="idUsuarioChat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUsuario" Type="int" Nullable="false" />
+          <Property Name="Chat_idChat" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_Mensaje_Chat1">
+          <End Role="chat" Type="Self.chat" Multiplicity="1" />
+          <End Role="mensaje" Type="Self.mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="chat">
+              <PropertyRef Name="idChat" />
+            </Principal>
+            <Dependent Role="mensaje">
+              <PropertyRef Name="Chat_idChat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Reaccion_has_Mensaje_Mensaje1">
+          <End Role="mensaje" Type="Self.mensaje" Multiplicity="1" />
+          <End Role="reaccion_has_mensaje" Type="Self.reaccion_has_mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mensaje">
+              <PropertyRef Name="idMensaje" />
+            </Principal>
+            <Dependent Role="reaccion_has_mensaje">
+              <PropertyRef Name="Mensaje_idMensaje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Reaccion_has_Mensaje_Reaccion1">
+          <End Role="reaccion" Type="Self.reaccion" Multiplicity="1" />
+          <End Role="reaccion_has_mensaje" Type="Self.reaccion_has_mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="reaccion">
+              <PropertyRef Name="idReaccion" />
+            </Principal>
+            <Dependent Role="reaccion_has_mensaje">
+              <PropertyRef Name="Reaccion_idReaccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Reaccion_UsuarioChat1">
+          <End Role="usuariochat" Type="Self.usuariochat" Multiplicity="1" />
+          <End Role="reaccion" Type="Self.reaccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuariochat">
+              <PropertyRef Name="idUsuarioChat" />
+            </Principal>
+            <Dependent Role="reaccion">
+              <PropertyRef Name="UsuarioChat_idUsuarioChat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UsuarioChat_Chat1">
+          <End Role="chat" Type="Self.chat" Multiplicity="1" />
+          <End Role="usuariochat" Type="Self.usuariochat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="chat">
+              <PropertyRef Name="idChat" />
+            </Principal>
+            <Dependent Role="usuariochat">
+              <PropertyRef Name="Chat_idChat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="chatModelStoreContainer">
+          <EntitySet Name="amigo" EntityType="Self.amigo" Schema="chat" store:Type="Tables" />
+          <EntitySet Name="chat" EntityType="Self.chat" Schema="chat" store:Type="Tables" />
+          <EntitySet Name="mensaje" EntityType="Self.mensaje" Schema="chat" store:Type="Tables" />
+          <EntitySet Name="reaccion" EntityType="Self.reaccion" Schema="chat" store:Type="Tables" />
+          <EntitySet Name="reaccion_has_mensaje" EntityType="Self.reaccion_has_mensaje" Schema="chat" store:Type="Tables" />
+          <EntitySet Name="usuariochat" EntityType="Self.usuariochat" Schema="chat" store:Type="Tables" />
+          <AssociationSet Name="fk_Mensaje_Chat1" Association="Self.fk_Mensaje_Chat1">
+            <End Role="chat" EntitySet="chat" />
+            <End Role="mensaje" EntitySet="mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Reaccion_has_Mensaje_Mensaje1" Association="Self.fk_Reaccion_has_Mensaje_Mensaje1">
+            <End Role="mensaje" EntitySet="mensaje" />
+            <End Role="reaccion_has_mensaje" EntitySet="reaccion_has_mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Reaccion_has_Mensaje_Reaccion1" Association="Self.fk_Reaccion_has_Mensaje_Reaccion1">
+            <End Role="reaccion" EntitySet="reaccion" />
+            <End Role="reaccion_has_mensaje" EntitySet="reaccion_has_mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Reaccion_UsuarioChat1" Association="Self.fk_Reaccion_UsuarioChat1">
+            <End Role="usuariochat" EntitySet="usuariochat" />
+            <End Role="reaccion" EntitySet="reaccion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UsuarioChat_Chat1" Association="Self.fk_UsuarioChat_Chat1">
+            <End Role="chat" EntitySet="chat" />
+            <End Role="usuariochat" EntitySet="usuariochat" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="chatModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="amigo">
+          <Key>
+            <PropertyRef Name="idAmigo" />
+          </Key>
+          <Property Name="idAmigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCuenta" Type="Int32" Nullable="false" />
+          <Property Name="amigoId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="chat">
+          <Key>
+            <PropertyRef Name="idChat" />
+          </Key>
+          <Property Name="idChat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombreChat" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipoChat" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="mensaje" Relationship="Self.fk_Mensaje_Chat1" FromRole="chat" ToRole="mensaje" />
+          <NavigationProperty Name="usuariochat" Relationship="Self.fk_UsuarioChat_Chat1" FromRole="chat" ToRole="usuariochat" />
+        </EntityType>
+        <EntityType Name="mensaje">
+          <Key>
+            <PropertyRef Name="idMensaje" />
+          </Key>
+          <Property Name="idMensaje" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" />
+          <Property Name="favorito" Type="SByte" Nullable="false" />
+          <Property Name="mensaje1" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="TipoMensaje_idTipoMensaje" Type="Int32" Nullable="false" />
+          <Property Name="Chat_idChat" Type="Int32" Nullable="false" />
+          <Property Name="tipoMensaje" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idMensajeImagen" Type="Int32" Nullable="false" />
+          <Property Name="idMensajeAudio" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="chat" Relationship="Self.fk_Mensaje_Chat1" FromRole="mensaje" ToRole="chat" />
+          <NavigationProperty Name="reaccion" Relationship="Self.reaccion_has_mensaje" FromRole="mensaje" ToRole="reaccion" />
+        </EntityType>
+        <EntityType Name="reaccion">
+          <Key>
+            <PropertyRef Name="idReaccion" />
+          </Key>
+          <Property Name="idReaccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsuarioChat_idUsuarioChat" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="usuariochat" Relationship="Self.fk_Reaccion_UsuarioChat1" FromRole="reaccion" ToRole="usuariochat" />
+          <NavigationProperty Name="mensaje" Relationship="Self.reaccion_has_mensaje" FromRole="reaccion" ToRole="mensaje" />
+        </EntityType>
+        <EntityType Name="usuariochat">
+          <Key>
+            <PropertyRef Name="idUsuarioChat" />
+          </Key>
+          <Property Name="idUsuarioChat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Chat_idChat" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="chat" Relationship="Self.fk_UsuarioChat_Chat1" FromRole="usuariochat" ToRole="chat" />
+          <NavigationProperty Name="reaccion" Relationship="Self.fk_Reaccion_UsuarioChat1" FromRole="usuariochat" ToRole="reaccion" />
+        </EntityType>
+        <Association Name="fk_Mensaje_Chat1">
+          <End Role="chat" Type="Self.chat" Multiplicity="1" />
+          <End Role="mensaje" Type="Self.mensaje" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="chat">
+              <PropertyRef Name="idChat" />
+            </Principal>
+            <Dependent Role="mensaje">
+              <PropertyRef Name="Chat_idChat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UsuarioChat_Chat1">
+          <End Role="chat" Type="Self.chat" Multiplicity="1" />
+          <End Role="usuariochat" Type="Self.usuariochat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="chat">
+              <PropertyRef Name="idChat" />
+            </Principal>
+            <Dependent Role="usuariochat">
+              <PropertyRef Name="Chat_idChat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Reaccion_UsuarioChat1">
+          <End Role="usuariochat" Type="Self.usuariochat" Multiplicity="1" />
+          <End Role="reaccion" Type="Self.reaccion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuariochat">
+              <PropertyRef Name="idUsuarioChat" />
+            </Principal>
+            <Dependent Role="reaccion">
+              <PropertyRef Name="UsuarioChat_idUsuarioChat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="reaccion_has_mensaje">
+          <End Role="mensaje" Type="Self.mensaje" Multiplicity="*" />
+          <End Role="reaccion" Type="Self.reaccion" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="chatEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="amigo" EntityType="Self.amigo" />
+          <EntitySet Name="chat" EntityType="Self.chat" />
+          <EntitySet Name="mensaje" EntityType="Self.mensaje" />
+          <EntitySet Name="reaccion" EntityType="Self.reaccion" />
+          <EntitySet Name="usuariochat" EntityType="Self.usuariochat" />
+          <AssociationSet Name="fk_Mensaje_Chat1" Association="Self.fk_Mensaje_Chat1">
+            <End Role="chat" EntitySet="chat" />
+            <End Role="mensaje" EntitySet="mensaje" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UsuarioChat_Chat1" Association="Self.fk_UsuarioChat_Chat1">
+            <End Role="chat" EntitySet="chat" />
+            <End Role="usuariochat" EntitySet="usuariochat" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Reaccion_UsuarioChat1" Association="Self.fk_Reaccion_UsuarioChat1">
+            <End Role="usuariochat" EntitySet="usuariochat" />
+            <End Role="reaccion" EntitySet="reaccion" />
+          </AssociationSet>
+          <AssociationSet Name="reaccion_has_mensaje" Association="Self.reaccion_has_mensaje">
+            <End Role="mensaje" EntitySet="mensaje" />
+            <End Role="reaccion" EntitySet="reaccion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="chatModelStoreContainer" CdmEntityContainer="chatEntities">
+          <EntitySetMapping Name="amigo">
+            <EntityTypeMapping TypeName="chatModel.amigo">
+              <MappingFragment StoreEntitySet="amigo">
+                <ScalarProperty Name="idAmigo" ColumnName="idAmigo" />
+                <ScalarProperty Name="idCuenta" ColumnName="idCuenta" />
+                <ScalarProperty Name="amigoId" ColumnName="amigoId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="chat">
+            <EntityTypeMapping TypeName="chatModel.chat">
+              <MappingFragment StoreEntitySet="chat">
+                <ScalarProperty Name="idChat" ColumnName="idChat" />
+                <ScalarProperty Name="nombreChat" ColumnName="nombreChat" />
+                <ScalarProperty Name="tipoChat" ColumnName="tipoChat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mensaje">
+            <EntityTypeMapping TypeName="chatModel.mensaje">
+              <MappingFragment StoreEntitySet="mensaje">
+                <ScalarProperty Name="idMensaje" ColumnName="idMensaje" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="favorito" ColumnName="favorito" />
+                <ScalarProperty Name="mensaje1" ColumnName="mensaje" />
+                <ScalarProperty Name="TipoMensaje_idTipoMensaje" ColumnName="TipoMensaje_idTipoMensaje" />
+                <ScalarProperty Name="Chat_idChat" ColumnName="Chat_idChat" />
+                <ScalarProperty Name="tipoMensaje" ColumnName="tipoMensaje" />
+                <ScalarProperty Name="idMensajeImagen" ColumnName="idMensajeImagen" />
+                <ScalarProperty Name="idMensajeAudio" ColumnName="idMensajeAudio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reaccion">
+            <EntityTypeMapping TypeName="chatModel.reaccion">
+              <MappingFragment StoreEntitySet="reaccion">
+                <ScalarProperty Name="idReaccion" ColumnName="idReaccion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="UsuarioChat_idUsuarioChat" ColumnName="UsuarioChat_idUsuarioChat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuariochat">
+            <EntityTypeMapping TypeName="chatModel.usuariochat">
+              <MappingFragment StoreEntitySet="usuariochat">
+                <ScalarProperty Name="idUsuarioChat" ColumnName="idUsuarioChat" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="Chat_idChat" ColumnName="Chat_idChat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="reaccion_has_mensaje" TypeName="chatModel.reaccion_has_mensaje" StoreEntitySet="reaccion_has_mensaje">
+            <EndProperty Name="mensaje">
+              <ScalarProperty Name="idMensaje" ColumnName="Mensaje_idMensaje" />
+            </EndProperty>
+            <EndProperty Name="reaccion">
+              <ScalarProperty Name="idReaccion" ColumnName="Reaccion_idReaccion" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
