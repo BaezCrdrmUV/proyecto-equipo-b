@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="whats_cuentasdeusuarioModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="contrasena">
+    <Key>
+      <PropertyRef Name="idContrasena" />
+    </Key>
+    <Property Name="idContrasena" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="contrasena" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="correo">
+    <Key>
+      <PropertyRef Name="idCorreo" />
+    </Key>
+    <Property Name="idCorreo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="correo" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Cuenta_idCuenta" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="cuenta">
+    <Key>
+      <PropertyRef Name="idCuenta" />
+    </Key>
+    <Property Name="idCuenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombreUsuario" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Contrasena_idContrasena" Type="int" Nullable="false" />
+    <Property Name="Genero_idGenero" Type="int" Nullable="false" />
+    <Property Name="idFotoCuentaUsuario" Type="int" />
+  </EntityType>
+  <EntityType Name="genero">
+    <Key>
+      <PropertyRef Name="idGenero" />
+    </Key>
+    <Property Name="idGenero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="genero" Type="varchar" MaxLength="45" Nullable="false" />
+  </EntityType>
+  <EntityType Name="telefono">
+    <Key>
+      <PropertyRef Name="idTelefono" />
+    </Key>
+    <Property Name="idTelefono" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="telefono" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Cuenta_idCuenta" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_Correo_Cuenta">
+    <End Role="cuenta" Type="Self.cuenta" Multiplicity="1" />
+    <End Role="correo" Type="Self.correo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cuenta">
+        <PropertyRef Name="idCuenta" />
+      </Principal>
+      <Dependent Role="correo">
+        <PropertyRef Name="Cuenta_idCuenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Cuenta_Contrasena1">
+    <End Role="contrasena" Type="Self.contrasena" Multiplicity="1" />
+    <End Role="cuenta" Type="Self.cuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contrasena">
+        <PropertyRef Name="idContrasena" />
+      </Principal>
+      <Dependent Role="cuenta">
+        <PropertyRef Name="Contrasena_idContrasena" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Cuenta_Genero1">
+    <End Role="genero" Type="Self.genero" Multiplicity="1" />
+    <End Role="cuenta" Type="Self.cuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="genero">
+        <PropertyRef Name="idGenero" />
+      </Principal>
+      <Dependent Role="cuenta">
+        <PropertyRef Name="Genero_idGenero" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Telefono_Cuenta1">
+    <End Role="cuenta" Type="Self.cuenta" Multiplicity="1" />
+    <End Role="telefono" Type="Self.telefono" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cuenta">
+        <PropertyRef Name="idCuenta" />
+      </Principal>
+      <Dependent Role="telefono">
+        <PropertyRef Name="Cuenta_idCuenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="whats_cuentasdeusuarioModelStoreContainer">
+    <EntitySet Name="contrasena" EntityType="Self.contrasena" Schema="whats_cuentasdeusuario" store:Type="Tables" />
+    <EntitySet Name="correo" EntityType="Self.correo" Schema="whats_cuentasdeusuario" store:Type="Tables" />
+    <EntitySet Name="cuenta" EntityType="Self.cuenta" Schema="whats_cuentasdeusuario" store:Type="Tables" />
+    <EntitySet Name="genero" EntityType="Self.genero" Schema="whats_cuentasdeusuario" store:Type="Tables" />
+    <EntitySet Name="telefono" EntityType="Self.telefono" Schema="whats_cuentasdeusuario" store:Type="Tables" />
+    <AssociationSet Name="fk_Correo_Cuenta" Association="Self.fk_Correo_Cuenta">
+      <End Role="cuenta" EntitySet="cuenta" />
+      <End Role="correo" EntitySet="correo" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Cuenta_Contrasena1" Association="Self.fk_Cuenta_Contrasena1">
+      <End Role="contrasena" EntitySet="contrasena" />
+      <End Role="cuenta" EntitySet="cuenta" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Cuenta_Genero1" Association="Self.fk_Cuenta_Genero1">
+      <End Role="genero" EntitySet="genero" />
+      <End Role="cuenta" EntitySet="cuenta" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Telefono_Cuenta1" Association="Self.fk_Telefono_Cuenta1">
+      <End Role="cuenta" EntitySet="cuenta" />
+      <End Role="telefono" EntitySet="telefono" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
