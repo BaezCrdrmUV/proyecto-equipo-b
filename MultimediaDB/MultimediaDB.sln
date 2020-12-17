@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servicio_Multimedia", "Servicio_Multimedia.csproj", "{93452EAF-DD5D-4CFF-AD9B-E8E4CD9445A4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultimediaDB", "MultimediaDB.csproj", "{9743E1B6-46FC-464A-B222-819275B58207}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{93452EAF-DD5D-4CFF-AD9B-E8E4CD9445A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93452EAF-DD5D-4CFF-AD9B-E8E4CD9445A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93452EAF-DD5D-4CFF-AD9B-E8E4CD9445A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93452EAF-DD5D-4CFF-AD9B-E8E4CD9445A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9743E1B6-46FC-464A-B222-819275B58207}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9743E1B6-46FC-464A-B222-819275B58207}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9743E1B6-46FC-464A-B222-819275B58207}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9743E1B6-46FC-464A-B222-819275B58207}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {4C92A3D0-44BF-4A5F-9063-ABF1CB57D4DD}
+		SolutionGuid = {90036A67-956F-4BC5-9F96-D810BE570D34}
 	EndGlobalSection
 EndGlobal
