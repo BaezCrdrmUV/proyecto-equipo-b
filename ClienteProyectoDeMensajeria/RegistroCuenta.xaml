@@ -1,0 +1,22 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClienteProyectoDeMensajeria"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="ClienteProyectoDeMensajeria.RegistroCuenta"
+        mc:Ignorable="d"
+        Title="RegistroCuenta" Height="450" Width="800">
+    <Grid>
+        <TextBox x:Name="textBoxCorreo"  HorizontalAlignment="Center" Height="24" Margin="300,100,292,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
+        <TextBox x:Name="textBoxUsuario" HorizontalAlignment="Left" Height="23" Margin="300,170,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="199"/>
+        <TextBox x:Name="textBoxContrasena" HorizontalAlignment="Left" Height="22" Margin="300,240,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="202"/>
+        <Label Content="Correo electrónico" HorizontalAlignment="Left" Margin="300,69,0,0" VerticalAlignment="Top"/>
+        <Label Content="Nombre de Usuario" HorizontalAlignment="Left" Margin="300,139,0,0" VerticalAlignment="Top"/>
+        <Label Content="Contraseña" HorizontalAlignment="Left" Margin="300,209,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="buttonRegistrar" Content="Registrar" HorizontalAlignment="Left" Margin="330,300,0,0" VerticalAlignment="Top" Width="142" FontSize="16"/>
+        <Button x:Name="buttonCanelar" Content="Cancelar" HorizontalAlignment="Left" Margin="330,350,0,0" VerticalAlignment="Top" Width="142" FontSize="16"/>
+
+
+    </Grid>
+</Window>
