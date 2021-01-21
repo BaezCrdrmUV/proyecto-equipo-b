@@ -10,6 +10,17 @@ namespace MultimediaDB
     {
         static void Main(string[] args)
         {
+            multimediaEntities m = new multimediaEntities();
+            List<direccion> d = new List<direccion>();
+
+            d = m.direccion.ToList();
+
+            foreach (direccion dir in d)
+            {
+                Console.WriteLine(dir.direccion1);
+            }
+
+            Console.ReadLine();
         }
     }
 }
