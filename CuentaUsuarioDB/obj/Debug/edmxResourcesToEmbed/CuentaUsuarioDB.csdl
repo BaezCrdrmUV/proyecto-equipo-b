@@ -96,7 +96,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="CuentasDeusUarioContainer" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="CuentasDeUsuario" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="contrasena" EntityType="Self.contrasena" />
     <EntitySet Name="correo" EntityType="Self.correo" />
     <EntitySet Name="cuenta" EntityType="Self.cuenta" />

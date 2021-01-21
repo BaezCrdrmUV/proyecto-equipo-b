@@ -217,7 +217,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CuentasDeusUarioContainer" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CuentasDeUsuario" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="contrasena" EntityType="Self.contrasena" />
           <EntitySet Name="correo" EntityType="Self.correo" />
           <EntitySet Name="cuenta" EntityType="Self.cuenta" />
@@ -245,7 +245,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="whats_cuentasdeusuarioModelStoreContainer" CdmEntityContainer="CuentasDeusUarioContainer">
+        <EntityContainerMapping StorageEntityContainer="whats_cuentasdeusuarioModelStoreContainer" CdmEntityContainer="CuentasDeUsuario">
           <EntitySetMapping Name="contrasena">
             <EntityTypeMapping TypeName="whats_cuentasdeusuarioModel.contrasena">
               <MappingFragment StoreEntitySet="contrasena">

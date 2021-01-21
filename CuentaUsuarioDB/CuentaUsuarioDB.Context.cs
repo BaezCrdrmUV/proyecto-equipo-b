@@ -13,10 +13,10 @@ namespace CuentaUsuarioDB
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CuentasDeusUarioContainer : DbContext
+    public partial class CuentasDeUsuario : DbContext
     {
-        public CuentasDeusUarioContainer()
-            : base("name=CuentasDeusUarioContainer")
+        public CuentasDeUsuario()
+            : base("name=CuentasDeUsuario")
         {
         }
     

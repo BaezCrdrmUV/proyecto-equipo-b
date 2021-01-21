@@ -35,3 +35,4 @@ C:\Users\BETO\Documents\GitHub\proyecto-equipo-b\CuentaUsuarioDB\obj\Debug\Cuent
 C:\Users\BETO\Documents\GitHub\proyecto-equipo-b\CuentaUsuarioDB\obj\Debug\CuentaUsuarioDB.csproj.CopyComplete
 C:\Users\BETO\Documents\GitHub\proyecto-equipo-b\CuentaUsuarioDB\obj\Debug\CuentaUsuarioDB.exe
 C:\Users\BETO\Documents\GitHub\proyecto-equipo-b\CuentaUsuarioDB\obj\Debug\CuentaUsuarioDB.pdb
+C:\Users\BETO\Documents\GitHub\proyecto-equipo-b\CuentaUsuarioDB\obj\Debug\CuentaUsuarioDB.csprojAssemblyReference.cache
