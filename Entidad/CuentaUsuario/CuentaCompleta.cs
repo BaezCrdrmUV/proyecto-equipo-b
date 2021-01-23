@@ -8,8 +8,10 @@ namespace proyecto_equipo_b.Entidad.CuentaUsuario{
         [Key]
         public int idCuenta {get; set;}
         public string nombreUsuario {get; set;}
-        public int Contrasena_idContrasena {get; set;}
-        public int Genero_idGenero{get; set;}
+        public string correo {get;set;}
+        public string contrasena {get; set;}
+        public string telefono{get;set;}
         public int idFotoCuentaUsuario {get; set;}
+        public int Genero_idGenero{get; set;}
     }
 }

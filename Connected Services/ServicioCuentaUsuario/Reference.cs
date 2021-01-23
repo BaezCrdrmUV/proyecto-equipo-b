@@ -14,17 +14,23 @@ namespace ServicioCuentaUsuario
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Cuenta", Namespace="http://schemas.datacontract.org/2004/07/ServiciosCuentaUsuario")]
-    public partial class Cuenta : object
+    [System.Runtime.Serialization.DataContractAttribute(Name="CuentaCompleta", Namespace="http://schemas.datacontract.org/2004/07/ServiciosCuentaUsuario")]
+    public partial class CuentaCompleta : object
     {
         
         private int Genero_idGeneroField;
+        
+        private string contrasenaField;
+        
+        private string correoField;
         
         private int idCuentaField;
         
         private int idFotoCuentaUsuarioField;
         
         private string nombreUsuarioField;
+        
+        private string telefonoField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int Genero_idGenero
@@ -36,6 +42,32 @@ namespace ServicioCuentaUsuario
             set
             {
                 this.Genero_idGeneroField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string contrasena
+        {
+            get
+            {
+                return this.contrasenaField;
+            }
+            set
+            {
+                this.contrasenaField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string correo
+        {
+            get
+            {
+                return this.correoField;
+            }
+            set
+            {
+                this.correoField = value;
             }
         }
         
@@ -77,149 +109,6 @@ namespace ServicioCuentaUsuario
                 this.nombreUsuarioField = value;
             }
         }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Contrasena", Namespace="http://schemas.datacontract.org/2004/07/ServiciosCuentaUsuario")]
-    public partial class Contrasena : object
-    {
-        
-        private int Cuenta_idCuentaField;
-        
-        private string contrasenaField;
-        
-        private int idContrasenaField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Cuenta_idCuenta
-        {
-            get
-            {
-                return this.Cuenta_idCuentaField;
-            }
-            set
-            {
-                this.Cuenta_idCuentaField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string contrasena
-        {
-            get
-            {
-                return this.contrasenaField;
-            }
-            set
-            {
-                this.contrasenaField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int idContrasena
-        {
-            get
-            {
-                return this.idContrasenaField;
-            }
-            set
-            {
-                this.idContrasenaField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Correo", Namespace="http://schemas.datacontract.org/2004/07/ServiciosCuentaUsuario")]
-    public partial class Correo : object
-    {
-        
-        private int Cuenta_idCuentaField;
-        
-        private string correoField;
-        
-        private int idCorreoField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Cuenta_idCuenta
-        {
-            get
-            {
-                return this.Cuenta_idCuentaField;
-            }
-            set
-            {
-                this.Cuenta_idCuentaField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string correo
-        {
-            get
-            {
-                return this.correoField;
-            }
-            set
-            {
-                this.correoField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int idCorreo
-        {
-            get
-            {
-                return this.idCorreoField;
-            }
-            set
-            {
-                this.idCorreoField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Telefono", Namespace="http://schemas.datacontract.org/2004/07/ServiciosCuentaUsuario")]
-    public partial class Telefono : object
-    {
-        
-        private int Cuenta_idCuentaField;
-        
-        private int idTelefonoField;
-        
-        private string telefonoField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Cuenta_idCuenta
-        {
-            get
-            {
-                return this.Cuenta_idCuentaField;
-            }
-            set
-            {
-                this.Cuenta_idCuentaField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int idTelefono
-        {
-            get
-            {
-                return this.idTelefonoField;
-            }
-            set
-            {
-                this.idTelefonoField = value;
-            }
-        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string telefono
@@ -235,44 +124,28 @@ namespace ServicioCuentaUsuario
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="MensajeR", Namespace="http://schemas.datacontract.org/2004/07/ServiciosCuentaUsuario")]
-    public partial class MensajeR : object
-    {
-        
-        private bool errorField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool error
-        {
-            get
-            {
-                return this.errorField;
-            }
-            set
-            {
-                this.errorField = value;
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioCuentaUsuario.IServicioCuentaUsuario")]
     public interface IServicioCuentaUsuario
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCuentaUsuario/IniciarSesion", ReplyAction="http://tempuri.org/IServicioCuentaUsuario/IniciarSesionResponse")]
-        ServicioCuentaUsuario.Cuenta IniciarSesion(string correo, string contrasena);
+        ServicioCuentaUsuario.CuentaCompleta IniciarSesion(string correo, string contrasena);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCuentaUsuario/IniciarSesion", ReplyAction="http://tempuri.org/IServicioCuentaUsuario/IniciarSesionResponse")]
-        System.Threading.Tasks.Task<ServicioCuentaUsuario.Cuenta> IniciarSesionAsync(string correo, string contrasena);
+        System.Threading.Tasks.Task<ServicioCuentaUsuario.CuentaCompleta> IniciarSesionAsync(string correo, string contrasena);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCuentaUsuario/RegistrarUsuario", ReplyAction="http://tempuri.org/IServicioCuentaUsuario/RegistrarUsuarioResponse")]
-        ServicioCuentaUsuario.MensajeR RegistrarUsuario(ServicioCuentaUsuario.Cuenta cuenta, ServicioCuentaUsuario.Contrasena contrasena, ServicioCuentaUsuario.Correo correo, ServicioCuentaUsuario.Telefono telefono);
+        int RegistrarUsuario(string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCuentaUsuario/RegistrarUsuario", ReplyAction="http://tempuri.org/IServicioCuentaUsuario/RegistrarUsuarioResponse")]
-        System.Threading.Tasks.Task<ServicioCuentaUsuario.MensajeR> RegistrarUsuarioAsync(ServicioCuentaUsuario.Cuenta cuenta, ServicioCuentaUsuario.Contrasena contrasena, ServicioCuentaUsuario.Correo correo, ServicioCuentaUsuario.Telefono telefono);
+        System.Threading.Tasks.Task<int> RegistrarUsuarioAsync(string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCuentaUsuario/ModificarUsuario", ReplyAction="http://tempuri.org/IServicioCuentaUsuario/ModificarUsuarioResponse")]
+        int ModificarUsuario(int idCuenta, string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCuentaUsuario/ModificarUsuario", ReplyAction="http://tempuri.org/IServicioCuentaUsuario/ModificarUsuarioResponse")]
+        System.Threading.Tasks.Task<int> ModificarUsuarioAsync(int idCuenta, string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -325,24 +198,34 @@ namespace ServicioCuentaUsuario
         {
         }
         
-        public ServicioCuentaUsuario.Cuenta IniciarSesion(string correo, string contrasena)
+        public ServicioCuentaUsuario.CuentaCompleta IniciarSesion(string correo, string contrasena)
         {
             return base.Channel.IniciarSesion(correo, contrasena);
         }
         
-        public System.Threading.Tasks.Task<ServicioCuentaUsuario.Cuenta> IniciarSesionAsync(string correo, string contrasena)
+        public System.Threading.Tasks.Task<ServicioCuentaUsuario.CuentaCompleta> IniciarSesionAsync(string correo, string contrasena)
         {
             return base.Channel.IniciarSesionAsync(correo, contrasena);
         }
         
-        public ServicioCuentaUsuario.MensajeR RegistrarUsuario(ServicioCuentaUsuario.Cuenta cuenta, ServicioCuentaUsuario.Contrasena contrasena, ServicioCuentaUsuario.Correo correo, ServicioCuentaUsuario.Telefono telefono)
+        public int RegistrarUsuario(string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero)
         {
-            return base.Channel.RegistrarUsuario(cuenta, contrasena, correo, telefono);
+            return base.Channel.RegistrarUsuario(nombreUsuario, correo, contrasena, telefono, idFotoCuentaUsuario, Genero_idGenero);
         }
         
-        public System.Threading.Tasks.Task<ServicioCuentaUsuario.MensajeR> RegistrarUsuarioAsync(ServicioCuentaUsuario.Cuenta cuenta, ServicioCuentaUsuario.Contrasena contrasena, ServicioCuentaUsuario.Correo correo, ServicioCuentaUsuario.Telefono telefono)
+        public System.Threading.Tasks.Task<int> RegistrarUsuarioAsync(string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero)
         {
-            return base.Channel.RegistrarUsuarioAsync(cuenta, contrasena, correo, telefono);
+            return base.Channel.RegistrarUsuarioAsync(nombreUsuario, correo, contrasena, telefono, idFotoCuentaUsuario, Genero_idGenero);
+        }
+        
+        public int ModificarUsuario(int idCuenta, string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero)
+        {
+            return base.Channel.ModificarUsuario(idCuenta, nombreUsuario, correo, contrasena, telefono, idFotoCuentaUsuario, Genero_idGenero);
+        }
+        
+        public System.Threading.Tasks.Task<int> ModificarUsuarioAsync(int idCuenta, string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero)
+        {
+            return base.Channel.ModificarUsuarioAsync(idCuenta, nombreUsuario, correo, contrasena, telefono, idFotoCuentaUsuario, Genero_idGenero);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

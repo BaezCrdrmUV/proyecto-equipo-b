@@ -15,40 +15,41 @@ namespace proyecto_equipo_b.Controllers
     [CallbackBehavior(UseSynchronizationContext = false)]
     public class ServicioCuentaUsuarioController : Controller{
 
-    [HttpPost("login")]
-    public Cuenta obtenerNombreUSuario(string correo,string contrasena){
-        InstanceContext instanceContext = new InstanceContext(this);
-            ServicioCuentaUsuarioClient client = new ServicioCuentaUsuarioClient();
-            Cuenta cuenta = new Cuenta();
-            Console.WriteLine("===============================");
-            Console.WriteLine(correo);
-            Console.WriteLine(contrasena);
-            cuenta = client.IniciarSesion("javierjuarez385@gmail.com", "123456");
-            Console.WriteLine(cuenta.nombreUsuario);
-            Console.WriteLine("Aquí entró");
-        return cuenta;
-    }
-
-
-      [HttpPost("obtenerUsuario")]
-       public Cuenta PostLigarLiastaConCancion()
-       {
-           
-            ServicioCuentaUsuarioClient client = new ServicioCuentaUsuarioClient();
-            Cuenta cuenta = new Cuenta();
-            Console.WriteLine("===============================");
-            
-            Console.WriteLine(cuenta.nombreUsuario);
-            Console.WriteLine("Aquí entró");
-        return cuenta;
+        [HttpPost("login")]
+        public CuentaCompleta obtenerNombreUSuario(string correo,string contrasena){
+            InstanceContext instanceContext = new InstanceContext(this);
+                ServicioCuentaUsuarioClient client = new ServicioCuentaUsuarioClient();
+                CuentaCompleta cuenta = new CuentaCompleta();
+                Console.WriteLine("===============================");
+                Console.WriteLine(correo);
+                Console.WriteLine(contrasena);
+                cuenta = client.IniciarSesion("wcf@gmail.com", "contrasenaWCF");
+                Console.WriteLine(cuenta.nombreUsuario);
+                Console.WriteLine("Aquí entró");
+            return cuenta;
         }
 
 
+      [HttpPost("registrarUsuario")]
+       public int PostLigarLiastaConCancion()
+        {
+           int respuesta;
+            ServicioCuentaUsuarioClient client = new ServicioCuentaUsuarioClient();
+            respuesta = client.RegistrarUsuario("UsuarioPostman","usuarioPostmane@gmail.com","123456","2281852805",6,1);
+            Console.WriteLine("===============================");
+            Console.WriteLine("Aquí entró");
+        return respuesta;
+        }
 
-    [HttpGet("hola")]
-    public String obtenerHola(){
-        return "Hola 2";
-    }
+      [HttpPut("modificarUsuario")]
+      public int PutModificarUsuario(){
+          int respuesta;
+            ServicioCuentaUsuarioClient client = new ServicioCuentaUsuarioClient();
+            respuesta = client.ModificarUsuario(9,"UsuarioPostman1","usuarioPostmane@gmail.com","123456","2281852805",6,1);
+            Console.WriteLine("===============================");
+            Console.WriteLine("Aquí entró");
+        return respuesta;
+      }  
 
     }
 
