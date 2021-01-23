@@ -4,28 +4,28 @@ using System.Runtime.InteropServices;
 
 // La información general de un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
-// asociada a un ensamblado.
-[assembly: AssemblyTitle("ChatDB")]
+// asociada con un ensamblado.
+[assembly: AssemblyTitle("ServicioChat")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HP Inc.")]
-[assembly: AssemblyProduct("ChatDB")]
-[assembly: AssemblyCopyright("Copyright © HP Inc. 2020")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ServicioChat")]
+[assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Si establece ComVisible en false, los tipos de este ensamblado no estarán visibles 
-// para los componentes COM.  Si es necesario obtener acceso a un tipo en este ensamblado desde 
+// tipos de este ensamblado.  Si necesita obtener acceso a un tipo de este ensamblado desde 
 // COM, establezca el atributo ComVisible en true en este tipo.
 [assembly: ComVisible(false)]
 
 // El siguiente GUID sirve como id. de typelib si este proyecto se expone a COM.
-[assembly: Guid("23abea93-25b0-41fd-a831-87e3684fd419")]
+[assembly: Guid("54724dc5-4fa3-40fb-baa8-f34f4fdcdbc0")]
 
 // La información de versión de un ensamblado consta de los cuatro valores siguientes:
 //
 //      Versión principal
-//      Versión secundaria
+//      Versión secundaria 
 //      Número de compilación
 //      Revisión
 //
