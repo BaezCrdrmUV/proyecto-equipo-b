@@ -12,11 +12,13 @@ namespace ServiciosCuentaUsuario
     public interface IServicioCuentaUsuario
     {
         [OperationContract]
-        Cuenta IniciarSesion(string correo, string contrasena);
+        CuentaCompleta IniciarSesion(string correo, string contrasena);
 
         [OperationContract]
-        MensajeR RegistrarUsuario(Cuenta cuenta, Contrasena contrasena, Correo correo, Telefono telefono);
-        
+        int RegistrarUsuario(string nombreUsuario,string correo, string contrasena, string telefono, int idFotoCuentaUsuario,int Genero_idGenero);
+
+        [OperationContract]
+        int ModificarUsuario(int idCuenta, string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero);
     }
 
 
@@ -34,7 +36,23 @@ namespace ServiciosCuentaUsuario
         [DataMember]
         int Genero_idGenero;
 
+        public int getIdCuenta()
+        {
+            return idCuenta;
+        }
 
+        public string getNombreUsuario()
+        {
+            return nombreUsuario;
+        }
+        public int getIdFotoCuentaUsuario()
+        {
+            return idFotoCuentaUsuario;
+        }
+        public int getGenero_idGenero()
+        {
+            return Genero_idGenero;
+        }
         public Cuenta(int idCuenta, string nombreUsuario, int idFotoCuentaUsuario, int genero_idGenero)
         {
             this.idCuenta = idCuenta;
@@ -127,6 +145,36 @@ namespace ServiciosCuentaUsuario
         public MensajeR(bool error)
         {
             this.error = error;
+        }
+    }
+
+    [DataContract]
+    public class CuentaCompleta
+    {
+        [DataMember]
+        int idCuenta;
+        [DataMember]
+        string nombreUsuario;
+        [DataMember]
+        string correo;
+        [DataMember]
+        string contrasena;
+        [DataMember]
+        string telefono;
+        [DataMember]
+        int idFotoCuentaUsuario;
+        [DataMember]
+        int Genero_idGenero;
+
+        public CuentaCompleta(int idCuenta, string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int genero_idGenero)
+        {
+            this.idCuenta = idCuenta;
+            this.nombreUsuario = nombreUsuario;
+            this.correo = correo;
+            this.contrasena = contrasena;
+            this.telefono = telefono;
+            this.idFotoCuentaUsuario = idFotoCuentaUsuario;
+            Genero_idGenero = genero_idGenero;
         }
     }
 }
