@@ -20,9 +20,27 @@ namespace ClienteProyectoDeMensajeria
     /// </summary>
     public partial class MenuPrincipalUsuario : UserControl
     {
+        public EventHandler eventoEstados;
+        public EventHandler eventoPerfil;
+        public EventHandler eventoChatGrupal;
         public MenuPrincipalUsuario()
         {
             InitializeComponent();
+        }
+
+        private void buttonEstados_Click(object sender, RoutedEventArgs e)
+        {
+            eventoEstados?.Invoke(this, e);
+        }
+
+        private void buttonPerfil_Click(object sender, RoutedEventArgs e)
+        {
+            eventoPerfil?.Invoke(this, e);
+        }
+
+        private void buttonChatGrupal_Click(object sender, RoutedEventArgs e)
+        {
+            eventoChatGrupal?.Invoke(this, e);
         }
     }
 }

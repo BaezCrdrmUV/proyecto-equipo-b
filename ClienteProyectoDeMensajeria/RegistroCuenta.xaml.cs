@@ -17,11 +17,23 @@ namespace ClienteProyectoDeMensajeria
     /// <summary>
     /// Lógica de interacción para RegistroCuenta.xaml
     /// </summary>
-    public partial class RegistroCuenta : Window
+    public partial class RegistroCuenta : UserControl
     {
+        public EventHandler eventoCancelarRegistro;
+        public EventHandler eventoRegistro;
         public RegistroCuenta()
         {
             InitializeComponent();
+        }
+
+        private void buttonCanelar_Click(object sender, RoutedEventArgs e)
+        {
+            eventoCancelarRegistro?.Invoke(this, e);
+        }
+
+        private void buttonRegistrar_Click(object sender, RoutedEventArgs e)
+        {
+            eventoRegistro?.Invoke(this, e);
         }
     }
 }

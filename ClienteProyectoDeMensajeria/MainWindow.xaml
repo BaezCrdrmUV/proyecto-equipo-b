@@ -6,15 +6,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClienteProyectoDeMensajeria"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#FF303030">
-    <Grid>
-        <Button x:Name="buttonLogin" Content="Iniciar sesión" HorizontalAlignment="Left" Margin="345,296,0,0" VerticalAlignment="Top" Width="115"  materialDesign:ButtonAssist.CornerRadius="15" Click="iniciarSesion"/>
-        <Button x:Name="buttonRegistrar" Content="Registrarse" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="345,353,0,0" VerticalAlignment="Top" Width="115" Click="registrarUsuario" Background="White" Foreground="#FF673AB7"/>
-        <TextBox Name="textBoxCorreo" HorizontalAlignment="Left" Height="29" Margin="321,140,0,0" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" materialDesign:HintAssist.IsFloating="True" Foreground="White" BorderBrush="{x:Null}" Background="White"/>
-        <Label Content="Correo electrónico" HorizontalAlignment="Left" Margin="321,100,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="16"/>
-        <Label Content="Contraseña" HorizontalAlignment="Left" Margin="321,189,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="16"/>
-        <PasswordBox Name="textboxContrasena" HorizontalAlignment="Left" Margin="321,225,0,0" VerticalAlignment="Top" Width="184" Height="29" Foreground="White" Background="White" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" RenderTransformOrigin="0.552,0.435"/>
-        <Label Content="WhatsApp Chacalón" HorizontalAlignment="Left" Margin="0,25,0,0" VerticalAlignment="Top" Width="792" HorizontalContentAlignment="Center" FontSize="36" FontFamily="Segoe UI Semibold" FontWeight="Bold" >
+        Title="WhatsApp Chacalón" Height="500" Width="880" WindowStartupLocation="CenterScreen" Background="#FF303030">
+    <Grid x:Name="gridPrincipal">
+        <Button x:Name="buttonLogin" Content="Iniciar sesión" HorizontalAlignment="Left" Margin="380,311,0,0" VerticalAlignment="Top" Width="130"  materialDesign:ButtonAssist.CornerRadius="15" Click="iniciarSesion" FontSize="16"/>
+        <Button x:Name="buttonRegistrar" Content="Registrarse" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="380,368,0,0" VerticalAlignment="Top" Width="130" Click="registrarUsuario" Background="White" Foreground="#FF673AB7" FontSize="16"/>
+        <TextBox Name="textBoxCorreo" HorizontalAlignment="Left" Height="29" Margin="356,155,0,0" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" materialDesign:HintAssist.IsFloating="True" Foreground="White" BorderBrush="{x:Null}" Background="White"/>
+        <Label x:Name="labelCorreo" Content="Correo electrónico" HorizontalAlignment="Left" Margin="356,115,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="16"/>
+        <Label x:Name="labelContrasena" Content="Contraseña" HorizontalAlignment="Left" Margin="356,204,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="16"/>
+        <PasswordBox x:Name="textboxContrasena" HorizontalAlignment="Left" Margin="356,240,0,0" VerticalAlignment="Top" Width="184" Height="29" Foreground="White" Background="White" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" RenderTransformOrigin="0.552,0.435"/>
+        <Label x:Name="labelTitulo" Content="WhatsApp Chacalón" HorizontalAlignment="Left" Margin="0,25,0,0" VerticalAlignment="Top" Width="872" HorizontalContentAlignment="Center" FontSize="36" FontFamily="Segoe UI Semibold" FontWeight="Bold" >
             <Label.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="White" Offset="0.028"/>
@@ -22,6 +22,5 @@
                 </LinearGradientBrush>
             </Label.Foreground>
         </Label>
-
     </Grid>
 </Window>

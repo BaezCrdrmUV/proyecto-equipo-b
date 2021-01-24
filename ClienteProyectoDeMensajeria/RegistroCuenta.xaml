@@ -1,22 +1,22 @@
-﻿<Window
+﻿<UserControl x:Class="ClienteProyectoDeMensajeria.RegistroCuenta"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClienteProyectoDeMensajeria"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="ClienteProyectoDeMensajeria.RegistroCuenta"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="RegistroCuenta" Height="450" Width="800">
+        d:DesignHeight="500" d:DesignWidth="850">
     <Grid>
-        <TextBox x:Name="textBoxCorreo"  HorizontalAlignment="Center" Height="24" Margin="300,100,292,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200"/>
-        <TextBox x:Name="textBoxUsuario" HorizontalAlignment="Left" Height="23" Margin="300,170,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="199"/>
-        <TextBox x:Name="textBoxContrasena" HorizontalAlignment="Left" Height="22" Margin="300,240,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="202"/>
-        <Label Content="Correo electrónico" HorizontalAlignment="Left" Margin="300,69,0,0" VerticalAlignment="Top"/>
-        <Label Content="Nombre de Usuario" HorizontalAlignment="Left" Margin="300,139,0,0" VerticalAlignment="Top"/>
-        <Label Content="Contraseña" HorizontalAlignment="Left" Margin="300,209,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="buttonRegistrar" Content="Registrar" HorizontalAlignment="Left" Margin="330,300,0,0" VerticalAlignment="Top" Width="142" FontSize="16"/>
-        <Button x:Name="buttonCanelar" Content="Cancelar" HorizontalAlignment="Left" Margin="330,350,0,0" VerticalAlignment="Top" Width="142" FontSize="16"/>
-
+        <TextBox x:Name="textBoxUsuario_Copy" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="29" Margin="342,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" Background="White"/>
+        <TextBox x:Name="textBoxUsuario" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="29" Margin="342,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" Background="White"/>
+        <TextBox x:Name="textBoxContrasena" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="29" Margin="342,292,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" Background="White"/>
+        <Label Content="Correo electrónico" HorizontalAlignment="Left" Margin="342,116,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="16"/>
+        <Label Content="Nombre de Usuario" HorizontalAlignment="Left" Margin="342,186,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="16"/>
+        <Label Content="Contraseña" HorizontalAlignment="Left" Margin="342,256,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#DDFFFFFF" FontSize="16"/>
+        <Button x:Name="buttonRegistrar" Content="Registrar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="365,358,0,0" VerticalAlignment="Top" Width="142" FontSize="16" Click="buttonRegistrar_Click"/>
+        <Button x:Name="buttonCanelar" Content="Cancelar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="365,408,0,0" VerticalAlignment="Top" Width="142" FontSize="16" Background="White" Foreground="#FF673AB7" FontWeight="Normal" Click="buttonCanelar_Click"/>
+        <Label Content="Registrar Cuenta" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="36" FontWeight="Bold" Width="850" HorizontalContentAlignment="Center"/>
 
     </Grid>
-</Window>
+</UserControl>
