@@ -18,7 +18,7 @@
         </Border>
         <Grid Height="48" VerticalAlignment="Top" Margin="162,2,0,0" Background="White">
             <Label Content="Amigo" Margin="68,0,145,15"/>
-            <Expander x:Name="OpcionesAmigo" Header="Opciones" HorizontalAlignment="Left" Margin="523,10,0,-10" Width="100">
+            <Expander x:Name="OpcionesAmigo" Header="Opciones" HorizontalAlignment="Left" Margin="528,3,0,0" Width="100">
                 <Grid Background="#FFE5E5E5"/>
             </Expander>
         </Grid>
