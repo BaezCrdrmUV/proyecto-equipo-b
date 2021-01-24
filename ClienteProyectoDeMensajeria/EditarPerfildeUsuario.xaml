@@ -8,15 +8,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Image HorizontalAlignment="Left" Height="100" Margin="340,21,0,0" VerticalAlignment="Top" Width="100"/>
-        <TextBox x:Name="textBoxCorreo" materialDesign:TextFieldAssist.TextFieldCornerRadius="15"  HorizontalAlignment="Center" Height="24" Margin="301,152,299,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Background="White"/>
+        <Image HorizontalAlignment="Left" Height="66" Margin="362,49,0,0" VerticalAlignment="Top" Width="69" Stretch="Fill"/>
         <TextBox x:Name="textBoxUsuario" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="24" Margin="297,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Background="White"/>
         <TextBox x:Name="textBoxContrasena" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="24" Margin="297,292,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Background="White"/>
         <Label Content="Correo electrónico" HorizontalAlignment="Left" Margin="297,121,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
         <Label Content="Nombre de Usuario" HorizontalAlignment="Left" Margin="297,191,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#DDFFFFFF"/>
         <Label Content="Contraseña" HorizontalAlignment="Left" Margin="297,261,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#DDFFFFFF"/>
         <Button x:Name="buttonGuardar" Content="Guardar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="325,345,0,0" VerticalAlignment="Top" Width="142" FontSize="16"/>
-        <Button x:Name="buttonCancelar" Content="Cancelar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="325,395,0,0" VerticalAlignment="Top" Width="142" FontSize="16" Background="White" Foreground="#FF673AB7"/>
+        <Button x:Name="buttonCancelar" Content="Cancelar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="325,395,0,0" VerticalAlignment="Top" Width="142" FontSize="16" Background="White" Foreground="#FF673AB7" Click="buttonCancelar_Click"/>
+        <Label Content="Mi Perfil" HorizontalAlignment="Left" Margin="365,10,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="16"/>
+        <TextBox x:Name="textBoxCorreo" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="24" Margin="297,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Background="White"/>
 
 
     </Grid>

@@ -20,9 +20,15 @@ namespace ClienteProyectoDeMensajeria
     /// </summary>
     public partial class ChatGrupal : UserControl
     {
+        public EventHandler eventoCancelarChatGrupal;
         public ChatGrupal()
         {
             InitializeComponent();
+        }
+
+        private void buttonCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            eventoCancelarChatGrupal?.Invoke(this, e);
         }
     }
 }

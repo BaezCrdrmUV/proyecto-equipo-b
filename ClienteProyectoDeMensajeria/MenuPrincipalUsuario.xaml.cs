@@ -23,6 +23,8 @@ namespace ClienteProyectoDeMensajeria
         public EventHandler eventoEstados;
         public EventHandler eventoPerfil;
         public EventHandler eventoChatGrupal;
+        public EventHandler eventCerrarSesion;
+        public EventHandler eventVerImagenesDelChat;
         public MenuPrincipalUsuario()
         {
             InitializeComponent();
@@ -41,6 +43,16 @@ namespace ClienteProyectoDeMensajeria
         private void buttonChatGrupal_Click(object sender, RoutedEventArgs e)
         {
             eventoChatGrupal?.Invoke(this, e);
+        }
+
+        private void buttonCerrarSesion_Click(object sender, RoutedEventArgs e)
+        {
+            eventCerrarSesion?.Invoke(this, e);
+        }
+
+        private void VerImgChat_Click(object sender, RoutedEventArgs e)
+        {
+            eventVerImagenesDelChat?.Invoke(this, e);
         }
     }
 }

@@ -20,9 +20,15 @@ namespace ClienteProyectoDeMensajeria
     /// </summary>
     public partial class Estados : UserControl
     {
+        public EventHandler eventoCerrarEstados;
         public Estados()
         {
             InitializeComponent();
+        }
+
+        private void buttonCerrar_Click(object sender, RoutedEventArgs e)
+        {
+            eventoCerrarEstados?.Invoke(this, e);
         }
     }
 }

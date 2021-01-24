@@ -20,9 +20,15 @@ namespace ClienteProyectoDeMensajeria
     /// </summary>
     public partial class VerImagenesDelChat : UserControl
     {
+        public EventHandler eventoCerrarImagenesDelChat;
         public VerImagenesDelChat()
         {
             InitializeComponent();
+        }
+
+        private void buttonCerrar_Click(object sender, RoutedEventArgs e)
+        {
+            eventoCerrarImagenesDelChat?.Invoke(this, e);
         }
     }
 }

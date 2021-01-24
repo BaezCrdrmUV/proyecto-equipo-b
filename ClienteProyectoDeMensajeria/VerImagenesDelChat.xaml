@@ -19,6 +19,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="buttonCerrar" Content="Cerrar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="290,10,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="buttonCerrar" Content="Cerrar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="290,10,0,0" VerticalAlignment="Top" Width="75" Click="buttonCerrar_Click"/>
     </Grid>
 </UserControl>

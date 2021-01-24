@@ -20,9 +20,15 @@ namespace ClienteProyectoDeMensajeria
     /// </summary>
     public partial class EditarPerfildeUsuario : UserControl
     {
+        public EventHandler eventoCancelarEditarPerfil;
         public EditarPerfildeUsuario()
         {
             InitializeComponent();
+        }
+
+        private void buttonCancelar_Click(object sender, RoutedEventArgs e)
+        {
+            eventoCancelarEditarPerfil?.Invoke(this, e);
         }
     }
 }

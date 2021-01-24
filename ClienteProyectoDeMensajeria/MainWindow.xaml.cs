@@ -22,14 +22,25 @@ namespace ClienteProyectoDeMensajeria
         RegistroCuenta userControlRegistroCuenta;
         MenuPrincipalUsuario UserControlPrincipal = new MenuPrincipalUsuario();
         Estados UserControlEstados = new Estados();
-        EditarPerfildeUsuario UserControlPerfil = new EditarPerfildeUsuario();
+        EditarPerfildeUsuario UserControlEditarPerfil = new EditarPerfildeUsuario();
         ChatGrupal UserControlChatGrupal = new ChatGrupal();
+        VerImagenesDelChat UserControlImagenesDelChat = new VerImagenesDelChat();
         public MainWindow()
         {
             InitializeComponent();
-            UserControlPrincipal.eventoEstados += EventoEstados;
-            UserControlPrincipal.eventoPerfil += EventoPerfil;
-            UserControlPrincipal.eventoChatGrupal += EventoChatGrupal;
+            UserControlPrincipal.eventoEstados += EventoVerEstados;
+            UserControlPrincipal.eventoPerfil += EventoVerPerfil;
+            UserControlPrincipal.eventoChatGrupal += EventoVerChatGrupal;
+            UserControlPrincipal.eventCerrarSesion += EventoCerrarSesion;
+            UserControlPrincipal.eventVerImagenesDelChat += EventoVerImagenesDelChat;
+
+            UserControlEstados.eventoCerrarEstados += EventoCerrarEstados;
+
+            UserControlEditarPerfil.eventoCancelarEditarPerfil += EventoCancelarEditarPerfil;
+
+            UserControlChatGrupal.eventoCancelarChatGrupal += EventoCancelarChatGrupal;
+
+            UserControlImagenesDelChat.eventoCerrarImagenesDelChat += EventoCerrarImagenesDelChat;
         }
 
         private void iniciarSesion(object sender, RoutedEventArgs e)
@@ -111,25 +122,66 @@ namespace ClienteProyectoDeMensajeria
             AparecerComponentes();
         }
 
-        private void EventoEstados(object sender, EventArgs e)
+        private void EventoVerEstados(object sender, EventArgs e)
         {
             gridPrincipal.Children.Remove(UserControlPrincipal);
             UserControlEstados.Visibility = Visibility.Visible;
             gridPrincipal.Children.Add(UserControlEstados);
         }
 
-        private void EventoPerfil(object sender, EventArgs e)
+        private void EventoVerPerfil(object sender, EventArgs e)
         {
-            UserControlPerfil.Visibility = Visibility.Visible;
+            UserControlEditarPerfil.Visibility = Visibility.Visible;
             gridPrincipal.Children.Remove(UserControlPrincipal);
-            gridPrincipal.Children.Add(UserControlPerfil);
+            gridPrincipal.Children.Add(UserControlEditarPerfil);
         }
 
-        private void EventoChatGrupal(object sender, EventArgs e)
+        private void EventoVerChatGrupal(object sender, EventArgs e)
         {
             UserControlChatGrupal.Visibility = Visibility.Visible;
             gridPrincipal.Children.Remove(UserControlPrincipal);
             gridPrincipal.Children.Add(UserControlChatGrupal);
+        }
+
+        private void EventoVerImagenesDelChat(object sender, EventArgs e)
+        {
+            UserControlImagenesDelChat.Visibility = Visibility.Visible;
+            gridPrincipal.Children.Remove(UserControlPrincipal);
+            gridPrincipal.Children.Add(UserControlImagenesDelChat);
+        }
+
+        private void EventoCerrarSesion(object sender, EventArgs e)
+        {         
+            gridPrincipal.Children.Remove(UserControlPrincipal);
+            AparecerComponentes();
+        }
+
+        private void EventoCancelarChatGrupal(object sender, EventArgs e)
+        {
+            gridPrincipal.Children.Remove(UserControlChatGrupal);
+            gridPrincipal.Children.Add(UserControlPrincipal);
+            UserControlPrincipal.Visibility = Visibility.Visible;
+        }
+
+        private void EventoCancelarEditarPerfil(object sender, EventArgs e)
+        {
+            gridPrincipal.Children.Remove(UserControlEditarPerfil);
+            gridPrincipal.Children.Add(UserControlPrincipal);
+            UserControlPrincipal.Visibility = Visibility.Visible;
+        }
+
+        public void EventoCerrarEstados(object sender, EventArgs e)
+        {
+            gridPrincipal.Children.Remove(UserControlEstados);
+            gridPrincipal.Children.Add(UserControlPrincipal);
+            UserControlPrincipal.Visibility = Visibility.Visible;
+        }
+
+        private void EventoCerrarImagenesDelChat(object sender, EventArgs e)
+        {
+            gridPrincipal.Children.Remove(UserControlImagenesDelChat);
+            gridPrincipal.Children.Add(UserControlPrincipal);
+            UserControlPrincipal.Visibility = Visibility.Visible;
         }
 
         public void AparecerComponentes()

@@ -13,12 +13,11 @@
         </ContentControl>
         <Button Content="Eliminar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="780,168,-30,0" VerticalAlignment="Top" Width="50"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="205" Background="#FF444444">
-            <Button Content="Estados" materialDesign:ButtonAssist.CornerRadius="15" Height="Auto" Margin="114,9,9,40" Click="buttonEstados_Click"/>
         </Border>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="630" Background="#FF444444" Margin="210,0,0,0">
-            <Expander Header="" Margin="524,9,9,25">
-                <StackPanel Margin="10">
-                    <Button x:Name="VerImgChat" Content="Ver imágenes" />
+            <Expander x:Name="expanderOpcionesAmigo" IsExpanded="False" Header="Opciones" Background="{x:Null}" Foreground="White" Margin="477,0,1,0">
+                <StackPanel>
+                    <Button x:Name="VerImgChat" Content="Ver imágenes"  Width="123" Click="VerImgChat_Click" />
                 </StackPanel>
             </Expander>
         </Border>
@@ -27,16 +26,26 @@
         </Border>
         <Button Content="Enviar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="725,393,-15,0" VerticalAlignment="Top" Width="90"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="405" VerticalAlignment="Top" Width="205" Background="#FF444444" Margin="0,85,0,0">
-            <ListBox Margin="9"/>
+            <ListBox x:Name="listAmigos" Margin="9"/>
         </Border>
-        <ListView HorizontalAlignment="Left" Height="240" Margin="230,100,0,0" VerticalAlignment="Top" Width="530" Background="White">
+        <ListView x:Name="listViewMensajes" HorizontalAlignment="Left" Height="240" Margin="230,100,0,0" VerticalAlignment="Top" Width="530" Background="White">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="buttonPerfil" Content="Perfil" materialDesign:ButtonAssist.CornerRadius="15" Height="Auto" Margin="115,43,655,428" Click="buttonPerfil_Click"/>
-        <Button x:Name="buttonChatGrupal" Content="Chat grupal" materialDesign:ButtonAssist.CornerRadius="15" Height="Auto" Margin="4,43,741,428" Click="buttonChatGrupal_Click" />
+
+        <Expander x:Name="expanderMisOpciones" IsExpanded="False" Header="" Background="{x:Null}" Foreground="White" Margin="40,5,645,335">
+            <StackPanel Margin="10,0,13,0">
+                <Button x:Name="buttonPerfil" Content="Perfil" materialDesign:ButtonAssist.CornerRadius="15" Height="Auto" Click="buttonPerfil_Click" Margin="15,0,10,0" VerticalAlignment="Top"/>
+                <Button x:Name="buttonChatGrupal" Content="Chat grupal" materialDesign:ButtonAssist.CornerRadius="15" Height="Auto" Click="buttonChatGrupal_Click" Margin="15,1,10,0" />
+                <Button x:Name="buttonCerrarSesion" Content="Cerrar sesión" materialDesign:ButtonAssist.CornerRadius="15" Height="Auto" Click="buttonCerrarSesion_Click" Margin="15,1,10,0" />
+                <Button Content="Estados" materialDesign:ButtonAssist.CornerRadius="15" Height="Auto" Click="buttonEstados_Click" Margin="15,2,10,0"/>
+            </StackPanel>
+        </Expander>
+
+        <Label x:Name="LabelNombreAmigo" Content="Amigo" HorizontalAlignment="Left" Margin="230,14,0,0" VerticalAlignment="Top" Width="120" Foreground="#DDFFFFFF" FontSize="16"/>
+        <Label x:Name="LabelMiNombreDeUsuario" Content="Yo" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Width="60" Foreground="#DDFFFFFF" FontSize="16"/>
     </Grid>
 </UserControl>
