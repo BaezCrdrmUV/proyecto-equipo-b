@@ -15,107 +15,179 @@ namespace ServicioChat
         public int agregarUsuarioChat(string nombreChat, string nombreUsuario)
         {
             int retorno = 0;
-            MySqlCommand comando = new MySqlCommand(string.Format(
+            try
+            {
+                MySqlCommand comando = new MySqlCommand(string.Format(
                 "Insert into UsuarioChat (nombreUsuario,Chat_nombreChat) values ('{0}','{1}')", nombreUsuario, nombreChat), Conexion.ObtenerConexion());
-            retorno = comando.ExecuteNonQuery();
+                retorno = comando.ExecuteNonQuery();
+            }
+            catch(Exception e)
+            {
+                return retorno;
+            }
             return retorno;
         }
 
         public int editarMensaje(int idMensaje, int favorito, string mensaje)
         {
-            int retorno;
-            MySqlCommand comando = new MySqlCommand(string.Format(
-                "Update Mensaje set favorito='{0}', mensaje='{1}' where idMensaje='{2}'", favorito,mensaje,idMensaje), Conexion.ObtenerConexion());
-            retorno = comando.ExecuteNonQuery();
+            int retorno=0;
+            try
+            {
+                MySqlCommand comando = new MySqlCommand(string.Format(
+                "Update Mensaje set favorito='{0}', mensaje='{1}' where idMensaje='{2}'", favorito, mensaje, idMensaje), Conexion.ObtenerConexion());
+                retorno = comando.ExecuteNonQuery();
+            }
+            catch(Exception e)
+            {
+                return retorno;
+            }
             return retorno;
         }
 
         public int eliminarChat(string nombreChat)
         {
-            int retorno;
-            MySqlCommand comando = new MySqlCommand(string.Format(
-               "Delete from Chat where nombreChat='{0}'", nombreChat), Conexion.ObtenerConexion());
-            retorno = comando.ExecuteNonQuery();
+            int retorno=0;
+            try
+            {
+                MySqlCommand comando = new MySqlCommand(string.Format(
+              "Delete from Chat where nombreChat='{0}'", nombreChat), Conexion.ObtenerConexion());
+                retorno = comando.ExecuteNonQuery();
+            }catch(Exception e)
+            {
+                return retorno;
+            }
             return retorno;
         }
 
         public int eliminarMensaje(int idMensaje)
         {
-            int retorno;
-            MySqlCommand comando = new MySqlCommand(string.Format(
-               "Delete from Mensaje where idMensaje='{0}'", idMensaje), Conexion.ObtenerConexion());
-            retorno = comando.ExecuteNonQuery();
+            int retorno=0;
+            try
+            {
+                MySqlCommand comando = new MySqlCommand(string.Format(
+              "Delete from Mensaje where idMensaje='{0}'", idMensaje), Conexion.ObtenerConexion());
+                retorno = comando.ExecuteNonQuery();
+            }
+            catch(Exception e)
+            {
+                return retorno;
+            }
             return retorno;
         }
 
         public int enviarMensaje(string fecha, int favorito, string mensaje, string tipoMensaje, int idMensajeImagen, int mensajeAudio, string UsuarioChat_nombreUsuario, string Chat_nombreChat)
         {
             int retorno = 0;
-            MySqlCommand comando = new MySqlCommand(string.Format(
-                "Insert into Mensaje (fecha,favorito,mensaje,tipoMensaje,idMensajeImagen,idMensajeAudio,UsuarioChat_nombreUsuario,Chat_nombreChat) values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')",fecha, favorito, mensaje, tipoMensaje, idMensajeImagen, mensajeAudio,UsuarioChat_nombreUsuario,Chat_nombreChat), Conexion.ObtenerConexion());
-            retorno = comando.ExecuteNonQuery();
+            try
+            {
+                MySqlCommand comando = new MySqlCommand(string.Format(
+               "Insert into Mensaje (fecha,favorito,mensaje,tipoMensaje,idMensajeImagen,idMensajeAudio,UsuarioChat_nombreUsuario,Chat_nombreChat) values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}')", fecha, favorito, mensaje, tipoMensaje, idMensajeImagen, mensajeAudio, UsuarioChat_nombreUsuario, Chat_nombreChat), Conexion.ObtenerConexion());
+                retorno = comando.ExecuteNonQuery();
+            }catch(Exception e)
+            {
+                return retorno;
+            }
             return retorno;
         }
 
         public int modificarChat(string nombreChat, string tipoChat)
         {
             int retorno;
-            MySqlCommand comando = new MySqlCommand(string.Format(
-                "Update Chat set tipoChat='{0}' where nombreChat='{1}'",tipoChat,nombreChat), Conexion.ObtenerConexion());
-            retorno = comando.ExecuteNonQuery();
+            try
+            {
+                MySqlCommand comando = new MySqlCommand(string.Format(
+                "Update Chat set tipoChat='{0}' where nombreChat='{1}'", tipoChat, nombreChat), Conexion.ObtenerConexion());
+                retorno = comando.ExecuteNonQuery();
+            }catch(Exception e)
+            {
+                return 0;
+            }
             return retorno;
         }
 
         public List<Mensaje> obtenerContenidoChat(string Chat_nombreChat)
         {
             List<Mensaje> list = new List<Mensaje>();
-            MySqlCommand comando = new MySqlCommand(string.Format(
-                "Select * from Mensaje where Chat_nombreChat='{0}' ORDER BY Mensaje.fecha DESC", Chat_nombreChat), Conexion.ObtenerConexion());
-            MySqlDataReader reader = comando.ExecuteReader();
-            while (reader.Read())
+            try
             {
-                Mensaje mensaje = new Mensaje(reader.GetInt32(0),reader.GetString(1),reader.GetInt32(2),reader.GetString(3),reader.GetString(4),reader.GetInt32(5),reader.GetInt32(6),reader.GetString(7),reader.GetString(8));
-                list.Add(mensaje);
+                MySqlCommand comando = new MySqlCommand(string.Format(
+                "Select * from Mensaje where Chat_nombreChat='{0}' ORDER BY Mensaje.fecha DESC", Chat_nombreChat), Conexion.ObtenerConexion());
+                MySqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    Mensaje mensaje = new Mensaje(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetString(3), reader.GetString(4), reader.GetInt32(5), reader.GetInt32(6), reader.GetString(7), reader.GetString(8));
+                    list.Add(mensaje);
+                }
+            }
+            catch(Exception e)
+            {
+                return list;
             }
             return list;
         }
 
         public int obtenerReaccionMensaje(int Mensaje_idMensaje)
         {
-            MySqlCommand comando = new MySqlCommand(string.Format(
-               "Select Reaccion_idReaccion from Reaccion_has_Mensaje where Mensaje_idMensaje='{0}'", Mensaje_idMensaje), Conexion.ObtenerConexion());
-            MySqlDataReader reader = comando.ExecuteReader();
-            while (reader.Read())
+            salida = 0;
+            try
             {
-                salida = reader.GetInt32(0);
+                MySqlCommand comando = new MySqlCommand(string.Format(
+               "Select Reaccion_idReaccion from Reaccion_has_Mensaje where Mensaje_idMensaje='{0}'", Mensaje_idMensaje), Conexion.ObtenerConexion());
+                MySqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    salida = reader.GetInt32(0);
+                }
+            }catch(Exception e)
+            {
+                return salida;
             }
+            
             return salida;
         }
 
         public int reaccionaMensaje(string UsuarioChat_nombreUsuario, int Mensaje_idMensaje, int Reaccion_idReaccion)
         {
             int retorno = 0;
-            MySqlCommand comando = new MySqlCommand(string.Format(
-                "Insert into Reaccion_has_Mensaje (Reaccion_idReaccion,Mensaje_idMensaje,UsuarioChat_nombreUsuario) values ('{0}','{1}','{2}')",Reaccion_idReaccion,Mensaje_idMensaje,UsuarioChat_nombreUsuario), Conexion.ObtenerConexion());
-            retorno = comando.ExecuteNonQuery();
+            try
+            {
+                MySqlCommand comando = new MySqlCommand(string.Format(
+                "Insert into Reaccion_has_Mensaje (Reaccion_idReaccion,Mensaje_idMensaje,UsuarioChat_nombreUsuario) values ('{0}','{1}','{2}')", Reaccion_idReaccion, Mensaje_idMensaje, UsuarioChat_nombreUsuario), Conexion.ObtenerConexion());
+                retorno = comando.ExecuteNonQuery();
+            }catch(Exception e)
+            {
+                return retorno;
+            }
             return retorno;
         }
 
         public int registrarChat(string nombreChat, string tipoChat)
         {
             int retorno = 0;
-            MySqlCommand comando = new MySqlCommand(string.Format(
+            try
+            {
+                MySqlCommand comando = new MySqlCommand(string.Format(
                 "Insert into Chat (nombreChat,tipoChat) values ('{0}','{1}')", nombreChat, tipoChat), Conexion.ObtenerConexion());
-            retorno = comando.ExecuteNonQuery();
+                retorno = comando.ExecuteNonQuery();
+            }catch(Exception e)
+            {
+                return retorno;
+            }
             return retorno;
         }
 
         public int salirDeChatGrupal(string nombreUsuario, string Chat_nombreChat)
         {
-            int retorno;
-            MySqlCommand comando = new MySqlCommand(string.Format(
-               "Delete from UsuarioChat where nombreUsuario='{0}' and Chat_nombreChat ='{1}'",nombreUsuario,Chat_nombreChat), Conexion.ObtenerConexion());
-            retorno = comando.ExecuteNonQuery();
+            int retorno=0;
+            try
+            {
+                MySqlCommand comando = new MySqlCommand(string.Format(
+               "Delete from UsuarioChat where nombreUsuario='{0}' and Chat_nombreChat ='{1}'", nombreUsuario, Chat_nombreChat), Conexion.ObtenerConexion());
+                retorno = comando.ExecuteNonQuery();
+            } catch (Exception e)
+            {
+                return retorno;
+            }
             return retorno;
         }
     }
