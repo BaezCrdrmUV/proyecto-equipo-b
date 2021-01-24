@@ -19,6 +19,8 @@ namespace ServiciosCuentaUsuario
 
         [OperationContract]
         int ModificarUsuario(int idCuenta, string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero);
+        [OperationContract]
+        int validarExistencia(string nombreUsuario);
     }
 
 

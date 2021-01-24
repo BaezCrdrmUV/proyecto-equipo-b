@@ -17,8 +17,6 @@ namespace ServiciosCuentaUsuario
         int salida2;
         Cuenta cuenta;
         int idCuenta;
-        string correo;
-        string contrasena;
         string telefono;
         CuentaCompleta cuentaC;
         public CuentaCompleta IniciarSesion(string correo, string contrasena)
@@ -85,22 +83,30 @@ namespace ServiciosCuentaUsuario
 
         public int ModificarUsuario(int idCuenta, string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero)
         {
-            int retorno;
-            MySqlCommand comando = new MySqlCommand(string.Format(
-                "Update Cuenta set nombreUsuario='{0}', idFotoCuentaUsuario='{1}',Genero_idGenero='{2}' where idCuenta='{3}'",nombreUsuario,idFotoCuentaUsuario,Genero_idGenero, idCuenta), Conexion.ObtenerConexion());
-            retorno = comando.ExecuteNonQuery();
+            int retorno=0;
+            try
+            {
+                MySqlCommand comando = new MySqlCommand(string.Format(
+               "Update Cuenta set nombreUsuario='{0}', idFotoCuentaUsuario='{1}',Genero_idGenero='{2}' where idCuenta='{3}'", nombreUsuario, idFotoCuentaUsuario, Genero_idGenero, idCuenta), Conexion.ObtenerConexion());
+                retorno = comando.ExecuteNonQuery();
 
-            MySqlCommand comando1 = new MySqlCommand(string.Format(
-                "Update Correo set correo='{0}' where Cuenta_idCuenta='{1}'", correo, idCuenta), Conexion.ObtenerConexion());
-            retorno = comando1.ExecuteNonQuery();
+                MySqlCommand comando1 = new MySqlCommand(string.Format(
+                    "Update Correo set correo='{0}' where Cuenta_idCuenta='{1}'", correo, idCuenta), Conexion.ObtenerConexion());
+                retorno = comando1.ExecuteNonQuery();
 
-            MySqlCommand comando2 = new MySqlCommand(string.Format(
-                "Update Contrasena set contrasena='{0}' where Cuenta_idCuenta='{1}'", contrasena, idCuenta), Conexion.ObtenerConexion());
-            retorno = comando2.ExecuteNonQuery();
+                MySqlCommand comando2 = new MySqlCommand(string.Format(
+                    "Update Contrasena set contrasena='{0}' where Cuenta_idCuenta='{1}'", contrasena, idCuenta), Conexion.ObtenerConexion());
+                retorno = comando2.ExecuteNonQuery();
 
-            MySqlCommand comando3 = new MySqlCommand(string.Format(
-                "Update Telefono set telefono='{0}' where Cuenta_idCuenta='{1}'", telefono, idCuenta), Conexion.ObtenerConexion());
-            retorno = comando3.ExecuteNonQuery();
+                MySqlCommand comando3 = new MySqlCommand(string.Format(
+                    "Update Telefono set telefono='{0}' where Cuenta_idCuenta='{1}'", telefono, idCuenta), Conexion.ObtenerConexion());
+                retorno = comando3.ExecuteNonQuery();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+                return retorno;
+            }
 
             return retorno;
         }
@@ -108,29 +114,58 @@ namespace ServiciosCuentaUsuario
         public int RegistrarUsuario(string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero)
         {
             int retorno = 0;
-            MySqlCommand comando = new MySqlCommand(string.Format(
-                "Insert into Cuenta (nombreUsuario,idFotoCuentaUsuario,Genero_idGenero) values ('{0}','{1}','{2}')", nombreUsuario,idFotoCuentaUsuario,Genero_idGenero), Conexion.ObtenerConexion());
-            retorno = comando.ExecuteNonQuery();
+            try
+            {
+                MySqlCommand comando = new MySqlCommand(string.Format(
+                "Insert into Cuenta (nombreUsuario,idFotoCuentaUsuario,Genero_idGenero) values ('{0}','{1}','{2}')", nombreUsuario, idFotoCuentaUsuario, Genero_idGenero), Conexion.ObtenerConexion());
+                retorno = comando.ExecuteNonQuery();
 
+                MySqlCommand comando2 = new MySqlCommand(string.Format(
+                   "Select idCuenta from Cuenta where nombreUsuario='{0}'", nombreUsuario), Conexion.ObtenerConexion());
+                MySqlDataReader reader2 = comando2.ExecuteReader();
+                while (reader2.Read())
+                {
+                    idCuenta = reader2.GetInt32(0);
+                }
+
+                MySqlCommand comando3 = new MySqlCommand(string.Format(
+                    "Insert into Correo (correo,Cuenta_idCuenta) values ('{0}','{1}')", correo, idCuenta), Conexion.ObtenerConexion());
+                retorno = comando3.ExecuteNonQuery();
+
+                MySqlCommand comando4 = new MySqlCommand(string.Format(
+                   "Insert into Contrasena (contrasena,Cuenta_idCuenta) values ('{0}','{1}')", contrasena, idCuenta), Conexion.ObtenerConexion());
+                retorno = comando4.ExecuteNonQuery();
+
+                MySqlCommand comando5 = new MySqlCommand(string.Format(
+                  "Insert into Telefono (telefono,Cuenta_idCuenta) values ('{0}','{1}')", telefono, idCuenta), Conexion.ObtenerConexion());
+                retorno = comando5.ExecuteNonQuery();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e);
+                return retorno;
+            }
+
+            return retorno;
+        }
+
+        public int validarExistencia(string nombreUsuario)
+        {
+            int retorno=0;
             MySqlCommand comando2 = new MySqlCommand(string.Format(
-               "Select idCuenta from Cuenta where nombreUsuario='{0}'",nombreUsuario), Conexion.ObtenerConexion());
+               "Select nombreUsuario from Cuenta where nombreUsuario='{0}'", nombreUsuario), Conexion.ObtenerConexion());
             MySqlDataReader reader2 = comando2.ExecuteReader();
             while (reader2.Read())
             {
-                idCuenta = reader2.GetInt32(0);
+                if (nombreUsuario.Equals(reader2.GetString(0)))
+                {
+                    retorno = 1;
+                }
+                else
+                {
+                    retorno = 0;
+                }
             }
-
-            MySqlCommand comando3 = new MySqlCommand(string.Format(
-                "Insert into Correo (correo,Cuenta_idCuenta) values ('{0}','{1}')",correo,idCuenta), Conexion.ObtenerConexion());
-            retorno = comando3.ExecuteNonQuery();
-
-            MySqlCommand comando4 = new MySqlCommand(string.Format(
-               "Insert into Contrasena (contrasena,Cuenta_idCuenta) values ('{0}','{1}')", contrasena, idCuenta), Conexion.ObtenerConexion());
-            retorno = comando4.ExecuteNonQuery();
-
-            MySqlCommand comando5 = new MySqlCommand(string.Format(
-              "Insert into Telefono (telefono,Cuenta_idCuenta) values ('{0}','{1}')",telefono, idCuenta), Conexion.ObtenerConexion());
-            retorno = comando5.ExecuteNonQuery();
 
             return retorno;
         }
