@@ -5,6 +5,7 @@ using System.ServiceModel;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using proyecto_equipo_b.Entidad.Login;
 using ServicioCuentaUsuario;
 
 namespace proyecto_equipo_b.Controllers
@@ -16,13 +17,11 @@ namespace proyecto_equipo_b.Controllers
     public class ServicioCuentaUsuarioController : Controller{
 
         [HttpPost("login")]
-        public CuentaCompleta obtenerNombreUSuario(string correo,string contrasena){
+        public CuentaCompleta obtenerNombreUSuario(string correo, string contrasena){
             InstanceContext instanceContext = new InstanceContext(this);
                 ServicioCuentaUsuarioClient client = new ServicioCuentaUsuarioClient();
                 CuentaCompleta cuenta = new CuentaCompleta();
                 Console.WriteLine("===============================");
-                Console.WriteLine(correo);
-                Console.WriteLine(contrasena);
                 cuenta = client.IniciarSesion("wcf@gmail.com", "contrasenaWCF");
                 Console.WriteLine(cuenta.nombreUsuario);
                 Console.WriteLine("Aquí entró");
