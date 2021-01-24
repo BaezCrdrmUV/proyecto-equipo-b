@@ -50,6 +50,13 @@ namespace proyecto_equipo_b.Controllers
         return respuesta;
       }  
 
+      [HttpPost("validarExistencia")]
+      public int validarUsuario(string nombreUsuario){
+        int respuesta;
+        ServicioCuentaUsuarioClient client = new ServicioCuentaUsuarioClient();
+        respuesta = client.validarExistencia(nombreUsuario);
+        return respuesta;
+      }
     }
 
 }

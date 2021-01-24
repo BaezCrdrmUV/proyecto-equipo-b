@@ -146,6 +146,12 @@ namespace ServicioCuentaUsuario
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCuentaUsuario/ModificarUsuario", ReplyAction="http://tempuri.org/IServicioCuentaUsuario/ModificarUsuarioResponse")]
         System.Threading.Tasks.Task<int> ModificarUsuarioAsync(int idCuenta, string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCuentaUsuario/validarExistencia", ReplyAction="http://tempuri.org/IServicioCuentaUsuario/validarExistenciaResponse")]
+        int validarExistencia(string nombreUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCuentaUsuario/validarExistencia", ReplyAction="http://tempuri.org/IServicioCuentaUsuario/validarExistenciaResponse")]
+        System.Threading.Tasks.Task<int> validarExistenciaAsync(string nombreUsuario);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -226,6 +232,16 @@ namespace ServicioCuentaUsuario
         public System.Threading.Tasks.Task<int> ModificarUsuarioAsync(int idCuenta, string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero)
         {
             return base.Channel.ModificarUsuarioAsync(idCuenta, nombreUsuario, correo, contrasena, telefono, idFotoCuentaUsuario, Genero_idGenero);
+        }
+        
+        public int validarExistencia(string nombreUsuario)
+        {
+            return base.Channel.validarExistencia(nombreUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<int> validarExistenciaAsync(string nombreUsuario)
+        {
+            return base.Channel.validarExistenciaAsync(nombreUsuario);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
