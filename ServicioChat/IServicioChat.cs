@@ -29,6 +29,10 @@ namespace ServicioChat
         int salirDeChatGrupal(string nombreUsuario, string Chat_nombreChat);
         [OperationContract]
         List<Mensaje> obtenerContenidoChat(string Chat_nombreChat);
+        [OperationContract]
+        int reaccionaMensaje(String UsuarioChat_nombreUsuario, int Mensaje_idMensaje, int Reaccion_idReaccion);
+        [OperationContract]
+        int obtenerReaccionMensaje(int Mensaje_idMensaje);
         // TODO: agregue aquí sus operaciones de servicio
     }
 

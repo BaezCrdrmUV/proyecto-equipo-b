@@ -11,6 +11,7 @@ namespace ServicioChat
     // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "Service1" en el código y en el archivo de configuración a la vez.
     public class ServicioChat : IServicioChat
     {
+        int salida;
         public int agregarUsuarioChat(string nombreChat, string nombreUsuario)
         {
             int retorno = 0;
@@ -77,6 +78,27 @@ namespace ServicioChat
                 list.Add(mensaje);
             }
             return list;
+        }
+
+        public int obtenerReaccionMensaje(int Mensaje_idMensaje)
+        {
+            MySqlCommand comando = new MySqlCommand(string.Format(
+               "Select Reaccion_idReaccion from Reaccion_has_Mensaje where Mensaje_idMensaje='{0}'", Mensaje_idMensaje), Conexion.ObtenerConexion());
+            MySqlDataReader reader = comando.ExecuteReader();
+            while (reader.Read())
+            {
+                salida = reader.GetInt32(0);
+            }
+            return salida;
+        }
+
+        public int reaccionaMensaje(string UsuarioChat_nombreUsuario, int Mensaje_idMensaje, int Reaccion_idReaccion)
+        {
+            int retorno = 0;
+            MySqlCommand comando = new MySqlCommand(string.Format(
+                "Insert into Reaccion_has_Mensaje (Reaccion_idReaccion,Mensaje_idMensaje,UsuarioChat_nombreUsuario) values ('{0}','{1}','{2}')",Reaccion_idReaccion,Mensaje_idMensaje,UsuarioChat_nombreUsuario), Conexion.ObtenerConexion());
+            retorno = comando.ExecuteNonQuery();
+            return retorno;
         }
 
         public int registrarChat(string nombreChat, string tipoChat)
