@@ -22,7 +22,7 @@ namespace proyecto_equipo_b.Controllers
                 ServicioCuentaUsuarioClient client = new ServicioCuentaUsuarioClient();
                 CuentaCompleta cuenta = new CuentaCompleta();
                 Console.WriteLine("===============================");
-                cuenta = client.IniciarSesion("wcf@gmail.com", "contrasenaWCF");
+                cuenta = client.IniciarSesion(correo,contrasena);
                 Console.WriteLine(cuenta.nombreUsuario);
                 Console.WriteLine("Aquí entró");
             return cuenta;
@@ -30,21 +30,21 @@ namespace proyecto_equipo_b.Controllers
 
 
       [HttpPost("registrarUsuario")]
-       public int PostLigarLiastaConCancion()
+       public int PostLigarLiastaConCancion(string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero)
         {
            int respuesta;
             ServicioCuentaUsuarioClient client = new ServicioCuentaUsuarioClient();
-            respuesta = client.RegistrarUsuario("UsuarioPostman","usuarioPostmane@gmail.com","123456","2281852805",6,1);
+            respuesta = client.RegistrarUsuario(nombreUsuario, correo, contrasena, telefono, idFotoCuentaUsuario,Genero_idGenero);
             Console.WriteLine("===============================");
             Console.WriteLine("Aquí entró");
         return respuesta;
         }
 
       [HttpPut("modificarUsuario")]
-      public int PutModificarUsuario(){
+      public int PutModificarUsuario(int idCuenta, string nombreUsuario, string correo, string contrasena, string telefono, int idFotoCuentaUsuario, int Genero_idGenero){
           int respuesta;
             ServicioCuentaUsuarioClient client = new ServicioCuentaUsuarioClient();
-            respuesta = client.ModificarUsuario(9,"UsuarioPostman1","usuarioPostmane@gmail.com","123456","2281852805",6,1);
+            respuesta = client.ModificarUsuario(idCuenta, nombreUsuario, correo, contrasena, telefono, idFotoCuentaUsuario,Genero_idGenero);
             Console.WriteLine("===============================");
             Console.WriteLine("Aquí entró");
         return respuesta;
