@@ -21,62 +21,68 @@ namespace ServiciosCuentaUsuario
         CuentaCompleta cuentaC;
         public CuentaCompleta IniciarSesion(string correo, string contrasena)
         {
-            
-            MySqlCommand comando = new MySqlCommand(string.Format(
+            try
+            {
+                MySqlCommand comando = new MySqlCommand(string.Format(
                 "Select Cuenta_idCuenta from Contrasena where contrasena='{0}'", contrasena), Conexion.ObtenerConexion());
-            MySqlDataReader reader = comando.ExecuteReader();
-            while (reader.Read())
-            {
-                salida = reader.GetInt32(0);
+                MySqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    salida = reader.GetInt32(0);
+                }
+
+                MySqlCommand comando2 = new MySqlCommand(string.Format(
+                    "Select Cuenta_idCuenta from Correo where correo='{0}'", correo), Conexion.ObtenerConexion());
+                MySqlDataReader reader2 = comando2.ExecuteReader();
+                while (reader2.Read())
+                {
+                    salida2 = reader2.GetInt32(0);
+                }
+
+                if (salida == salida2)
+                {
+                    MySqlCommand comando3 = new MySqlCommand(string.Format(
+                    "Select idCuenta, nombreUsuario, idFotoCuentaUsuario ,Genero_idGenero from Cuenta where idCuenta='{0}'", salida), Conexion.ObtenerConexion());
+                    MySqlDataReader reader3 = comando3.ExecuteReader();
+
+                    while (reader3.Read())
+                    {
+                        cuenta = new Cuenta(reader3.GetInt32(0), reader3.GetString(1), reader3.GetInt32(2), reader3.GetInt32(3));
+                    }
+
+                    MySqlCommand comando4 = new MySqlCommand(string.Format(
+                    "Select correo from Correo where Cuenta_idCuenta='{0}'", salida), Conexion.ObtenerConexion());
+                    MySqlDataReader reader4 = comando4.ExecuteReader();
+                    while (reader4.Read())
+                    {
+                        correo = reader4.GetString(0);
+                    }
+
+                    MySqlCommand comando5 = new MySqlCommand(string.Format(
+                    "Select contrasena from Contrasena where Cuenta_idCuenta='{0}'", salida), Conexion.ObtenerConexion());
+                    MySqlDataReader reader5 = comando5.ExecuteReader();
+                    while (reader5.Read())
+                    {
+                        contrasena = reader5.GetString(0);
+                    }
+
+                    MySqlCommand comando6 = new MySqlCommand(string.Format(
+                    "Select telefono from Telefono where Cuenta_idCuenta='{0}'", salida), Conexion.ObtenerConexion());
+                    MySqlDataReader reader6 = comando6.ExecuteReader();
+                    while (reader6.Read())
+                    {
+                        telefono = reader6.GetString(0);
+                    }
+
+                    cuentaC = new CuentaCompleta(salida, cuenta.getNombreUsuario(), correo, contrasena, telefono, cuenta.getIdFotoCuentaUsuario(), cuenta.getGenero_idGenero());
+
+                    return cuentaC;
+
+                }
             }
-
-            MySqlCommand comando2 = new MySqlCommand(string.Format(
-                "Select Cuenta_idCuenta from Correo where correo='{0}'", correo), Conexion.ObtenerConexion());
-            MySqlDataReader reader2 = comando2.ExecuteReader();
-            while (reader2.Read())
+            catch(Exception e)
             {
-                salida2 = reader2.GetInt32(0);
-            }
-            
-            if(salida == salida2)
-            {
-                MySqlCommand comando3 = new MySqlCommand(string.Format(
-                "Select idCuenta, nombreUsuario, idFotoCuentaUsuario ,Genero_idGenero from Cuenta where idCuenta='{0}'", salida), Conexion.ObtenerConexion());
-                MySqlDataReader reader3 = comando3.ExecuteReader();
-
-                while (reader3.Read())
-                {
-                    cuenta = new Cuenta(reader3.GetInt32(0),reader3.GetString(1),reader3.GetInt32(2),reader3.GetInt32(3));
-                }
-
-                MySqlCommand comando4 = new MySqlCommand(string.Format(
-                "Select correo from Correo where Cuenta_idCuenta='{0}'", salida), Conexion.ObtenerConexion());
-                MySqlDataReader reader4 = comando4.ExecuteReader();
-                while (reader4.Read())
-                {
-                    correo = reader4.GetString(0);
-                }
-
-                MySqlCommand comando5 = new MySqlCommand(string.Format(
-                "Select contrasena from Contrasena where Cuenta_idCuenta='{0}'", salida), Conexion.ObtenerConexion());
-                MySqlDataReader reader5 = comando5.ExecuteReader();
-                while (reader5.Read())
-                {
-                    contrasena = reader5.GetString(0);
-                }
-
-                MySqlCommand comando6 = new MySqlCommand(string.Format(
-                "Select telefono from Telefono where Cuenta_idCuenta='{0}'", salida), Conexion.ObtenerConexion());
-                MySqlDataReader reader6 = comando6.ExecuteReader();
-                while (reader6.Read())
-                {
-                    telefono = reader6.GetString(0);
-                }
-
-                cuentaC = new CuentaCompleta(salida, cuenta.getNombreUsuario(),correo,contrasena,telefono,cuenta.getIdFotoCuentaUsuario(),cuenta.getGenero_idGenero()); 
-
                 return cuentaC;
-
             }
             return cuentaC;
         }
