@@ -12,6 +12,23 @@ namespace ServicioChat
     public class ServicioChat : IServicioChat
     {
         int salida;
+
+        public int agregarAmigo(string nombreUsuario, string amigoNombreUsuario)
+        {
+            int retorno = 0;
+            try
+            {
+                MySqlCommand comando = new MySqlCommand(string.Format(
+                "Insert into Amigo (nombreUsuario,amigoNombreUsuario) values ('{0}','{1}')",nombreUsuario,amigoNombreUsuario), Conexion.ObtenerConexion());
+                retorno = comando.ExecuteNonQuery();
+            }
+            catch(Exception e)
+            {
+                return retorno;
+            }
+            return retorno;
+        }
+
         public int agregarUsuarioChat(string nombreChat, string nombreUsuario)
         {
             int retorno = 0;
@@ -103,6 +120,27 @@ namespace ServicioChat
                 return 0;
             }
             return retorno;
+        }
+
+        public List<Amigo> obtenerAmigos(string nombreUsuario)
+        {
+            List<Amigo> list = new List<Amigo>();
+            try
+            {
+                MySqlCommand comando = new MySqlCommand(string.Format(
+               "Select * from Amigo where nombreUsuario='{0}'", nombreUsuario), Conexion.ObtenerConexion());
+                MySqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    Amigo amigo = new Amigo(reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
+                    list.Add(amigo);
+                }
+            }
+            catch(Exception e)
+            {
+                return list;
+            }
+            return list;
         }
 
         public List<Mensaje> obtenerContenidoChat(string Chat_nombreChat)
