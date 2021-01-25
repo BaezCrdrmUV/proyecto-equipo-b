@@ -4,28 +4,28 @@ using System.Runtime.InteropServices;
 
 // La información general de un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
-// asociada a un ensamblado.
-[assembly: AssemblyTitle("MultimediaDB")]
+// asociada con un ensamblado.
+[assembly: AssemblyTitle("ServicioMultimedia")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("HP Inc.")]
-[assembly: AssemblyProduct("MultimediaDB")]
-[assembly: AssemblyCopyright("Copyright © HP Inc. 2020")]
+[assembly: AssemblyProduct("ServicioMultimedia")]
+[assembly: AssemblyCopyright("Copyright © HP Inc. 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // Si establece ComVisible en false, los tipos de este ensamblado no estarán visibles 
-// para los componentes COM.  Si es necesario obtener acceso a un tipo en este ensamblado desde 
+// tipos de este ensamblado.  Si necesita obtener acceso a un tipo de este ensamblado desde 
 // COM, establezca el atributo ComVisible en true en este tipo.
 [assembly: ComVisible(false)]
 
 // El siguiente GUID sirve como id. de typelib si este proyecto se expone a COM.
-[assembly: Guid("9743e1b6-46fc-464a-b222-819275b58207")]
+[assembly: Guid("edaee099-1a2a-4500-8ed5-d429928e1fa9")]
 
 // La información de versión de un ensamblado consta de los cuatro valores siguientes:
 //
 //      Versión principal
-//      Versión secundaria
+//      Versión secundaria 
 //      Número de compilación
 //      Revisión
 //
