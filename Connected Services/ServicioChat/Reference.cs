@@ -154,6 +154,58 @@ namespace ServicioChat
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Amigo", Namespace="http://schemas.datacontract.org/2004/07/ServicioChat")]
+    public partial class Amigo : object
+    {
+        
+        private string amigoNombreUsuarioField;
+        
+        private int idAmigoField;
+        
+        private string nombreUsuarioField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string amigoNombreUsuario
+        {
+            get
+            {
+                return this.amigoNombreUsuarioField;
+            }
+            set
+            {
+                this.amigoNombreUsuarioField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int idAmigo
+        {
+            get
+            {
+                return this.idAmigoField;
+            }
+            set
+            {
+                this.idAmigoField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string nombreUsuario
+        {
+            get
+            {
+                return this.nombreUsuarioField;
+            }
+            set
+            {
+                this.nombreUsuarioField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioChat.IServicioChat")]
     public interface IServicioChat
@@ -191,6 +243,12 @@ namespace ServicioChat
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/obtenerReaccionMensaje", ReplyAction="http://tempuri.org/IServicioChat/obtenerReaccionMensajeResponse")]
         System.Threading.Tasks.Task<int> obtenerReaccionMensajeAsync(int Mensaje_idMensaje);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/agregarAmigo", ReplyAction="http://tempuri.org/IServicioChat/agregarAmigoResponse")]
+        System.Threading.Tasks.Task<int> agregarAmigoAsync(string nombreUsuario, string amigoNombreUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/obtenerAmigos", ReplyAction="http://tempuri.org/IServicioChat/obtenerAmigosResponse")]
+        System.Threading.Tasks.Task<ServicioChat.Amigo[]> obtenerAmigosAsync(string nombreUsuario);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -296,6 +354,16 @@ namespace ServicioChat
         public System.Threading.Tasks.Task<int> obtenerReaccionMensajeAsync(int Mensaje_idMensaje)
         {
             return base.Channel.obtenerReaccionMensajeAsync(Mensaje_idMensaje);
+        }
+        
+        public System.Threading.Tasks.Task<int> agregarAmigoAsync(string nombreUsuario, string amigoNombreUsuario)
+        {
+            return base.Channel.agregarAmigoAsync(nombreUsuario, amigoNombreUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<ServicioChat.Amigo[]> obtenerAmigosAsync(string nombreUsuario)
+        {
+            return base.Channel.obtenerAmigosAsync(nombreUsuario);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()

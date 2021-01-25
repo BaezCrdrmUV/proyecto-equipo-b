@@ -102,6 +102,23 @@ namespace proyecto_equipo_b.Controllers
         return resultado;
     }
 
+    [HttpPost("agregarAmigo")]
+    public Task<int> agregarAmigo(string nombreUsuario, string amigoNombreUsuario)
+    {
+        Task<int> resultado;
+        ServicioChatClient client = new ServicioChatClient();
+            resultado = client.agregarAmigoAsync(nombreUsuario, amigoNombreUsuario);
+        return resultado;
+    }
+
+    [HttpGet("obtenerAmigos")]
+    public Task<Amigo[]> obtenerAmigos(string nombreUsuario)
+    {
+        ServicioChatClient client = new ServicioChatClient();
+        Task<Amigo[]> amigos;
+        amigos = client.obtenerAmigosAsync(nombreUsuario);
+        return amigos;
+    }
 
     }
 }
