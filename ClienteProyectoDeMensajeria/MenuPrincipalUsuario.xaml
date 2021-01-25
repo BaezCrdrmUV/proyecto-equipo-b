@@ -39,9 +39,9 @@
         <Expander x:Name="expanderMisOpciones" IsExpanded="False" Header="" Background="{x:Null}" Foreground="White" Margin="40,5,645,335">
             <StackPanel Margin="10,0,13,0">
                 <Button x:Name="buttonPerfil" Content="Perfil" materialDesign:ButtonAssist.CornerRadius="15" Height="Auto" Click="buttonPerfil_Click" Margin="15,0,10,0" VerticalAlignment="Top"/>
+                <Button Content="Estados" materialDesign:ButtonAssist.CornerRadius="15" Height="Auto" Click="buttonEstados_Click" Margin="15,2,10,0"/>
                 <Button x:Name="buttonChatGrupal" Content="Chat grupal" materialDesign:ButtonAssist.CornerRadius="15" Height="Auto" Click="buttonChatGrupal_Click" Margin="15,1,10,0" />
                 <Button x:Name="buttonCerrarSesion" Content="Cerrar sesión" materialDesign:ButtonAssist.CornerRadius="15" Height="Auto" Click="buttonCerrarSesion_Click" Margin="15,1,10,0" />
-                <Button Content="Estados" materialDesign:ButtonAssist.CornerRadius="15" Height="Auto" Click="buttonEstados_Click" Margin="15,2,10,0"/>
             </StackPanel>
         </Expander>
 

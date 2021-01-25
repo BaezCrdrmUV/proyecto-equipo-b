@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -44,10 +45,34 @@ namespace ClienteProyectoDeMensajeria
         }
 
         private void iniciarSesion(object sender, RoutedEventArgs e)
-        {            
-            DesaparecerComponentes();
-            UserControlPrincipal.Visibility = Visibility.Visible;
-            gridPrincipal.Children.Add(UserControlPrincipal);
+        {
+            string correo = textBoxCorreo.Text; //"caicerouv@gmail.com";
+            string contrasena = textboxContrasena.Password; //"123";
+            string url = "http://localhost:5000/cuenta/login?correo="+correo+ "&contrasena="+contrasena;
+           
+            RestClient client = new RestClient(url);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            request.AddParameter("text/plain", "", ParameterType.RequestBody);
+            try
+            {
+                IRestResponse response = client.Execute(request);
+                if (response.ResponseStatus != ResponseStatus.Completed)
+                    MessageBox.Show( response.ResponseStatus + " "+ response.StatusCode.ToString() + 
+                        "Sucedió algo mal, intente más tarde");
+                else {
+                    MessageBox.Show(response.Content);
+                    DesaparecerComponentes();
+                    UserControlPrincipal.Visibility = Visibility.Visible;
+                    gridPrincipal.Children.Add(UserControlPrincipal);
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+           
+
             /*var url = $"http://localhost:5000/estado";
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
@@ -73,6 +98,9 @@ namespace ClienteProyectoDeMensajeria
                             // Do something with responseBody
                             Console.WriteLine(responseBody);
                             MessageBox.Show(responseBody);
+                            DesaparecerComponentes();
+                            UserControlPrincipal.Visibility = Visibility.Visible;
+                            gridPrincipal.Children.Add(UserControlPrincipal);
                         }
                     }
                 }
