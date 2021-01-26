@@ -156,6 +156,58 @@ namespace ServicioChat
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Reacion_has_Mensaje", Namespace="http://schemas.datacontract.org/2004/07/ServicioChat")]
+    public partial class Reacion_has_Mensaje : object
+    {
+        
+        private int Mensaje_idMensajeField;
+        
+        private int Reaccion_idReaccionField;
+        
+        private string UsuarioChat_nombreUsuarioField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Mensaje_idMensaje
+        {
+            get
+            {
+                return this.Mensaje_idMensajeField;
+            }
+            set
+            {
+                this.Mensaje_idMensajeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Reaccion_idReaccion
+        {
+            get
+            {
+                return this.Reaccion_idReaccionField;
+            }
+            set
+            {
+                this.Reaccion_idReaccionField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UsuarioChat_nombreUsuario
+        {
+            get
+            {
+                return this.UsuarioChat_nombreUsuarioField;
+            }
+            set
+            {
+                this.UsuarioChat_nombreUsuarioField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Amigo", Namespace="http://schemas.datacontract.org/2004/07/ServicioChat")]
     public partial class Amigo : object
     {
@@ -241,8 +293,8 @@ namespace ServicioChat
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/reaccionaMensaje", ReplyAction="http://tempuri.org/IServicioChat/reaccionaMensajeResponse")]
         System.Threading.Tasks.Task<int> reaccionaMensajeAsync(string UsuarioChat_nombreUsuario, int Mensaje_idMensaje, int Reaccion_idReaccion);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/obtenerReaccionMensaje", ReplyAction="http://tempuri.org/IServicioChat/obtenerReaccionMensajeResponse")]
-        System.Threading.Tasks.Task<int> obtenerReaccionMensajeAsync(int Mensaje_idMensaje);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/obtenerReaccionesMensaje", ReplyAction="http://tempuri.org/IServicioChat/obtenerReaccionesMensajeResponse")]
+        System.Threading.Tasks.Task<ServicioChat.Reacion_has_Mensaje[]> obtenerReaccionesMensajeAsync(int Mensaje_idMensaje);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/agregarAmigo", ReplyAction="http://tempuri.org/IServicioChat/agregarAmigoResponse")]
         System.Threading.Tasks.Task<int> agregarAmigoAsync(string nombreUsuario, string amigoNombreUsuario);
@@ -351,9 +403,9 @@ namespace ServicioChat
             return base.Channel.reaccionaMensajeAsync(UsuarioChat_nombreUsuario, Mensaje_idMensaje, Reaccion_idReaccion);
         }
         
-        public System.Threading.Tasks.Task<int> obtenerReaccionMensajeAsync(int Mensaje_idMensaje)
+        public System.Threading.Tasks.Task<ServicioChat.Reacion_has_Mensaje[]> obtenerReaccionesMensajeAsync(int Mensaje_idMensaje)
         {
-            return base.Channel.obtenerReaccionMensajeAsync(Mensaje_idMensaje);
+            return base.Channel.obtenerReaccionesMensajeAsync(Mensaje_idMensaje);
         }
         
         public System.Threading.Tasks.Task<int> agregarAmigoAsync(string nombreUsuario, string amigoNombreUsuario)

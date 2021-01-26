@@ -63,10 +63,10 @@ namespace proyecto_equipo_b.Controllers
     }
 
     [HttpPost("obtenerReaccionMensaje")]
-    public Task<int> obtenerReaccionMensaje(int Mensaje_idMensaje){
-        Task<int> resultado;
+    public Task<Reacion_has_Mensaje[]> obtenerReaccionMensaje(int Mensaje_idMensaje){
+        Task<Reacion_has_Mensaje[]> resultado;
         ServicioChatClient client = new ServicioChatClient();
-        resultado = client.obtenerReaccionMensajeAsync(Mensaje_idMensaje);
+        resultado = client.obtenerReaccionesMensajeAsync(Mensaje_idMensaje);
         return resultado;
     }
 
