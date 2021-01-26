@@ -46,6 +46,6 @@
         </Expander>
 
         <Label x:Name="LabelNombreAmigo" Content="Amigo" HorizontalAlignment="Left" Margin="230,14,0,0" VerticalAlignment="Top" Width="120" Foreground="#DDFFFFFF" FontSize="16"/>
-        <Label x:Name="LabelMiNombreDeUsuario" Content="Yo" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Width="60" Foreground="#DDFFFFFF" FontSize="16"/>
+        <Label x:Name="LabelMiNombreDeUsuario" Content="Yo" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Width="125" Foreground="#DDFFFFFF" FontSize="16" Loaded="LabelMiNombreDeUsuario_Loaded"/>
     </Grid>
 </UserControl>

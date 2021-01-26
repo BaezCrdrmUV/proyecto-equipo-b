@@ -8,16 +8,25 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Image HorizontalAlignment="Left" Height="66" Margin="362,49,0,0" VerticalAlignment="Top" Width="69" Stretch="Fill"/>
-        <TextBox x:Name="textBoxUsuario" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="24" Margin="297,222,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Background="White"/>
-        <TextBox x:Name="textBoxContrasena" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="24" Margin="297,292,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Background="White"/>
-        <Label Content="Correo electrónico" HorizontalAlignment="Left" Margin="297,121,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
-        <Label Content="Nombre de Usuario" HorizontalAlignment="Left" Margin="297,191,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#DDFFFFFF"/>
-        <Label Content="Contraseña" HorizontalAlignment="Left" Margin="297,261,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#DDFFFFFF"/>
-        <Button x:Name="buttonGuardar" Content="Guardar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="325,345,0,0" VerticalAlignment="Top" Width="142" FontSize="16"/>
+        <Button x:Name="buttonGuardar" Content="Guardar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="325,345,0,0" VerticalAlignment="Top" Width="142" FontSize="16" Click="buttonGuardar_Click"/>
         <Button x:Name="buttonCancelar" Content="Cancelar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="325,395,0,0" VerticalAlignment="Top" Width="142" FontSize="16" Background="White" Foreground="#FF673AB7" Click="buttonCancelar_Click"/>
         <Label Content="Mi Perfil" HorizontalAlignment="Left" Margin="365,10,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="16"/>
-        <TextBox x:Name="textBoxCorreo" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="24" Margin="297,150,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" Background="White"/>
+        <TextBox x:Name="textBoxCorreo" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="29" Margin="593,121,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" Background="White" Loaded="textBoxCorreo_Loaded" />
+        <TextBox x:Name="textBoxUsuario" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="29" Margin="303,121,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" Background="White" Loaded="textBoxUsuario_Loaded"/>
+        <PasswordBox x:Name="textBoxContrasena" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="29" Margin="595,268,0,0"  VerticalAlignment="Top" Width="184" Background="White"/>
+        <Label Content="Correo electrónico" HorizontalAlignment="Left" Margin="593,87,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="16"/>
+        <Label Content="Nombre de Usuario" HorizontalAlignment="Left" Margin="303,85,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="16"/>
+        <Label Content="Contraseña" HorizontalAlignment="Left" Margin="595,232,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#DDFFFFFF" FontSize="16"/>
+        <TextBox x:Name="textBoxTelefono" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="29" Margin="305,268,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" Background="White" Loaded="textBoxTelefono_Loaded" />
+        <Label Content="Telefono" HorizontalAlignment="Left" Margin="305,232,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#DDFFFFFF" FontSize="16"/>
+        <Label Content="Género" HorizontalAlignment="Left" Margin="25,240,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#DDFFFFFF" FontSize="16"/>
+        <ComboBox x:Name="comboBoxGenero"  materialDesign:TextFieldAssist.TextBoxViewMargin="2" HorizontalAlignment="Left" Margin="25,269,0,0" VerticalAlignment="Top" Width="140" Background="White" Text="Seleccione un género" IsEditable="True" IsReadOnly="True" Loaded="comboBoxGenero_Loaded" SelectionChanged="comboBoxGenero_SelectionChanged" Height="28" />
+        <Image x:Name="imagenPerfil"  HorizontalAlignment="Left" Height="100" Margin="25,57,0,0" VerticalAlignment="Top" Width="100" Loaded="imagenPerfil_Loaded">
+            <Image.OpacityMask>
+                <ImageBrush/>
+            </Image.OpacityMask>
+        </Image>
+        <Button x:Name="buttonCargarFoto" Content="Cargar foto" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="23,165,0,0" VerticalAlignment="Top" Width="112" FontSize="16" Background="White" Foreground="#FF673AB7" FontWeight="Normal" Click="buttonCargarFoto_Click"/>
 
 
     </Grid>

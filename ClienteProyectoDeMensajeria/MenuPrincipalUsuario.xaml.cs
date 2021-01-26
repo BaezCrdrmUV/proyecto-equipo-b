@@ -47,12 +47,18 @@ namespace ClienteProyectoDeMensajeria
 
         private void buttonCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow.usuarioLogeado = null;
             eventCerrarSesion?.Invoke(this, e);
         }
 
         private void VerImgChat_Click(object sender, RoutedEventArgs e)
         {
             eventVerImagenesDelChat?.Invoke(this, e);
+        }
+
+        private void LabelMiNombreDeUsuario_Loaded(object sender, RoutedEventArgs e)
+        {
+            LabelMiNombreDeUsuario.Content = MainWindow.usuarioLogeado.nombreUsuario;
         }
     }
 }

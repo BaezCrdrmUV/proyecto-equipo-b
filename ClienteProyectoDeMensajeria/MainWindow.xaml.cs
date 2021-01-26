@@ -1,11 +1,14 @@
-﻿using RestSharp;
+﻿
+using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Helpers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -20,6 +23,7 @@ namespace ClienteProyectoDeMensajeria
 {
     public partial class MainWindow : Window
     {
+        public static dynamic usuarioLogeado;
         RegistroCuenta userControlRegistroCuenta;
         MenuPrincipalUsuario UserControlPrincipal = new MenuPrincipalUsuario();
         Estados UserControlEstados = new Estados();
@@ -58,10 +62,13 @@ namespace ClienteProyectoDeMensajeria
             {
                 IRestResponse response = client.Execute(request);
                 if (response.ResponseStatus != ResponseStatus.Completed)
-                    MessageBox.Show( response.ResponseStatus + " "+ response.StatusCode.ToString() + 
+                    MessageBox.Show(response.ResponseStatus + " " + response.StatusCode.ToString() +
                         "Sucedió algo mal, intente más tarde");
+                else if (response.Content.Length == 0) {
+                    MessageBox.Show("Los datos son inválidos");
+                } 
                 else {
-                    MessageBox.Show(response.Content);
+                    usuarioLogeado = Json.Decode(response.Content);                                        
                     DesaparecerComponentes();
                     UserControlPrincipal.Visibility = Visibility.Visible;
                     gridPrincipal.Children.Add(UserControlPrincipal);
@@ -72,7 +79,6 @@ namespace ClienteProyectoDeMensajeria
             }
             
            
-
             /*var url = $"http://localhost:5000/estado";
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
@@ -138,10 +144,9 @@ namespace ClienteProyectoDeMensajeria
         }        
 
         public void EventoRegistrar(object sender, EventArgs e)
-        {                   
-            UserControlPrincipal.Visibility = Visibility.Visible;
+        {
+            AparecerComponentes();            
             gridPrincipal.Children.Remove(userControlRegistroCuenta);
-            gridPrincipal.Children.Add(UserControlPrincipal);
         }
 
         private void EventoCancelarRegistro(object sender, EventArgs e)
