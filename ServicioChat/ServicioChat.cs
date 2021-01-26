@@ -164,24 +164,26 @@ namespace ServicioChat
             return list;
         }
 
-        public int obtenerReaccionMensaje(int Mensaje_idMensaje)
+        public List<Reacion_has_Mensaje> obtenerReaccionesMensaje(int Mensaje_idMensaje)
         {
             salida = 0;
+            List<Reacion_has_Mensaje> list = new List<Reacion_has_Mensaje>();
             try
             {
                 MySqlCommand comando = new MySqlCommand(string.Format(
-               "Select Reaccion_idReaccion from Reaccion_has_Mensaje where Mensaje_idMensaje='{0}'", Mensaje_idMensaje), Conexion.ObtenerConexion());
+               "Select * from Reaccion_has_Mensaje where Mensaje_idMensaje='{0}'", Mensaje_idMensaje), Conexion.ObtenerConexion());
                 MySqlDataReader reader = comando.ExecuteReader();
                 while (reader.Read())
                 {
-                    salida = reader.GetInt32(0);
+                    Reacion_has_Mensaje mensaje = new Reacion_has_Mensaje(reader.GetInt32(0),reader.GetInt32(1),reader.GetString(2));
+                    list.Add(mensaje);
                 }
             }catch(Exception e)
             {
-                return salida;
+                return list;
             }
             
-            return salida;
+            return list;
         }
 
         public int reaccionaMensaje(string UsuarioChat_nombreUsuario, int Mensaje_idMensaje, int Reaccion_idReaccion)

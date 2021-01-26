@@ -32,7 +32,7 @@ namespace ServicioChat
         [OperationContract]
         int reaccionaMensaje(String UsuarioChat_nombreUsuario, int Mensaje_idMensaje, int Reaccion_idReaccion);
         [OperationContract]
-        int obtenerReaccionMensaje(int Mensaje_idMensaje);
+        List<Reacion_has_Mensaje> obtenerReaccionesMensaje(int Mensaje_idMensaje);
         [OperationContract]
         int agregarAmigo(string nombreUsuario, string amigoNombreUsuario);
         [OperationContract]
@@ -93,6 +93,23 @@ namespace ServicioChat
             this.idAmigo = idAmigo;
             this.nombreUsuario = nombreUsuario;
             this.amigoNombreUsuario = amigoNombreUsuario;
+        }
+    }
+    [DataContract]
+    public class Reacion_has_Mensaje
+    {
+        [DataMember]
+        int Reaccion_idReaccion;
+        [DataMember]
+        int Mensaje_idMensaje;
+        [DataMember]
+        string UsuarioChat_nombreUsuario;
+
+        public Reacion_has_Mensaje(int reaccion_idReaccion, int mensaje_idMensaje, string usuarioChat_nombreUsuario)
+        {
+            Reaccion_idReaccion = reaccion_idReaccion;
+            Mensaje_idMensaje = mensaje_idMensaje;
+            UsuarioChat_nombreUsuario = usuarioChat_nombreUsuario;
         }
     }
 }
