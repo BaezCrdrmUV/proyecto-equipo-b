@@ -1,4 +1,5 @@
 ﻿
+using ClienteProyectoDeMensajeria.ClasesReutilizables;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -50,35 +51,50 @@ namespace ClienteProyectoDeMensajeria
 
         private void iniciarSesion(object sender, RoutedEventArgs e)
         {
-            string correo = textBoxCorreo.Text; //"caicerouv@gmail.com";
-            string contrasena = textboxContrasena.Password; //"123";
-            string url = "http://localhost:5000/cuenta/login?correo="+correo+ "&contrasena="+contrasena;
-           
-            RestClient client = new RestClient(url);
-            client.Timeout = -1;
-            var request = new RestRequest(Method.POST);
-            request.AddParameter("text/plain", "", ParameterType.RequestBody);
-            try
+            if (ValidarDatosIngresados())
             {
-                IRestResponse response = client.Execute(request);
-                if (response.ResponseStatus != ResponseStatus.Completed)
-                    MessageBox.Show(response.ResponseStatus + " " + response.StatusCode.ToString() +
-                        "Sucedió algo mal, intente más tarde");
-                else if (response.Content.Length == 0) {
-                    MessageBox.Show("Los datos son inválidos");
-                } 
-                else {
-                    usuarioLogeado = Json.Decode(response.Content);                                        
-                    DesaparecerComponentes();
-                    UserControlPrincipal.Visibility = Visibility.Visible;
-                    gridPrincipal.Children.Add(UserControlPrincipal);
+                if (Validacion.EsCorreoElectronicoValido(textBoxCorreo.Text))
+                {                    
+                    string correo = textBoxCorreo.Text;
+                    string contrasena = textboxContrasena.Password;
+                    string url = "http://localhost:5000/cuenta/login?correo=" + correo + "&contrasena=" + contrasena;
+
+                    RestClient client = new RestClient(url);
+                    client.Timeout = -1;
+                    var request = new RestRequest(Method.POST);
+                    request.AddParameter("text/plain", "", ParameterType.RequestBody);
+                    try
+                    {
+                        IRestResponse response = client.Execute(request);
+                        if (response.ResponseStatus != ResponseStatus.Completed)
+                            MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
+                                "' Sucedió algo mal, intente más tarde");
+                        else if (response.Content.Length == 0)
+                        {
+                            MessageBox.Show("Los datos son inválidos");
+                        }
+                        else
+                        {
+                            usuarioLogeado = Json.Decode(response.Content);
+                            DesaparecerComponentes();
+                            UserControlPrincipal.Visibility = Visibility.Visible;
+                            gridPrincipal.Children.Add(UserControlPrincipal);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
-            }catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                else
+                    textBoxCorreo.BorderBrush = System.Windows.Media.Brushes.Red;
             }
-            
-           
+            else
+            {
+                textBoxCorreo.BorderBrush = System.Windows.Media.Brushes.Red;
+                textboxContrasena.BorderBrush = System.Windows.Media.Brushes.Red;
+            }
+                                  
             /*var url = $"http://localhost:5000/estado";
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "GET";
@@ -118,19 +134,14 @@ namespace ClienteProyectoDeMensajeria
 
         }
 
-        private bool ValidarDatosIngresados(string nombreUsuario, string contraseña)
-        {
-            bool datosValidos = false;
-
-            if (nombreUsuario != "" && contraseña != "")
+        private bool ValidarDatosIngresados()
+        {           
+            if (textBoxCorreo.Text.Length > 0 && textboxContrasena.Password.Length > 0)
             {
-                datosValidos = true;
-                return datosValidos;
+                return true;
             }
-            else
-            {
-                return datosValidos;
-            }
+            else            
+                return false;           
         }
 
         private void registrarUsuario(object sender, RoutedEventArgs e)
@@ -237,6 +248,6 @@ namespace ClienteProyectoDeMensajeria
             labelContrasena.Visibility = Visibility.Collapsed;
             textboxContrasena.Visibility = Visibility.Collapsed;
             labelTitulo.Visibility = Visibility.Collapsed;
-        }
+        }       
     }
 }

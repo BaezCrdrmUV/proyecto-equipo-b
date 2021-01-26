@@ -10,7 +10,7 @@
     <Grid x:Name="gridPrincipal">
         <Button x:Name="buttonLogin" Content="Iniciar sesión" HorizontalAlignment="Left" Margin="380,311,0,0" VerticalAlignment="Top" Width="130"  materialDesign:ButtonAssist.CornerRadius="15" Click="iniciarSesion" FontSize="16"/>
         <Button x:Name="buttonRegistrar" Content="Registrarse" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="380,368,0,0" VerticalAlignment="Top" Width="130" Click="registrarUsuario" Background="White" Foreground="#FF673AB7" FontSize="16"/>
-        <TextBox Name="textBoxCorreo" HorizontalAlignment="Left" Height="29" Margin="356,155,0,0" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" Foreground="Black" Background="White" FontSize="14"/>
+        <TextBox Name="textBoxCorreo" HorizontalAlignment="Left" Height="29" Margin="356,155,0,0" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" Foreground="Black" Background="White" FontSize="14" />
         <PasswordBox x:Name="textboxContrasena" HorizontalAlignment="Left" Margin="356,240,0,0" VerticalAlignment="Top" Width="184" Height="29" Foreground="Black" Background="White" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" RenderTransformOrigin="0.552,0.435" FontSize="14"/>
         <Label x:Name="labelCorreo" Content="Correo electrónico" HorizontalAlignment="Left" Margin="356,115,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="16"/>
         <Label x:Name="labelContrasena" Content="Contraseña" HorizontalAlignment="Left" Margin="356,204,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="16"/>

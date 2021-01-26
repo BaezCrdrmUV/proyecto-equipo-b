@@ -88,6 +88,7 @@
     <Compile Include="ChatGrupal.xaml.cs">
       <DependentUpon>ChatGrupal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ClasesReutilizables\Validacion.cs" />
     <Compile Include="EditarPerfildeUsuario.xaml.cs">
       <DependentUpon>EditarPerfildeUsuario.xaml</DependentUpon>
     </Compile>
