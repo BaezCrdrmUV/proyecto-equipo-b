@@ -15,6 +15,7 @@ namespace proyecto_equipo_b.Controllers
     
     [HttpGet("obtenerMensajesChat")]
     public Task<Mensaje[]> obtenerString(string Chat_nombreChat){
+        Console.WriteLine("Entró");
         ServicioChatClient cliente = new ServicioChatClient();
             ServicioChatClient client = new ServicioChatClient();
         Task<Mensaje[]> mensajes;
@@ -118,6 +119,14 @@ namespace proyecto_equipo_b.Controllers
         Task<Amigo[]> amigos;
         amigos = client.obtenerAmigosAsync(nombreUsuario);
         return amigos;
+    }
+
+    [HttpPost("obtenerChatsDeUsuario")]
+    public Task<Chat_has_UsuarioChat[]> obtenerChatsDeUsuario(string nombreUsuario){
+        ServicioChatClient client = new ServicioChatClient();
+        Task<Chat_has_UsuarioChat[]> chats;
+            chats = client.obtenerChatsDeUsuarioAsync(nombreUsuario);
+        return chats;
     }
 
     }

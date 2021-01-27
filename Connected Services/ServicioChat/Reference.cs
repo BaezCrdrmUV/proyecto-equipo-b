@@ -258,6 +258,43 @@ namespace ServicioChat
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Chat_has_UsuarioChat", Namespace="http://schemas.datacontract.org/2004/07/ServicioChat")]
+    public partial class Chat_has_UsuarioChat : object
+    {
+        
+        private string Chat_nombreChatField;
+        
+        private string nombreUsuarioField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Chat_nombreChat
+        {
+            get
+            {
+                return this.Chat_nombreChatField;
+            }
+            set
+            {
+                this.Chat_nombreChatField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string nombreUsuario
+        {
+            get
+            {
+                return this.nombreUsuarioField;
+            }
+            set
+            {
+                this.nombreUsuarioField = value;
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioChat.IServicioChat")]
     public interface IServicioChat
@@ -301,6 +338,9 @@ namespace ServicioChat
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/obtenerAmigos", ReplyAction="http://tempuri.org/IServicioChat/obtenerAmigosResponse")]
         System.Threading.Tasks.Task<ServicioChat.Amigo[]> obtenerAmigosAsync(string nombreUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/obtenerChatsDeUsuario", ReplyAction="http://tempuri.org/IServicioChat/obtenerChatsDeUsuarioResponse")]
+        System.Threading.Tasks.Task<ServicioChat.Chat_has_UsuarioChat[]> obtenerChatsDeUsuarioAsync(string nombreUsuario);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.0.2")]
@@ -416,6 +456,11 @@ namespace ServicioChat
         public System.Threading.Tasks.Task<ServicioChat.Amigo[]> obtenerAmigosAsync(string nombreUsuario)
         {
             return base.Channel.obtenerAmigosAsync(nombreUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<ServicioChat.Chat_has_UsuarioChat[]> obtenerChatsDeUsuarioAsync(string nombreUsuario)
+        {
+            return base.Channel.obtenerChatsDeUsuarioAsync(nombreUsuario);
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync()
