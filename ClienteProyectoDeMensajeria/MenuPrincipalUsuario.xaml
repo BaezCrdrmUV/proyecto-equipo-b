@@ -29,11 +29,15 @@
             <ListBox x:Name="listChats" Margin="9" Loaded="listChats_Loaded" Foreground="#DDFFFFFF" SelectionChanged="listChats_SelectionChanged" />
         </Border>
         <ListView x:Name="listViewMensajes" HorizontalAlignment="Left" Height="240" Margin="230,100,0,0" VerticalAlignment="Top" Width="530" Background="White" Foreground="#DDFFFFFF">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel x:Name="panelmensajes" Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <TextBlock Text="{Binding date}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
+                        <TextBlock Text="{Binding UsuarioChat_nombreUsuario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" Background="#FF4D0378" />
+                        <TextBlock Text="{Binding mensaje}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <Expander x:Name="expanderMisOpciones" IsExpanded="False" Header="" Background="{x:Null}" Foreground="White" Margin="40,5,645,300">

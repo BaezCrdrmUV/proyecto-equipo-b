@@ -149,9 +149,9 @@ namespace ClienteProyectoDeMensajeria
                 IRestResponse response = client.Execute(request);
                 var mensajes = Json.Decode(response.Content);
                 if (listViewMensajes.Items.Count > 0) listViewMensajes.Items.Clear();
-                foreach(var mensaje in mensajes)
+                foreach(var msj in mensajes)
                 {
-                    listViewMensajes.Items.Add(mensaje.mensaje);
+                    listViewMensajes.Items.Add(msj);
                 }                
             }catch(Exception ex)
             {
