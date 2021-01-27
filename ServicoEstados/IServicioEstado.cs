@@ -16,19 +16,32 @@ namespace ServicoEstados
         bool RegistrarEstado(int idUsuario, int idEstadoImagen);
 
         [OperationContract]
-        bool ReaccionarAEstado(int idEstado, int idReaccion);
+        bool ReaccionarAEstado(int idEstado, int idReaccion, string nombreUsuario);
 
         [OperationContract]
-        bool ObtenerEstados(List<int> idUsuario);
+        List<Estado> ObtenerEstados(int idUsuario);
+
+        [OperationContract]
+        List<string> ObtenerUsuariosQueDieronMeGusta(int idEstado);
+
+        [OperationContract]
+        List<string> ObtenerUsuariosQueDieronNoMeGusta(int idEstado);
     }
 
     [DataContract]
-    public class Estados
+    public class Estado
     {
         [DataMember]
-        int idUsuario;
+        public int idUsuario { get; set; }
+
         [DataMember]
-        List<int> idEstadoImagen;
+        public int idEstado { get; set; }
+
+        [DataMember]
+        public int idEstadoImagen { get; set; }
+
+        [DataMember]
+        public string fecha { get; set; }
     }
 }
 

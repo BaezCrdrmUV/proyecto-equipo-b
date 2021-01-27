@@ -28,16 +28,24 @@ namespace ServicoEstados.DAO
             return idUsuarioEstado;
         }
 
-        public int RecuperarIdDeE(List<int> idUsuario)
+        public List<int> RecuperarIdsUsuarioEstado(int idUsuario)
         {
+            List<int> idEstadosDeUsuario = new List<int>();
+
             conexion = ConexionDAO.ObtenerConexion();
-            string consulta = "SELECT idUsuarioEstado FROM usuarioestado WHERE ?idUsuario = idUsuario";
+            string consulta = "SELECT idUsuarioEstado FROM usuarioestado WHERE idUsuario = ?idUsuario";
             MySqlCommand comando = new MySqlCommand(consulta, conexion);
             comando.Parameters.AddWithValue("?idUsuario", idUsuario);
-            comando.ExecuteReader();
+            MySqlDataReader reader = comando.ExecuteReader();
+
+            while (reader.Read())
+            {
+                idEstadosDeUsuario.Add(Convert.ToInt32(reader.GetString(0)));
+            }
+
             ConexionDAO.CerrarConexion();
 
-            //return idUsuarioEstado;
+            return idEstadosDeUsuario;
         }
     }
 }

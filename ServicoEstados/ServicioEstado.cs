@@ -12,7 +12,6 @@ namespace ServicoEstados
     {
         UsuarioEstadoDAO usuarioEstadoDAO;
         EstadoDAO estadoDAO;
-        ReaccionDAO reaccionDAO;
         Estado_has_reaccionDAO estado_Has_ReaccionDAO;
 
         public bool RegistrarEstado(int idUsuario, int idEstadoImagen)
@@ -36,13 +35,13 @@ namespace ServicoEstados
             }
         }
 
-        public bool ReaccionarAEstado(int idEstado, int idReaccion)
+        public bool ReaccionarAEstado(int idEstado, int idReaccion, string nombreUsuario)
         {
             estado_Has_ReaccionDAO = new Estado_has_reaccionDAO();
 
             try
             {
-                estado_Has_ReaccionDAO.RegistrarReaccion(idEstado, idReaccion);
+                estado_Has_ReaccionDAO.RegistrarReaccion(idEstado, idReaccion, nombreUsuario);
 
                 return true;
             }
@@ -55,9 +54,60 @@ namespace ServicoEstados
 
         }
 
-        public bool ObtenerEstados(List<int> idUsuario)
+        public List<Estado> ObtenerEstados(int idUsuario)
         {
-            throw new NotImplementedException();
+            List<Estado> estadosDeUsuario = new List<Estado>();
+            List<int> idsUsuarioEstado = new List<int>();
+            usuarioEstadoDAO = new UsuarioEstadoDAO();
+            estadoDAO = new EstadoDAO();
+
+            try
+            {
+                idsUsuarioEstado = usuarioEstadoDAO.RecuperarIdsUsuarioEstado(idUsuario);
+
+                foreach(int id in idsUsuarioEstado)
+                {
+                    estadosDeUsuario.Add(estadoDAO.ObtenerEstadoDeUsuario(id));
+                }
+
+                return estadosDeUsuario;
+            }
+            catch (Exception)
+            {
+                return estadosDeUsuario;
+            }
+        }
+
+        public List<string> ObtenerUsuariosQueDieronMeGusta(int idEstado)
+        {
+            estado_Has_ReaccionDAO = new Estado_has_reaccionDAO();
+
+            try
+            {
+                return estado_Has_ReaccionDAO.ObtenerUsuariosQueDieronMeGusta(idEstado);
+            }
+            catch (Exception)
+            {
+                List<string> usuarios = new List<string>();
+
+                return usuarios;
+            }
+        }
+
+        public List<string> ObtenerUsuariosQueDieronNoMeGusta(int idEstado)
+        {
+            estado_Has_ReaccionDAO = new Estado_has_reaccionDAO();
+
+            try
+            {
+                return estado_Has_ReaccionDAO.ObtenerUsuariosQueDieronNoMeGusta(idEstado);
+            }
+            catch (Exception)
+            {
+                List<string> usuarios = new List<string>();
+
+                return usuarios;
+            }
         }
     }
 }

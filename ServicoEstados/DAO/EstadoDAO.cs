@@ -28,5 +28,27 @@ namespace ServicoEstados.DAO
            
             ConexionDAO.CerrarConexion();
         }
+
+        public Estado ObtenerEstadoDeUsuario(int idUsuarioEstado)
+        {
+            Estado estado = new Estado();
+
+            conexion = ConexionDAO.ObtenerConexion();
+            string consulta = "SELECT * FROM estado WHERE UsuarioEstado_idUsuarioEstado = ?idUsuarioEstado";
+            MySqlCommand comando = new MySqlCommand(consulta, conexion);
+            comando.Parameters.AddWithValue("?idUsuarioEstado", idUsuarioEstado);
+            MySqlDataReader reader = comando.ExecuteReader();
+
+            while (reader.Read())
+            {
+                estado.idEstado = Convert.ToInt32(reader.GetString(0));
+                estado.fecha = reader.GetString(1);
+                estado.idEstadoImagen = Convert.ToInt32(reader.GetString(3));
+            }
+
+            ConexionDAO.CerrarConexion();
+
+            return estado;
+        }
     }
 }
