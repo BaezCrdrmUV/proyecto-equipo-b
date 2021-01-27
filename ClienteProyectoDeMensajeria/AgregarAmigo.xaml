@@ -9,11 +9,14 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
 
-        <Button x:Name="buttonAgregar" Content="Agregar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="334,250,0,0" VerticalAlignment="Top" Width="142" FontSize="16" Click="buttonAgregar_Click"/>
-        <Button x:Name="buttonCancelar" Content="Regresar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="334,300,0,0" VerticalAlignment="Top" Width="142" FontSize="16" Background="White" Foreground="#FF673AB7" Click="buttonCancelar_Click"/>
-        <TextBox x:Name="textBoxNombreUsuario" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="29" Margin="314,173,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" Background="White" />
-        <Label Content="Nombre de usuario" HorizontalAlignment="Left" Margin="314,137,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#DDFFFFFF" FontSize="16"/>
-        <Label Content="Agregar Amigo" HorizontalAlignment="Left" Margin="334,26,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="16"/>
-        <ListBox x:Name="listAmigos" HorizontalAlignment="Left" Height="310" Margin="70,65,0,0" VerticalAlignment="Top" Width="190" Loaded="listAmigos_Loaded" Foreground="#DDFFFFFF"/>
+        <Button x:Name="buttonAgregar" Content="Agregar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="575,217,0,0" VerticalAlignment="Top" Width="142" FontSize="16" Click="buttonAgregar_Click"/>
+        <Button x:Name="buttonCancelar" Content="Regresar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="575,267,0,0" VerticalAlignment="Top" Width="142" FontSize="16" Background="White" Foreground="#FF673AB7" Click="buttonCancelar_Click"/>
+        <TextBox x:Name="textBoxNombreUsuario" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="29" Margin="555,140,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" Background="White" />
+        <Label Content="Nombre de usuario" HorizontalAlignment="Left" Margin="555,104,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#DDFFFFFF" FontSize="16"/>
+        <Label Content="Agregar Amigo" HorizontalAlignment="Left" Margin="584,44,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF" FontSize="16"/>
+        <ListBox x:Name="listAmigos" HorizontalAlignment="Left" Height="310" Margin="70,65,0,0" VerticalAlignment="Top" Width="190" Loaded="listAmigos_Loaded" Foreground="#DDFFFFFF" SelectionChanged="listAmigos_SelectionChanged"/>
+        <Button x:Name="buttonNuevoChat" Content="Nuevo chat" Visibility="Collapsed" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="315,146,0,0" VerticalAlignment="Top" Width="142" FontSize="16" Click="buttonNuevoChat_Click"/>
+        <TextBox x:Name="textBoxNombreChat"  Visibility="Collapsed" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="29" Margin="293,96,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="184" Background="White" />
+        <Label x:Name="labelChat" Content="Nombre del chat"  Visibility="Collapsed" HorizontalAlignment="Left" Margin="293,60,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#DDFFFFFF" FontSize="16"/>
     </Grid>
 </UserControl>

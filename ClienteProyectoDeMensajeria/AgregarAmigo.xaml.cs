@@ -23,7 +23,7 @@ namespace ClienteProyectoDeMensajeria
     public partial class AgregarAmigo : UserControl
     {
         public EventHandler eventoCancelar;
-       
+
         public AgregarAmigo()
         {
             InitializeComponent();
@@ -37,22 +37,22 @@ namespace ClienteProyectoDeMensajeria
 
             RestClient client = new RestClient(urlValidarUsuario);
             client.Timeout = -1;
-            var request = new RestRequest(Method.POST);            
+            var request = new RestRequest(Method.POST);
             try
             {
                 IRestResponse response = client.Execute(request);
                 if (response.ResponseStatus != ResponseStatus.Completed)
                     MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
                         "' Sucedió algo mal, intente más tarde");
-                else if(response.Content.Equals("1"))
+                else if (response.Content.Equals("1"))
                 {
-                    string urlAgregarAmigo = "http://localhost:5000/chat/agregarAmigo?nombreUsuario="+ 
+                    string urlAgregarAmigo = "http://localhost:5000/chat/agregarAmigo?nombreUsuario=" +
                         MainWindow.usuarioLogeado.nombreUsuario + "&amigoNombreUsuario=" + nombreDeUsuario;
                     client = new RestClient(urlAgregarAmigo);
                     client.Timeout = -1;
                     var requestAgregarAmigo = new RestRequest(Method.POST);
                     IRestResponse responseAgregarAmigo = client.Execute(requestAgregarAmigo);
-                    MessageBox.Show("agregado? " +response.Content);
+                    MessageBox.Show("agregado? " + response.Content);
                 }
                 else
                     MessageBox.Show("No existe este usuario en WhatsApp Chacalón");
@@ -85,6 +85,53 @@ namespace ClienteProyectoDeMensajeria
                 {
                     listAmigos.Items.Add(amigo.amigoNombreUsuario);
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void listAmigos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            labelChat.Visibility = Visibility.Visible;
+            textBoxNombreChat.Visibility = Visibility.Visible;
+            buttonNuevoChat.Visibility = Visibility.Visible;
+        }
+
+        private void buttonNuevoChat_Click(object sender, RoutedEventArgs e)
+        {
+            string url = "http://localhost:5000/chat/registrarChat?nombreChat=" + textBoxNombreChat.Text + "&tipoChat=normal";
+
+            RestClient client = new RestClient(url);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            try
+            {
+                IRestResponse response = client.Execute(request);
+                if (response.Content.Equals("1")){
+                    string url_Yo = "http://localhost:5000/chat/agregarUsuario?nombreChat=" + textBoxNombreChat.Text + 
+                        "&nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario;
+                    string url_Amigo = "http://localhost:5000/chat/agregarUsuario?nombreChat=" + textBoxNombreChat.Text +
+                        "&nombreUsuario=" + listAmigos.SelectedItem;
+                    client = new RestClient(url_Yo);
+                    client.Timeout = -1;
+                    var requestAgregarUsuarioAChat = new RestRequest(Method.POST);
+                    IRestResponse response2 = client.Execute(requestAgregarUsuarioAChat);
+
+                    if (response2.Content.Equals("1"))
+                    {
+                        client = new RestClient(url_Amigo);
+                        client.Timeout = -1;
+                        var requestAgregarAmigoAChat = new RestRequest(Method.POST);
+                        IRestResponse response3 = client.Execute(requestAgregarUsuarioAChat);
+                        if (response3.Content.Equals("1"))
+                            MessageBox.Show("NUEVO CHAT!");
+                        eventoCancelar?.Invoke(this, e);
+                    }
+                    else MessageBox.Show("No se pudo guardar");
+                }else MessageBox.Show("No se pudo guardar");
+               
             }
             catch (Exception ex)
             {

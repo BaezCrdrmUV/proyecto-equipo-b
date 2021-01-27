@@ -1,14 +1,17 @@
-﻿using Microsoft.Win32;
+﻿using ClienteProyectoDeMensajeria.ClasesReutilizables;
+using Microsoft.Win32;
 using RestSharp;
+using RestSharp.Serialization.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
 using System.Web.Helpers;
 using System.Windows;
 using System.Windows.Controls;
-
+using Newtonsoft.Json;
 
 namespace ClienteProyectoDeMensajeria
 {
@@ -28,6 +31,8 @@ namespace ClienteProyectoDeMensajeria
 
         //Valores para el chat
         public string nombreChat_Actual;
+        public ObservableCollection<Mensaje> mensajes = new ObservableCollection<Mensaje>();
+        public ObservableCollection<String> misChats = new ObservableCollection<String>();
         public MenuPrincipalUsuario()
         {
             InitializeComponent();
@@ -45,9 +50,9 @@ namespace ClienteProyectoDeMensajeria
 
         private void buttonAgregarAmigo_Click(object sender, RoutedEventArgs e)
         {
+           
             eventoAgregarAmigo?.Invoke(this, e);
-            //validar existencia del usuario
-            // agregar amigo a servicio chat
+
         }
 
         private void buttonChatGrupal_Click(object sender, RoutedEventArgs e)
@@ -112,32 +117,36 @@ namespace ClienteProyectoDeMensajeria
         }
 
         private void listChats_Loaded(object sender, RoutedEventArgs e)
-        {
-            string url = "http://localhost:5000/chat/obtenerChatsDeUsuario?nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario;
+        {            
+                string url = "http://localhost:5000/chat/obtenerChatsDeUsuario?nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario;
 
-            RestClient client = new RestClient(url);
-            client.Timeout = -1;
-            var request = new RestRequest(Method.POST);
-            try
-            {
-                IRestResponse response = client.Execute(request);
-                var misChats = Json.Decode(response.Content);
-                foreach(var chat in misChats)
+                RestClient client = new RestClient(url);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.POST);
+                try
                 {
-                    listChats.Items.Add(chat.Chat_nombreChat);
-                }                
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+                    IRestResponse response = client.Execute(request);
+                    var chatsDeserializados = JsonConvert.DeserializeObject<List<Chat>>(response.Content);
+                    
+                    if (misChats.Count > 0) misChats.Clear();
+                    
+                    foreach (var chat in chatsDeserializados)
+                    {
+                        misChats.Add(chat.Chat_nombreChat);
+                    }
+                listChats.ItemsSource = misChats;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }            
         }
 
         private void listChats_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             LabelNombreAmigo.Content = listChats.SelectedItem;
             nombreChat_Actual = listChats.SelectedItem.ToString();
-
+            textboxMensaje.Text = "";
 
             string url = "http://localhost:5000/chat/obtenerMensajesChat?Chat_nombreChat="+ listChats.SelectedItem;
 
@@ -147,21 +156,26 @@ namespace ClienteProyectoDeMensajeria
             try
             {
                 IRestResponse response = client.Execute(request);
-                var mensajes = Json.Decode(response.Content);
-                if (listViewMensajes.Items.Count > 0) listViewMensajes.Items.Clear();
-                foreach(var msj in mensajes)
+                var mensajesDeserializados = JsonConvert.DeserializeObject<List<Mensaje>>(response.Content);
+                
+                if (mensajes.Count >0) mensajes.Clear();
+                
+                foreach( var msj in mensajesDeserializados)
                 {
-                    listViewMensajes.Items.Add(msj);
-                }                
+                    mensajes.Add(msj);
+                }
+                listViewMensajes.ItemsSource = mensajes;
             }catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+           
         }
 
         private void buttonEnviarMensaje_Click(object sender, RoutedEventArgs e)
-        {
-            string url = "http://localhost:5000/chat/enviarMensaje?fecha=" + DateTime.Now.ToString("yyyy-MM-dd") +
+        {;
+            var fecha = DateTime.Now.ToString("yyyy-MM-dd");
+            string url = "http://localhost:5000/chat/enviarMensaje?fecha=" +fecha  +
             "&favorito=" + 0 + "&mensaje=" + textboxMensaje.Text + "&tipoMensaje=" + "texto" + "&idMensajeImagen=" + 0 +
                 "&mensajeAudio=" + 0 + "&UsuarioChat_nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario + "&Chat_nombreChat=" +
                 nombreChat_Actual;
@@ -175,10 +189,23 @@ namespace ClienteProyectoDeMensajeria
                 if (response.ResponseStatus != ResponseStatus.Completed)
                     MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
                                "' Sucedió algo mal, intente más tarde");
-                else
+                else if(response.Content.Equals("1"))
                 {
-                    MessageBox.Show(response.Content);
+                    Mensaje mensaje = new Mensaje
+                    {
+                        date = fecha,
+                        favorito = 0,
+                        mensaje = textboxMensaje.Text,
+                        tipoMensaje = "texto",
+                        idMensajeImagen = 0,
+                        mensajeAudio = 0,
+                        UsuarioChat_nombreUsuario = MainWindow.usuarioLogeado.nombreUsuario,
+                        Chat_nombreChat = nombreChat_Actual
+                    };
+                    mensajes.Add(mensaje);
                 }
+                else
+                    MessageBox.Show("no se pudo enviar tu mensaje");
             }catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);

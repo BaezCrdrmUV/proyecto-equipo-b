@@ -69,8 +69,7 @@ namespace ClienteProyectoDeMensajeria
                     request.AddParameter("text/plain", "", ParameterType.RequestBody);
                     try
                     {
-                        IRestResponse response = client.Execute(request);
-                        MessageBox.Show(response.Content);
+                        IRestResponse response = client.Execute(request);                        
                         if (response.ResponseStatus != ResponseStatus.Completed)
                             MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
                                 "' Sucedió algo mal, intente más tarde");
