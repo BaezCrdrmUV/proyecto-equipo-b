@@ -23,7 +23,7 @@ namespace proyecto_equipo_b.Controllers
                 CuentaCompleta cuenta = new CuentaCompleta();
                 Console.WriteLine("===============================");
                 cuenta = client.IniciarSesion(correo,contrasena);
-                Console.WriteLine(cuenta.nombreUsuario);
+                Console.WriteLine(correo +" " + contrasena);
                 Console.WriteLine("Aquí entró");
             return cuenta;
         }
