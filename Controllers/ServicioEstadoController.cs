@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ServicioDeEstado;
 
 namespace proyecto_equipo_b.Controllers
 {
@@ -11,17 +12,47 @@ namespace proyecto_equipo_b.Controllers
     [Route("estado/")]
 
     public class ServicioEstadoController : Controller{
+
+        ServicioEstadoClient servicioEstado;
     
-    [HttpGet]
-    public string obtenerString(){
+        [HttpPost("RegistrarEstado")]
+        public Task<bool> registrarEstado(int idUsuario, int idEstadoImagen)
+        {
+            servicioEstado = new ServicioEstadoClient();
 
-        return "Hola";
-    }
+            return servicioEstado.RegistrarEstadoAsync(idUsuario, idEstadoImagen);
+        }
 
-    [HttpGet("hola")]
-    public String obtenerHola(){
-        return "Hola 2";
-    }
+        [HttpPost("ReaccionarAEstado")]
+        public Task<bool> reaccionarAEstado(int idEstado, int idReaccion, string nombreUsuario)
+        {
+            servicioEstado = new ServicioEstadoClient();
+
+            return servicioEstado.ReaccionarAEstadoAsync(idEstado, idReaccion, nombreUsuario);
+        }
+
+        [HttpGet("ObtenerMeGusta")]
+        public Task<string[]> ObtenerMeGustaDeEstado(int idEstado)
+        {
+            servicioEstado = new ServicioEstadoClient();
+
+            return servicioEstado.ObtenerUsuariosQueDieronMeGustaAsync(idEstado);
+        }
+
+        [HttpGet("ObtenerNoMeGusta")]
+        public Task<string[]> ObtenerNoMeGustaDeEstado(int idEstado)
+        {
+            servicioEstado = new ServicioEstadoClient();
+
+            return servicioEstado.ObtenerUsuariosQueDieronNoMeGustaAsync(idEstado);
+        }
+
+        [HttpGet("ObtenerEstados")]
+        public Task<Estado[]> ObtenerEstadosDeUsuario(int idUsuario)
+        {
+            servicioEstado = new ServicioEstadoClient();
+            return servicioEstado.ObtenerEstadosAsync(idUsuario); ;
+        }
 
     }
 

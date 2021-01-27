@@ -5,10 +5,14 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace proyecto_equipo_b.Entidad.Estado{
     public class Estado{
-        [Key]
-        public int idEstado {get; set;}
-        public String fecha {get; set;}
-        public int UsuarioEstado_idUsuarioEstado {get; set;}
-        public int idEstadoImagen {get; set;}
+
+        public Estado()
+        {
+
+        }
+
+        public string fecha {get; set;}
+        public string imagen { get; set; }
+        public string nombreUsuario { get; set; }
     }
 }

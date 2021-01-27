@@ -17,6 +17,7 @@ namespace proyecto_equipo_b.Controllers
         FotoCuentaUsuarioClient servicioCuentaUsuario;
         MensajeImagenClient servicioMensaje;
         AudioDeMensajeClient servicioAudio;
+        FotoEstadoClient servicioEstado;
 
 
         [HttpPost("registrarFotoCuentaUsuario")]
@@ -60,6 +61,20 @@ namespace proyecto_equipo_b.Controllers
         {
             servicioAudio = new AudioDeMensajeClient();
             return servicioAudio.ObtenerAudioDeMensajeAsync(idMensajeAudio);
+        }
+
+        [HttpPost("registrarFotoEstado")]
+        public Task<int> RegistrarFotoEstado([FromBody] Archivo archivo)
+        {
+            servicioEstado = new FotoEstadoClient();
+            return servicioEstado.RegistrarFotoDeEsatadoAsync(archivo.stringBase64);
+        }
+
+        [HttpGet("obtenerFotoEstado")]
+        public Task<string> ObtenerFotoEstado(int imagenEstado)
+        {
+            servicioEstado = new FotoEstadoClient();
+            return servicioEstado.ObtenerFotoDeEstadoAsync(imagenEstado); ;
         }
 
     }
