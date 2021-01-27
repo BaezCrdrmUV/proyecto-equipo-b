@@ -86,6 +86,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AgregarAmigo.xaml.cs">
+      <DependentUpon>AgregarAmigo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ChatGrupal.xaml.cs">
       <DependentUpon>ChatGrupal.xaml</DependentUpon>
     </Compile>
@@ -105,6 +108,10 @@
     <Compile Include="VerImagenesDelChat.xaml.cs">
       <DependentUpon>VerImagenesDelChat.xaml</DependentUpon>
     </Compile>
+    <Page Include="AgregarAmigo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ChatGrupal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

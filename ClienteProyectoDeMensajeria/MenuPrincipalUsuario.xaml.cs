@@ -1,20 +1,14 @@
 ﻿using Microsoft.Win32;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Media;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web.Helpers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace ClienteProyectoDeMensajeria
 {
@@ -26,10 +20,14 @@ namespace ClienteProyectoDeMensajeria
         SoundPlayer ReproductoWav;
         public EventHandler eventoEstados;
         public EventHandler eventoPerfil;
+        public EventHandler eventoAgregarAmigo;
         public EventHandler eventoChatGrupal;
         public EventHandler eventCerrarSesion;
         public EventHandler eventVerImagenesDelChat;
         String url;
+
+        //Valores para el chat
+        public string nombreChat_Actual;
         public MenuPrincipalUsuario()
         {
             InitializeComponent();
@@ -43,6 +41,13 @@ namespace ClienteProyectoDeMensajeria
         private void buttonPerfil_Click(object sender, RoutedEventArgs e)
         {
             eventoPerfil?.Invoke(this, e);
+        }
+
+        private void buttonAgregarAmigo_Click(object sender, RoutedEventArgs e)
+        {
+            eventoAgregarAmigo?.Invoke(this, e);
+            //validar existencia del usuario
+            // agregar amigo a servicio chat
         }
 
         private void buttonChatGrupal_Click(object sender, RoutedEventArgs e)
@@ -66,10 +71,6 @@ namespace ClienteProyectoDeMensajeria
             LabelMiNombreDeUsuario.Content = MainWindow.usuarioLogeado.nombreUsuario;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void detenerAudio(object sender, RoutedEventArgs e)
         {
@@ -108,6 +109,80 @@ namespace ClienteProyectoDeMensajeria
         private void eliminar(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void listChats_Loaded(object sender, RoutedEventArgs e)
+        {
+            string url = "http://localhost:5000/chat/obtenerChatsDeUsuario?nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario;
+
+            RestClient client = new RestClient(url);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            try
+            {
+                IRestResponse response = client.Execute(request);
+                var misChats = Json.Decode(response.Content);
+                foreach(var chat in misChats)
+                {
+                    listChats.Items.Add(chat.Chat_nombreChat);
+                }                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void listChats_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            LabelNombreAmigo.Content = listChats.SelectedItem;
+            nombreChat_Actual = listChats.SelectedItem.ToString();
+
+
+            string url = "http://localhost:5000/chat/obtenerMensajesChat?Chat_nombreChat="+ listChats.SelectedItem;
+
+            RestClient client = new RestClient(url);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            try
+            {
+                IRestResponse response = client.Execute(request);
+                var mensajes = Json.Decode(response.Content);
+                if (listViewMensajes.Items.Count > 0) listViewMensajes.Items.Clear();
+                foreach(var mensaje in mensajes)
+                {
+                    listViewMensajes.Items.Add(mensaje.mensaje);
+                }                
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void buttonEnviarMensaje_Click(object sender, RoutedEventArgs e)
+        {
+            string url = "http://localhost:5000/chat/enviarMensaje?fecha=" + DateTime.Now.ToString("yyyy-MM-dd") +
+            "&favorito=" + 0 + "&mensaje=" + textboxMensaje.Text + "&tipoMensaje=" + "texto" + "&idMensajeImagen=" + 0 +
+                "&mensajeAudio=" + 0 + "&UsuarioChat_nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario + "&Chat_nombreChat=" +
+                nombreChat_Actual;
+            MessageBox.Show(url);
+            RestClient client = new RestClient(url);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            try
+            {
+                IRestResponse response = client.Execute(request);
+                if (response.ResponseStatus != ResponseStatus.Completed)
+                    MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
+                               "' Sucedió algo mal, intente más tarde");
+                else
+                {
+                    MessageBox.Show(response.Content);
+                }
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

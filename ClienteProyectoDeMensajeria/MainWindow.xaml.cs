@@ -29,6 +29,7 @@ namespace ClienteProyectoDeMensajeria
         MenuPrincipalUsuario UserControlPrincipal = new MenuPrincipalUsuario();
         Estados UserControlEstados = new Estados();
         EditarPerfildeUsuario UserControlEditarPerfil = new EditarPerfildeUsuario();
+        AgregarAmigo UserControlAgregarAmigo = new AgregarAmigo();
         ChatGrupal UserControlChatGrupal = new ChatGrupal();
         VerImagenesDelChat UserControlImagenesDelChat = new VerImagenesDelChat();
         public MainWindow()
@@ -36,6 +37,7 @@ namespace ClienteProyectoDeMensajeria
             InitializeComponent();
             UserControlPrincipal.eventoEstados += EventoVerEstados;
             UserControlPrincipal.eventoPerfil += EventoVerPerfil;
+            UserControlPrincipal.eventoAgregarAmigo += EventoVerAgregarAmigo;
             UserControlPrincipal.eventoChatGrupal += EventoVerChatGrupal;
             UserControlPrincipal.eventCerrarSesion += EventoCerrarSesion;
             UserControlPrincipal.eventVerImagenesDelChat += EventoVerImagenesDelChat;
@@ -43,6 +45,8 @@ namespace ClienteProyectoDeMensajeria
             UserControlEstados.eventoCerrarEstados += EventoCerrarEstados;
 
             UserControlEditarPerfil.eventoCancelarEditarPerfil += EventoCancelarEditarPerfil;
+
+            UserControlAgregarAmigo.eventoCancelar += EventoCancelarAgregarAmigo;
 
             UserControlChatGrupal.eventoCancelarChatGrupal += EventoCancelarChatGrupal;
 
@@ -57,7 +61,7 @@ namespace ClienteProyectoDeMensajeria
                 {                    
                     string correo = textBoxCorreo.Text;
                     string contrasena = textboxContrasena.Password;
-                    string url = "http://cfa7025ffe33.ngrok.io/cuenta/login?correo=" + correo + "&contrasena=" + contrasena;
+                    string url = "http://localhost:5000/cuenta/login?correo=" + correo + "&contrasena=" + contrasena;
 
                     RestClient client = new RestClient(url);
                     client.Timeout = -1;
@@ -66,6 +70,7 @@ namespace ClienteProyectoDeMensajeria
                     try
                     {
                         IRestResponse response = client.Execute(request);
+                        MessageBox.Show(response.Content);
                         if (response.ResponseStatus != ResponseStatus.Completed)
                             MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
                                 "' Sucedió algo mal, intente más tarde");
@@ -131,7 +136,6 @@ namespace ClienteProyectoDeMensajeria
             {
                 MessageBox.Show(ex+"");
             }*/
-
         }
 
         private bool ValidarDatosIngresados()
@@ -180,6 +184,13 @@ namespace ClienteProyectoDeMensajeria
             gridPrincipal.Children.Add(UserControlEditarPerfil);
         }
 
+        private void EventoVerAgregarAmigo(object sender, EventArgs e)
+        {
+            UserControlAgregarAmigo.Visibility = Visibility.Visible;
+            gridPrincipal.Children.Remove(UserControlPrincipal);
+            gridPrincipal.Children.Add(UserControlAgregarAmigo);
+        }
+
         private void EventoVerChatGrupal(object sender, EventArgs e)
         {
             UserControlChatGrupal.Visibility = Visibility.Visible;
@@ -210,6 +221,13 @@ namespace ClienteProyectoDeMensajeria
         private void EventoCancelarEditarPerfil(object sender, EventArgs e)
         {
             gridPrincipal.Children.Remove(UserControlEditarPerfil);
+            gridPrincipal.Children.Add(UserControlPrincipal);
+            UserControlPrincipal.Visibility = Visibility.Visible;
+        }
+
+        private void EventoCancelarAgregarAmigo(object sender, EventArgs e)
+        {
+            gridPrincipal.Children.Remove(UserControlAgregarAmigo);
             gridPrincipal.Children.Add(UserControlPrincipal);
             UserControlPrincipal.Visibility = Visibility.Visible;
         }
