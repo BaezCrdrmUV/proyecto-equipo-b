@@ -20,10 +20,10 @@ namespace proyecto_equipo_b.Controllers
 
 
         [HttpPost("registrarFotoCuentaUsuario")]
-        public Task<int> RegistrarFotoCuentaUsuario([FromBody] FotoCuentaUsuario fotoStringBase64)
+        public Task<int> RegistrarFotoCuentaUsuario([FromBody] Archivo archivo)
         {
             servicioCuentaUsuario = new FotoCuentaUsuarioClient();
-            return servicioCuentaUsuario.RegistrarFotoCuentaUsuarioAsync(fotoStringBase64.foto);
+            return servicioCuentaUsuario.RegistrarFotoCuentaUsuarioAsync(archivo.stringBase64);
         }
 
         [HttpGet("obtenerFotoDeCuenta")]
@@ -35,10 +35,10 @@ namespace proyecto_equipo_b.Controllers
 
 
         [HttpPost("registrarFotoMensaje")]
-        public Task<int> RegistrarFotoMensaje(string fotoStringBase64)
+        public Task<int> RegistrarFotoMensaje([FromBody] Archivo archivo)
         {
             servicioMensaje = new MensajeImagenClient();
-            return servicioMensaje.RegistrarFotoDeMensajeAsync(fotoStringBase64);
+            return servicioMensaje.RegistrarFotoDeMensajeAsync(archivo.stringBase64);
         }
 
         [HttpGet("obtenerFotoDeMensaje")]
@@ -49,10 +49,10 @@ namespace proyecto_equipo_b.Controllers
         }
 
         [HttpPost("registrarAudioMensaje")]
-        public Task<int> RegistrarAudioMensaje(string audioStringBase64)
+        public Task<int> RegistrarAudioMensaje([FromBody] Archivo archivo)
         {
             servicioAudio = new AudioDeMensajeClient();
-            return servicioAudio.RegistrarAudioDeMensajeAsync(audioStringBase64);
+            return servicioAudio.RegistrarAudioDeMensajeAsync(archivo.stringBase64);
         }
 
         [HttpGet("obtenerAudioDeMensaje")]
