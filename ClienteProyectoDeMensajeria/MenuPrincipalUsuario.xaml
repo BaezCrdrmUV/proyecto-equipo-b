@@ -47,5 +47,9 @@
 
         <Label x:Name="LabelNombreAmigo" Content="Amigo" HorizontalAlignment="Left" Margin="230,14,0,0" VerticalAlignment="Top" Width="120" Foreground="#DDFFFFFF" FontSize="16"/>
         <Label x:Name="LabelMiNombreDeUsuario" Content="Yo" HorizontalAlignment="Left" Margin="10,14,0,0" VerticalAlignment="Top" Width="125" Foreground="#DDFFFFFF" FontSize="16" Loaded="LabelMiNombreDeUsuario_Loaded"/>
+        <Button Content="Grabar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="303,455,0,0" VerticalAlignment="Top" Width="90" Click="grabarAudio"/>
+        <Button Content="Detener" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="441,455,0,0" VerticalAlignment="Top" Width="90" Click="detenerAudio"/>
+        <Button Content="reproducir" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="579,455,0,0" VerticalAlignment="Top" Width="98" Click="reproducir"/>
+        <Button Content="eliminar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="725,455,0,0" VerticalAlignment="Top" Width="90" Click="eliminar"/>
     </Grid>
 </UserControl>
