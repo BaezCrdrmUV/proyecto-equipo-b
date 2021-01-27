@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using proyecto_equipo_b.Entidad.Multimedia;
 using ServicioMultimedia;
 
 namespace proyecto_equipo_b.Controllers
@@ -19,10 +20,10 @@ namespace proyecto_equipo_b.Controllers
 
 
         [HttpPost("registrarFotoCuentaUsuario")]
-        public Task<int> RegistrarFotoCuentaUsuario(string fotoStringBase64)
+        public Task<int> RegistrarFotoCuentaUsuario([FromBody] FotoCuentaUsuario fotoStringBase64)
         {
             servicioCuentaUsuario = new FotoCuentaUsuarioClient();
-            return servicioCuentaUsuario.RegistrarFotoCuentaUsuarioAsync(fotoStringBase64);
+            return servicioCuentaUsuario.RegistrarFotoCuentaUsuarioAsync(fotoStringBase64.foto);
         }
 
         [HttpGet("obtenerFotoDeCuenta")]

@@ -5,8 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 namespace proyecto_equipo_b.Entidad.Multimedia{
     public class FotoCuentaUsuario{
-        [Key]
-        public int idFotoCuentaUsuario{get; set;}
-        public int Direccion_idDireccion {get; set;}
+        public string foto {get; set;}
     }
 }
