@@ -2,6 +2,7 @@
 using RestSharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,19 +10,22 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MessageBox = System.Windows.MessageBox;
 
 namespace ClienteProyectoDeMensajeria
 {
     /// <summary>
     /// Lógica de interacción para RegistroCuenta.xaml
     /// </summary>
-    public partial class RegistroCuenta : UserControl
+    public partial class RegistroCuenta : System.Windows.Controls.UserControl
     {
         private int genero;
+        private string imagenPerfil_Base64;
         public EventHandler eventoCancelarRegistro;
         public EventHandler eventoRegistro;
         public RegistroCuenta()
@@ -40,17 +44,19 @@ namespace ClienteProyectoDeMensajeria
             {
                 if (Validacion.EsCorreoElectronicoValido(textBoxCorreo.Text))
                 {
+                    ///registrarMiImagenPerfil();
                     string nombreUsuario = textBoxUsuario.Text;
                     string correo = textBoxCorreo.Text;
                     string contrasenia = textBoxContrasena.Password;
                     string telefono = textBoxTelefono.Text;
                     int idFotoPerfil = 0; // ver que pedo aqui      
 
-                    string url = "http://localhost:5000/cuenta/registrarUsuario?nombreUsuario=" + nombreUsuario + "&correo=" + correo + "&contrasena=" + contrasenia +
+                    string url = "http://cfa7025ffe33.ngrok.io/cuenta/registrarUsuario?nombreUsuario=" + nombreUsuario + "&correo=" + correo + "&contrasena=" + contrasenia +
                         "&telefono=" + telefono + "&idFotoCuentaUsuario=" + idFotoPerfil + "&Genero_idGenero=" + genero;
                     var client = new RestClient(url);
                     client.Timeout = -1;
                     RestRequest request = new RestRequest(Method.POST);
+
                     try
                     {
                         IRestResponse response = client.Execute(request);
@@ -80,9 +86,68 @@ namespace ClienteProyectoDeMensajeria
 
         }
 
+        private void registrarMiImagenPerfil()
+        {
+            string url = "http://localhost:5000/multimedia/registrarFotoCuentaUsuario?fotoStringBase64=" + imagenPerfil_Base64;
+            var client = new RestClient(url);
+            client.Timeout = -1;
+            RestRequest request = new RestRequest(Method.POST);
+            //request.AddParameter("text/plain", "", ParameterType.RequestBody);
+            try
+            {
+                IRestResponse response = client.Execute(request);
+                if (response.ResponseStatus != ResponseStatus.Completed)
+                    MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
+                        "' Sucedió algo mal, intente más tarde");               
+                else
+                    MessageBox.Show(response.Content);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }           
+        }
+
         private void buttonCargarFoto_Click(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog exploradorArchivos = new OpenFileDialog
+            {
+                Filter = "*.jpg | *.jpg",
+                Title = "Imagen del producto",
+                RestoreDirectory = true
+            };
+            
+            DialogResult rutaImagen = exploradorArchivos.ShowDialog();
 
+            if (rutaImagen == System.Windows.Forms.DialogResult.OK)
+            {
+                string imagePath = exploradorArchivos.FileName;
+                Uri FilePath = new Uri(imagePath);
+                imagenPerfil.Source = new BitmapImage(FilePath);
+            }
+            try
+            {
+                byte[] imagen;
+                byte[] buffer = null;
+                int longitud;
+                var PathfileName = string.Empty;
+
+
+                using (var fs = new FileStream(exploradorArchivos.FileName, FileMode.Open, FileAccess.Read))
+                {
+                    buffer = new byte[fs.Length];
+                    fs.Read(buffer, 0, (int)fs.Length);
+                    longitud = (int)fs.Length;
+                }
+                imagen = buffer;                
+                imagenPerfil_Base64 = Convert.ToBase64String(imagen);                    
+                    
+                
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.GetType() + " | | " + error.Message);
+            }
         }
 
         private void comboBoxGenero_Loaded(object sender, RoutedEventArgs e)

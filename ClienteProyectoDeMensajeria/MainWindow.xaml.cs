@@ -57,7 +57,7 @@ namespace ClienteProyectoDeMensajeria
                 {                    
                     string correo = textBoxCorreo.Text;
                     string contrasena = textboxContrasena.Password;
-                    string url = "http://localhost:5000/cuenta/login?correo=" + correo + "&contrasena=" + contrasena;
+                    string url = "http://cfa7025ffe33.ngrok.io/cuenta/login?correo=" + correo + "&contrasena=" + contrasena;
 
                     RestClient client = new RestClient(url);
                     client.Timeout = -1;
