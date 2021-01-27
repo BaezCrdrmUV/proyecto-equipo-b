@@ -1,9 +1,11 @@
 ﻿using ClienteProyectoDeMensajeria.ClasesReutilizables;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,6 +30,7 @@ namespace ClienteProyectoDeMensajeria
         private string imagenPerfil_Base64;
         public EventHandler eventoCancelarRegistro;
         public EventHandler eventoRegistro;
+        int idFotoPerfil = 0;
         public RegistroCuenta()
         {
             InitializeComponent();
@@ -40,18 +43,20 @@ namespace ClienteProyectoDeMensajeria
 
         private void buttonRegistrar_Click(object sender, RoutedEventArgs e)
         {
+
             if (CamposLlenosRegistro())
             {
                 if (Validacion.EsCorreoElectronicoValido(textBoxCorreo.Text))
                 {
+                    registrarMiImagenPerfil();
                     ///registrarMiImagenPerfil();
                     string nombreUsuario = textBoxUsuario.Text;
                     string correo = textBoxCorreo.Text;
                     string contrasenia = textBoxContrasena.Password;
                     string telefono = textBoxTelefono.Text;
-                    int idFotoPerfil = 0; // ver que pedo aqui      
+                      
 
-                    string url = "http://cfa7025ffe33.ngrok.io/cuenta/registrarUsuario?nombreUsuario=" + nombreUsuario + "&correo=" + correo + "&contrasena=" + contrasenia +
+                    string url = "http://localhost:5000/cuenta/registrarUsuario?nombreUsuario=" + nombreUsuario + "&correo=" + correo + "&contrasena=" + contrasenia +
                         "&telefono=" + telefono + "&idFotoCuentaUsuario=" + idFotoPerfil + "&Genero_idGenero=" + genero;
                     var client = new RestClient(url);
                     client.Timeout = -1;
@@ -88,24 +93,26 @@ namespace ClienteProyectoDeMensajeria
 
         private void registrarMiImagenPerfil()
         {
-            string url = "http://localhost:5000/multimedia/registrarFotoCuentaUsuario?fotoStringBase64=" + imagenPerfil_Base64;
-            var client = new RestClient(url);
-            client.Timeout = -1;
-            RestRequest request = new RestRequest(Method.POST);
-            //request.AddParameter("text/plain", "", ParameterType.RequestBody);
-            try
+            System.Net.ServicePointManager.ServerCertificateValidationCallback = (senderX, certificate, chain, sslPolicyErrors) => { return true; };
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/multimedia/registrarFotoCuentaUsuario");
+            httpWebRequest.ContentType = "application/json";
+            httpWebRequest.Method = "POST";
+
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
-                IRestResponse response = client.Execute(request);
-                if (response.ResponseStatus != ResponseStatus.Completed)
-                    MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
-                        "' Sucedió algo mal, intente más tarde");               
-                else
-                    MessageBox.Show(response.Content);
+                string json = "{\"stringBase64\":"+"\""+imagenPerfil_Base64+"\"}";
+                MessageBox.Show(json);
+                streamWriter.Write(json);
             }
-            catch (Exception ex)
+
+            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
-                MessageBox.Show(ex.Message);
-            }           
+                var result = streamReader.ReadToEnd();
+                string result2 = result;
+                idFotoPerfil = Int32.Parse(result2);
+                MessageBox.Show(""+idFotoPerfil);
+            }
         }
 
         private void buttonCargarFoto_Click(object sender, RoutedEventArgs e)
