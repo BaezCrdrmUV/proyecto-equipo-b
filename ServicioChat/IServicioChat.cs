@@ -37,6 +37,8 @@ namespace ServicioChat
         int agregarAmigo(string nombreUsuario, string amigoNombreUsuario);
         [OperationContract]
         List<Amigo> obtenerAmigos(string nombreUsuario);
+        [OperationContract]
+        List<Chat_has_UsuarioChat> obtenerChatsDeUsuario(string nombreUsuario);
         // TODO: agregue aquí sus operaciones de servicio
     }
 
@@ -110,6 +112,21 @@ namespace ServicioChat
             Reaccion_idReaccion = reaccion_idReaccion;
             Mensaje_idMensaje = mensaje_idMensaje;
             UsuarioChat_nombreUsuario = usuarioChat_nombreUsuario;
+        }
+    }
+
+    [DataContract]
+    public class Chat_has_UsuarioChat
+    {
+        [DataMember]
+        string nombreUsuario;
+        [DataMember]
+        string Chat_nombreChat;
+
+        public Chat_has_UsuarioChat(string nombreUsuario, string chat_nombreChat)
+        {
+            this.nombreUsuario = nombreUsuario;
+            Chat_nombreChat = chat_nombreChat;
         }
     }
 }

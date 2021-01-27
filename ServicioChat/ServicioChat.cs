@@ -35,13 +35,23 @@ namespace ServicioChat
             try
             {
                 MySqlCommand comando = new MySqlCommand(string.Format(
-                "Insert into UsuarioChat (nombreUsuario,Chat_nombreChat) values ('{0}','{1}')", nombreUsuario, nombreChat), Conexion.ObtenerConexion());
+                "Insert into UsuarioChat (nombreUsuario) values ('{0}')", nombreUsuario), Conexion.ObtenerConexion());
                 retorno = comando.ExecuteNonQuery();
             }
             catch(Exception e)
             {
-                return retorno;
+                try
+                {
+                    MySqlCommand comando1 = new MySqlCommand(string.Format(
+                    "Insert into Chat_has_UsuarioChat (UsuarioChat_nombreUsuario,Chat_nombreChat) values ('{0}','{1}')", nombreUsuario, nombreChat), Conexion.ObtenerConexion());
+                    retorno = comando1.ExecuteNonQuery();
+                }catch(Exception a)
+                {
+                    retorno = 0;
+                    return retorno;
+                }
             }
+
             return retorno;
         }
 
@@ -143,6 +153,26 @@ namespace ServicioChat
             return list;
         }
 
+        public List<Chat_has_UsuarioChat> obtenerChatsDeUsuario(string nombreUsuario)
+        {
+            List<Chat_has_UsuarioChat> list = new List<Chat_has_UsuarioChat>();
+            try
+            {
+                MySqlCommand comando = new MySqlCommand(string.Format(
+             "Select * from Chat_has_UsuarioChat where UsuarioChat_nombreUsuario='{0}'", nombreUsuario), Conexion.ObtenerConexion());
+                MySqlDataReader reader = comando.ExecuteReader();
+                while (reader.Read())
+                {
+                    Chat_has_UsuarioChat usuarioC = new Chat_has_UsuarioChat(reader.GetString(0), reader.GetString(1));
+                    list.Add(usuarioC);
+                }
+            }catch(Exception e)
+            {
+                return list;
+            }
+            return list;
+        }
+
         public List<Mensaje> obtenerContenidoChat(string Chat_nombreChat)
         {
             List<Mensaje> list = new List<Mensaje>();
@@ -222,7 +252,7 @@ namespace ServicioChat
             try
             {
                 MySqlCommand comando = new MySqlCommand(string.Format(
-               "Delete from UsuarioChat where nombreUsuario='{0}' and Chat_nombreChat ='{1}'", nombreUsuario, Chat_nombreChat), Conexion.ObtenerConexion());
+               "Delete from Chat_has_UsuarioChat where UsuarioChat_nombreUsuario='{0}' and Chat_nombreChat ='{1}'", nombreUsuario, Chat_nombreChat), Conexion.ObtenerConexion());
                 retorno = comando.ExecuteNonQuery();
             } catch (Exception e)
             {
