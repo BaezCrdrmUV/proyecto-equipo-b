@@ -8,6 +8,7 @@ namespace ClienteProyectoDeMensajeria.ClasesReutilizables
 {
     public class Mensaje
     {
+        public int idMensaje { get; set; }
         public string date { get; set; }
         public int favorito { get; set; }
         public string mensaje { get; set; }
