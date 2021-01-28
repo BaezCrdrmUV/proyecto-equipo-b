@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListView x:Name="ListViewEstados" HorizontalAlignment="Left" Height="335" Margin="10,85,0,0" VerticalAlignment="Top" Width="155">
+        <ListView x:Name="ListViewEstados" HorizontalAlignment="Left" Height="290" Margin="10,130,0,0" VerticalAlignment="Top" Width="155">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
