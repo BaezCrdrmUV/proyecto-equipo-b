@@ -48,8 +48,7 @@ namespace ClienteProyectoDeMensajeria
             {
                 if (Validacion.EsCorreoElectronicoValido(textBoxCorreo.Text))
                 {
-                    registrarMiImagenPerfil();
-                    ///registrarMiImagenPerfil();
+                    registrarMiImagenPerfil();                   
                     string nombreUsuario = textBoxUsuario.Text;
                     string correo = textBoxCorreo.Text;
                     string contrasenia = textBoxContrasena.Password;
@@ -100,8 +99,7 @@ namespace ClienteProyectoDeMensajeria
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
-                string json = "{\"stringBase64\":"+"\""+imagenPerfil_Base64+"\"}";
-                MessageBox.Show(json);
+                string json = "{\"stringBase64\":"+"\""+imagenPerfil_Base64+"\"}";                
                 streamWriter.Write(json);
             }
 
@@ -111,7 +109,7 @@ namespace ClienteProyectoDeMensajeria
                 var result = streamReader.ReadToEnd();
                 string result2 = result;
                 idFotoPerfil = Int32.Parse(result2);
-                MessageBox.Show(""+idFotoPerfil);
+                MessageBox.Show("Estamos registrandolo...");
             }
         }
 
@@ -120,7 +118,7 @@ namespace ClienteProyectoDeMensajeria
             OpenFileDialog exploradorArchivos = new OpenFileDialog
             {
                 Filter = "*.jpg | *.jpg",
-                Title = "Imagen del producto",
+                Title = "Imagen de perfil",
                 RestoreDirectory = true
             };
             
@@ -174,7 +172,7 @@ namespace ClienteProyectoDeMensajeria
         private Boolean CamposLlenosRegistro()
         {
             if (textBoxUsuario.Text.Length > 0 && textBoxCorreo.Text.Length > 0 && textBoxTelefono.Text.Length > 0
-                && textBoxContrasena.Password.Length > 0 && (comboBoxGenero.SelectedIndex > -1))
+                && textBoxContrasena.Password.Length > 0 && (comboBoxGenero.SelectedIndex > -1) && imagenPerfil_Base64.Length >0)
                 return true;
             else
                 return false;
