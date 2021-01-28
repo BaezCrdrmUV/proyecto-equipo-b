@@ -12,13 +12,18 @@ using System.Web.Helpers;
 using System.Windows;
 using System.Windows.Controls;
 using Newtonsoft.Json;
+using System.Windows.Forms;
+using System.Windows.Media.Imaging;
+using System.IO;
+using MessageBox = System.Windows.MessageBox;
+using System.Net;
 
 namespace ClienteProyectoDeMensajeria
 {
     /// <summary>
     /// Lógica de interacción para MenuPrincipalUsuario.xaml
     /// </summary>
-    public partial class MenuPrincipalUsuario : UserControl
+    public partial class MenuPrincipalUsuario : System.Windows.Controls.UserControl
     {
         SoundPlayer ReproductoWav;
         public EventHandler eventoEstados;
@@ -51,7 +56,7 @@ namespace ClienteProyectoDeMensajeria
 
         private void buttonAgregarAmigo_Click(object sender, RoutedEventArgs e)
         {
-           
+
             eventoAgregarAmigo?.Invoke(this, e);
 
         }
@@ -80,7 +85,7 @@ namespace ClienteProyectoDeMensajeria
 
         private void detenerAudio(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog CajaDeDiaologoGuardar = new SaveFileDialog();
+            Microsoft.Win32.SaveFileDialog CajaDeDiaologoGuardar = new Microsoft.Win32.SaveFileDialog();
             CajaDeDiaologoGuardar.AddExtension = true;
             CajaDeDiaologoGuardar.FileName = "Audio.wav";
             CajaDeDiaologoGuardar.Filter = "Sonido (*.wav)|*.wav";
@@ -128,17 +133,17 @@ namespace ClienteProyectoDeMensajeria
                 if (response.ResponseStatus != ResponseStatus.Completed)
                     MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
                         "' Sucedió algo mal, intente más tarde");
-                if (response.Content.Length > 0){
+                if (response.Content.Length > 0) {
                     var chatsDeserializados = JsonConvert.DeserializeObject<List<Chat>>(response.Content);
                     if (misChats.Count > 0) misChats.Clear();
-                    foreach (var chat in chatsDeserializados){
+                    foreach (var chat in chatsDeserializados) {
                         misChats.Add(chat.Chat_nombreChat);
                     }
                     listChats.ItemsSource = misChats;
                 }
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 MessageBox.Show(ex.Message);
-            }            
+            }
         }
 
         private void listChats_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -165,6 +170,11 @@ namespace ClienteProyectoDeMensajeria
                 if (mensajes.Count > 0) mensajes.Clear();
                 foreach (var msj in mensajesDeserializados)
                 {
+                    if (msj.idMensajeImagen != 0)
+                    {
+                        var imagen = obtenerImagen(msj.idMensajeImagen);
+                        msj.imagenChat = imagen;
+                    }
                     mensajes.Add(msj);
                 }
                 listViewMensajes.ItemsSource = mensajes;
@@ -174,6 +184,46 @@ namespace ClienteProyectoDeMensajeria
                 MessageBox.Show(ex.Message);
             }
         }
+
+        public BitmapImage obtenerImagen(int idImagen) {
+            string url = "http://localhost:5000/multimedia/obtenerFotoDeMensaje?idMensajeImagen=" + idImagen;
+            RestClient client = new RestClient(url);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            try
+            {
+                IRestResponse response = client.Execute(request);
+                BitmapImage image = null;
+                if (response.ResponseStatus != ResponseStatus.Completed) {
+                    MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
+                               "' Sucedió algo mal, intente más tarde"); return null; }
+                else if (response.Content.Length > 0)
+                {
+                    var cadena = response.Content.Substring(1, response.Content.Length - 2).Replace(@"\/", "/");
+                    byte[] d = Convert.FromBase64String(cadena);
+                    MessageBox.Show(cadena);
+                    byte[] bytesDeImagen = Convert.FromBase64String(cadena);
+                    image = new BitmapImage();
+                    using (var mem = new MemoryStream(bytesDeImagen))
+                    {
+                        mem.Position = 0;
+                        image.BeginInit();
+                        image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                        image.CacheOption = BitmapCacheOption.OnLoad;
+                        image.UriSource = null;
+                        image.StreamSource = mem;
+                        image.EndInit();
+                    }                    
+                } 
+                return image;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+    
 
         private void buttonEnviarMensaje_Click(object sender, RoutedEventArgs e)
         {
@@ -280,6 +330,94 @@ namespace ClienteProyectoDeMensajeria
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void buttonFoto_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog exploradorArchivos = new System.Windows.Forms.OpenFileDialog
+            {
+                Filter = "*.jpg | *.jpg",
+                Title = "Elige una imagen",
+                RestoreDirectory = true
+            };
+            DialogResult rutaImagen = exploradorArchivos.ShowDialog();
+            if (rutaImagen == System.Windows.Forms.DialogResult.OK)
+            {
+                string imagePath = exploradorArchivos.FileName;
+                Uri FilePath = new Uri(imagePath);
+                var imagen = new BitmapImage(FilePath);                
+            }
+            try
+            {
+                byte[] imagen;
+                byte[] buffer = null;
+                int longitud;
+                var PathfileName = string.Empty;
+                using (var fs = new FileStream(exploradorArchivos.FileName, FileMode.Open, FileAccess.Read))
+                {
+                    buffer = new byte[fs.Length];
+                    fs.Read(buffer, 0, (int)fs.Length);
+                    longitud = (int)fs.Length;
+                }
+                imagen = buffer;
+                var imagen_Base64 = Convert.ToBase64String(imagen);
+                
+                //mando a llamar a guardar imagen
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = (senderX, certificate, chain, sslPolicyErrors) => { return true; };
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/multimedia/registrarFotoMensaje");
+                httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Method = "POST";
+
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+                    string json = "{\"stringBase64\":" + "\"" + imagen_Base64 + "\"}";
+                    streamWriter.Write(json);
+                }
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    string result2 = result;
+                    int idMsjImagen = Int32.Parse(result2);
+                    MessageBox.Show("enviando...");
+                    enviarMensajeImagen(idMsjImagen);
+                }
+                
+            }
+            catch (Exception error)
+            {
+                Console.WriteLine(error.Message);
+            }
+        }
+
+        private void enviarMensajeImagen(int idImagen)
+        {
+            var fecha = DateTime.Now.ToString("yyyy-MM-dd");
+            string url = "http://localhost:5000/chat/enviarMensaje?fecha=" + fecha +
+            "&favorito=" + 0 + "&mensaje=" + textboxMensaje.Text + "&tipoMensaje=" + "imagen" + "&idMensajeImagen=" + idImagen +
+                "&mensajeAudio=" + 0 + "&UsuarioChat_nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario + "&Chat_nombreChat=" +
+                nombreChat_Actual;
+            RestClient client = new RestClient(url);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            try
+            {
+                IRestResponse response = client.Execute(request);
+                if (response.ResponseStatus != ResponseStatus.Completed)
+                    MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
+                               "' Sucedió algo mal, intente más tarde");
+                else if (response.Content.Equals("1"))
+                {                    
+                    obtenerMensajes();
+                }
+                else
+                    MessageBox.Show("no se pudo enviar tu mensaje");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            textboxMensaje.Text = "";
         }
     }
 }

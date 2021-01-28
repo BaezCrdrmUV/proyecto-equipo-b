@@ -184,7 +184,6 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Iconos\Micro.png" />
     <Resource Include="Iconos\MicroOff.png" />

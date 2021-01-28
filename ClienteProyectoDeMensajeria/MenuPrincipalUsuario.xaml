@@ -22,19 +22,20 @@
             </Expander>
         </Border>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="630" Background="#FF444444" Margin="210,370,-40,0">
-            <TextBox x:Name="textboxMensaje" TextWrapping="Wrap" Text="" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" Background="White" Margin="19,19,144,19"/>
+            <TextBox x:Name="textboxMensaje" TextWrapping="Wrap" Text="" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" Background="White" Margin="84,19,114,19"/>
         </Border>
-        <Button x:Name="buttonEnviarMensaje" Content="Enviar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="725,393,-15,0" VerticalAlignment="Top" Width="90" Click="buttonEnviarMensaje_Click" />
+        <Button x:Name="buttonEnviarMensaje" Content="Enviar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="740,393,0,0" VerticalAlignment="Top" Width="90" Click="buttonEnviarMensaje_Click" />
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="405" VerticalAlignment="Top" Width="205" Background="#FF444444" Margin="0,85,0,0">
             <ListBox x:Name="listChats" Margin="9" Loaded="listChats_Loaded" Foreground="#DDFFFFFF" SelectionChanged="listChats_SelectionChanged" />
         </Border>
         <ListView x:Name="listViewMensajes" HorizontalAlignment="Left" Height="240" Margin="230,100,0,0" VerticalAlignment="Top" Width="530" Background="White" Foreground="#DDFFFFFF" SelectionChanged="listViewMensajes_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel x:Name="panelmensajes" Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <StackPanel x:Name="panelMensajes" Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                         <TextBlock Text="{Binding date}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
                         <TextBlock Text="{Binding UsuarioChat_nombreUsuario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" Background="#FF4D0378" />
                         <TextBlock Text="{Binding mensaje}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
+                        <Image x:Name="imagenChat" Source="{Binding imagenChat}" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill"  Width="100" Height="50"  />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -56,5 +57,6 @@
         <Button Content="Detener" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="441,455,0,0" VerticalAlignment="Top" Width="90" Click="detenerAudio"/>
         <Button Content="reproducir" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="579,455,0,0" VerticalAlignment="Top" Width="98" Click="reproducir"/>
         <Button Content="eliminar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="725,455,0,0" VerticalAlignment="Top" Width="90" Click="eliminar"/>
+        <Button x:Name="buttonFoto" Content="" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="220,393,0,0" VerticalAlignment="Top" Width="55" Click="buttonFoto_Click"/>
     </Grid>
 </UserControl>

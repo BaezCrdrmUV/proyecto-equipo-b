@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace ClienteProyectoDeMensajeria.ClasesReutilizables
 {
@@ -17,6 +19,7 @@ namespace ClienteProyectoDeMensajeria.ClasesReutilizables
         public int mensajeAudio { get; set; }
         public string UsuarioChat_nombreUsuario { get; set; }
         public string Chat_nombreChat { get; set; }
+        public BitmapImage imagenChat { get; set; }
         
         public Mensaje()
         {
