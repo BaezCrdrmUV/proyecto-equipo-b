@@ -21,6 +21,10 @@ namespace ServicioChat
                 MySqlCommand comando = new MySqlCommand(string.Format(
                 "Insert into Amigo (nombreUsuario,amigoNombreUsuario) values ('{0}','{1}')",nombreUsuario,amigoNombreUsuario), Conexion.ObtenerConexion());
                 retorno = comando.ExecuteNonQuery();
+
+                MySqlCommand comando2 = new MySqlCommand(string.Format(
+                "Insert into Amigo (nombreUsuario,amigoNombreUsuario) values ('{0}','{1}')",amigoNombreUsuario, nombreUsuario), Conexion.ObtenerConexion());
+                retorno = comando2.ExecuteNonQuery();
             }
             catch(Exception e)
             {
@@ -45,12 +49,26 @@ namespace ServicioChat
                     MySqlCommand comando1 = new MySqlCommand(string.Format(
                     "Insert into Chat_has_UsuarioChat (UsuarioChat_nombreUsuario,Chat_nombreChat) values ('{0}','{1}')", nombreUsuario, nombreChat), Conexion.ObtenerConexion());
                     retorno = comando1.ExecuteNonQuery();
-                }catch(Exception a)
+                    return retorno;
+                }
+                catch(Exception a)
                 {
                     retorno = 0;
                     return retorno;
                 }
             }
+            try
+            {
+                MySqlCommand comando1 = new MySqlCommand(string.Format(
+                "Insert into Chat_has_UsuarioChat (UsuarioChat_nombreUsuario,Chat_nombreChat) values ('{0}','{1}')", nombreUsuario, nombreChat), Conexion.ObtenerConexion());
+                retorno = comando1.ExecuteNonQuery();
+            }
+            catch (Exception a)
+            {
+                retorno = 0;
+                return retorno;
+            }
+
 
             return retorno;
         }
@@ -163,7 +181,7 @@ namespace ServicioChat
                 MySqlDataReader reader = comando.ExecuteReader();
                 while (reader.Read())
                 {
-                    Chat_has_UsuarioChat usuarioC = new Chat_has_UsuarioChat(reader.GetString(0), reader.GetString(1));
+                    Chat_has_UsuarioChat usuarioC = new Chat_has_UsuarioChat(reader.GetString(1), reader.GetString(0));
                     list.Add(usuarioC);
                 }
             }catch(Exception e)

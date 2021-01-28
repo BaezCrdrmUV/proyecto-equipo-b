@@ -10,18 +10,18 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `mydb` ;
+DROP SCHEMA IF EXISTS `serviciochat` ;
 
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `serviciochat` DEFAULT CHARACTER SET utf8 ;
+USE `serviciochat` ;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Amigo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Amigo` (
+CREATE TABLE IF NOT EXISTS `serviciochat`.`Amigo` (
   `idAmigo` INT NOT NULL AUTO_INCREMENT,
   `nombreUsuario` VARCHAR(100) NOT NULL,
   `amigoNombreUsuario` VARCHAR(100) NOT NULL,
@@ -32,7 +32,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Chat`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Chat` (
+CREATE TABLE IF NOT EXISTS `serviciochat`.`Chat` (
   `nombreChat` VARCHAR(100) NOT NULL,
   `tipoChat` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`nombreChat`))
@@ -42,7 +42,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Chat_has_UsuarioChat`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Chat_has_UsuarioChat` (
+CREATE TABLE IF NOT EXISTS `serviciochat`.`Chat_has_UsuarioChat` (
   `Chat_nombreChat` VARCHAR(100) NOT NULL,
   `UsuarioChat_nombreUsuario` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`Chat_nombreChat`, `UsuarioChat_nombreUsuario`),
@@ -50,12 +50,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Chat_has_UsuarioChat` (
   INDEX `fk_Chat_has_UsuarioChat_Chat1_idx` (`Chat_nombreChat` ASC) VISIBLE,
   CONSTRAINT `fk_Chat_has_UsuarioChat_Chat1`
     FOREIGN KEY (`Chat_nombreChat`)
-    REFERENCES `mydb`.`Chat` (`nombreChat`)
+    REFERENCES `serviciochat`.`Chat` (`nombreChat`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Chat_has_UsuarioChat_UsuarioChat1`
     FOREIGN KEY (`UsuarioChat_nombreUsuario`)
-    REFERENCES `mydb`.`UsuarioChat` (`nombreUsuario`)
+    REFERENCES `serviciochat`.`UsuarioChat` (`nombreUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -64,7 +64,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Mensaje`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Mensaje` (
+CREATE TABLE IF NOT EXISTS `serviciochat`.`Mensaje` (
   `idMensaje` INT NOT NULL AUTO_INCREMENT,
   `fecha` DATE NOT NULL,
   `favorito` TINYINT NOT NULL,
@@ -79,12 +79,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Mensaje` (
   INDEX `fk_Mensaje_Chat1_idx` (`Chat_nombreChat` ASC) VISIBLE,
   CONSTRAINT `fk_Mensaje_UsuarioChat1`
     FOREIGN KEY (`UsuarioChat_nombreUsuario`)
-    REFERENCES `mydb`.`UsuarioChat` (`nombreUsuario`)
+    REFERENCES `serviciochat`.`UsuarioChat` (`nombreUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Mensaje_Chat1`
     FOREIGN KEY (`Chat_nombreChat`)
-    REFERENCES `mydb`.`Chat` (`nombreChat`)
+    REFERENCES `serviciochat`.`Chat` (`nombreChat`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -93,7 +93,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Reaccion`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Reaccion` (
+CREATE TABLE IF NOT EXISTS `serviciochat`.`Reaccion` (
   `idReaccion` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idReaccion`))
@@ -103,7 +103,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Reaccion_has_Mensaje`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Reaccion_has_Mensaje` (
+CREATE TABLE IF NOT EXISTS `serviciochat`.`Reaccion_has_Mensaje` (
   `Reaccion_idReaccion` INT NOT NULL AUTO_INCREMENT,
   `Mensaje_idMensaje` INT NOT NULL,
   `UsuarioChat_nombreUsuario` VARCHAR(100) NOT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Reaccion_has_Mensaje` (
   INDEX `fk_Reaccion_has_Mensaje_UsuarioChat1_idx` (`UsuarioChat_nombreUsuario` ASC) VISIBLE,
   CONSTRAINT `fk_Reaccion_has_Mensaje_Reaccion1`
     FOREIGN KEY (`Reaccion_idReaccion`)
-    REFERENCES `mydb`.`Reaccion` (`idReaccion`)
+    REFERENCES `serviciochat`.`Reaccion` (`idReaccion`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Reaccion_has_Mensaje_Mensaje1`
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Reaccion_has_Mensaje` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Reaccion_has_Mensaje_UsuarioChat1`
     FOREIGN KEY (`UsuarioChat_nombreUsuario`)
-    REFERENCES `mydb`.`UsuarioChat` (`nombreUsuario`)
+    REFERENCES `serviciochat`.`UsuarioChat` (`nombreUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -132,7 +132,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`UsuarioChat`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`UsuarioChat` (
+CREATE TABLE IF NOT EXISTS `serviciochat`.`UsuarioChat` (
   `nombreUsuario` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`nombreUsuario`))
 ENGINE = InnoDB;
