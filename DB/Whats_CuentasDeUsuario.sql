@@ -10,18 +10,18 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `mydb` ;
+DROP SCHEMA IF EXISTS `whats_cuentasdeusuario` ;
 
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `whats_cuentasdeusuario` DEFAULT CHARACTER SET utf8 ;
+USE `whats_cuentasdeusuario` ;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Contrasena`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Contrasena` (
+CREATE TABLE IF NOT EXISTS `whats_cuentasdeusuario`.`Contrasena` (
   `idContrasena` INT NOT NULL AUTO_INCREMENT,
   `contrasena` VARCHAR(200) NOT NULL,
   `Cuenta_idCuenta` INT NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Contrasena` (
   INDEX `fk_Contrasena_Cuenta1_idx` (`Cuenta_idCuenta` ASC) VISIBLE,
   CONSTRAINT `fk_Contrasena_Cuenta1`
     FOREIGN KEY (`Cuenta_idCuenta`)
-    REFERENCES `mydb`.`Cuenta` (`idCuenta`)
+    REFERENCES `whats_cuentasdeusuario`.`Cuenta` (`idCuenta`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -38,7 +38,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Correo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Correo` (
+CREATE TABLE IF NOT EXISTS `whats_cuentasdeusuario`.`Correo` (
   `idCorreo` INT NOT NULL AUTO_INCREMENT,
   `correo` VARCHAR(100) NOT NULL,
   `Cuenta_idCuenta` INT NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Correo` (
   INDEX `fk_Correo_Cuenta_idx` (`Cuenta_idCuenta` ASC) VISIBLE,
   CONSTRAINT `fk_Correo_Cuenta`
     FOREIGN KEY (`Cuenta_idCuenta`)
-    REFERENCES `mydb`.`Cuenta` (`idCuenta`)
+    REFERENCES `whats_cuentasdeusuario`.`Cuenta` (`idCuenta`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -55,7 +55,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Cuenta`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Cuenta` (
+CREATE TABLE IF NOT EXISTS `whats_cuentasdeusuario`.`Cuenta` (
   `idCuenta` INT NOT NULL AUTO_INCREMENT,
   `nombreUsuario` VARCHAR(100) NOT NULL,
   `idFotoCuentaUsuario` INT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Cuenta` (
   INDEX `fk_Cuenta_Genero1_idx` (`Genero_idGenero` ASC) VISIBLE,
   CONSTRAINT `fk_Cuenta_Genero1`
     FOREIGN KEY (`Genero_idGenero`)
-    REFERENCES `mydb`.`Genero` (`idGenero`)
+    REFERENCES `whats_cuentasdeusuario`.`Genero` (`idGenero`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -73,7 +73,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Genero`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Genero` (
+CREATE TABLE IF NOT EXISTS `whats_cuentasdeusuario`.`Genero` (
   `idGenero` INT NOT NULL AUTO_INCREMENT,
   `genero` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idGenero`))
@@ -83,7 +83,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Telefono`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Telefono` (
+CREATE TABLE IF NOT EXISTS `whats_cuentasdeusuario`.`Telefono` (
   `idTelefono` INT NOT NULL AUTO_INCREMENT,
   `telefono` VARCHAR(20) NOT NULL,
   `Cuenta_idCuenta` INT NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Telefono` (
   INDEX `fk_Telefono_Cuenta1_idx` (`Cuenta_idCuenta` ASC) VISIBLE,
   CONSTRAINT `fk_Telefono_Cuenta1`
     FOREIGN KEY (`Cuenta_idCuenta`)
-    REFERENCES `mydb`.`Cuenta` (`idCuenta`)
+    REFERENCES `whats_cuentasdeusuario`.`Cuenta` (`idCuenta`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
