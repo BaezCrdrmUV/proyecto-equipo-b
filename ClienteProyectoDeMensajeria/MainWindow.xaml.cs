@@ -1,24 +1,9 @@
-﻿
-using ClienteProyectoDeMensajeria.ClasesReutilizables;
+﻿using ClienteProyectoDeMensajeria.ClasesReutilizables;
 using RestSharp;
 using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Helpers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace ClienteProyectoDeMensajeria
 {
@@ -97,44 +82,7 @@ namespace ClienteProyectoDeMensajeria
             {
                 textBoxCorreo.BorderBrush = System.Windows.Media.Brushes.Red;
                 textboxContrasena.BorderBrush = System.Windows.Media.Brushes.Red;
-            }
-                                  
-            /*var url = $"http://localhost:5000/estado";
-            var request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = "GET";
-            request.ContentType = "application/json";
-            request.Accept = "application/json";
-            MessageBox.Show("Entró al método");
-            System.Net.ServicePointManager.ServerCertificateValidationCallback = (senderX, certificate, chain, sslPolicyErrors) => { return true; };
-            try
-            {
-                MessageBox.Show("Entró al try");
-                using (WebResponse response = request.GetResponse())
-                {
-                    MessageBox.Show("Primer using");
-                    using (Stream strReader = response.GetResponseStream())
-                    {
-                        MessageBox.Show("Segundo using");
-                        if (strReader == null) return;
-                        MessageBox.Show("Despues del if");
-                        using (StreamReader objReader = new StreamReader(strReader))
-                        {
-                            MessageBox.Show("Último using");
-                            string responseBody = objReader.ReadToEnd();
-                            // Do something with responseBody
-                            Console.WriteLine(responseBody);
-                            MessageBox.Show(responseBody);
-                            DesaparecerComponentes();
-                            UserControlPrincipal.Visibility = Visibility.Visible;
-                            gridPrincipal.Children.Add(UserControlPrincipal);
-                        }
-                    }
-                }
-            }
-            catch (WebException ex)
-            {
-                MessageBox.Show(ex+"");
-            }*/
+            }                                              
         }
 
         private bool ValidarDatosIngresados()
