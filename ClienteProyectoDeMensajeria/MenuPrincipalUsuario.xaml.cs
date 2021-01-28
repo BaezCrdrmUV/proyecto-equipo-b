@@ -56,9 +56,7 @@ namespace ClienteProyectoDeMensajeria
 
         private void buttonAgregarAmigo_Click(object sender, RoutedEventArgs e)
         {
-
             eventoAgregarAmigo?.Invoke(this, e);
-
         }
 
         private void buttonChatGrupal_Click(object sender, RoutedEventArgs e)
@@ -69,7 +67,9 @@ namespace ClienteProyectoDeMensajeria
         private void buttonCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.usuarioLogeado = null;
+            LabelNombreAmigo.Content = "";
             mensajes.Clear();
+            misChats.Clear();
             eventCerrarSesion?.Invoke(this, e);
         }
 
@@ -109,7 +109,6 @@ namespace ClienteProyectoDeMensajeria
         {
             Grabar("open new Type waveaudio Alias recsound", "", 0, 0);
             Grabar("record recsound", "", 0, 0);
-
         }
 
         private void reproducir(object sender, RoutedEventArgs e)
@@ -148,11 +147,15 @@ namespace ClienteProyectoDeMensajeria
         }
 
         private void listChats_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            LabelNombreAmigo.Content = listChats.SelectedItem;
-            nombreChat_Actual = listChats.SelectedItem.ToString();
+        {            
+            if(listChats.SelectedItem != null)
+            {
+                LabelNombreAmigo.Content = listChats.SelectedItem;
+                nombreChat_Actual = listChats.SelectedItem.ToString();
+                obtenerMensajes();
+            }           
             textboxMensaje.Text = "";
-            obtenerMensajes();
+            
         }
 
         private void obtenerMensajes()
@@ -270,18 +273,7 @@ namespace ClienteProyectoDeMensajeria
                                    "' Sucedió algo mal, intente más tarde");
                     else if (response.Content.Equals("1"))
                     {
-                        Mensaje mensaje = new Mensaje
-                        {
-                            date = fecha,
-                            favorito = 0,
-                            mensaje = textboxMensaje.Text,
-                            tipoMensaje = "texto",
-                            idMensajeImagen = 0,
-                            mensajeAudio = 0,
-                            UsuarioChat_nombreUsuario = MainWindow.usuarioLogeado.nombreUsuario,
-                            Chat_nombreChat = nombreChat_Actual
-                        };
-                        mensajes.Add(mensaje);
+                        obtenerMensajes();
                     }
                     else
                         MessageBox.Show("no se pudo enviar tu mensaje");
@@ -289,9 +281,9 @@ namespace ClienteProyectoDeMensajeria
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                }
-                textboxMensaje.Text = "";
-            }            
+                }               
+            }
+            textboxMensaje.Text = "";
         }
 
         private void listViewMensajes_SelectionChanged(object sender, SelectionChangedEventArgs e)

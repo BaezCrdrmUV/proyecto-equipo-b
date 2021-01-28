@@ -61,6 +61,7 @@ namespace ClienteProyectoDeMensajeria
             {
                 MessageBox.Show(ex.Message);
             }
+            textBoxNombreUsuario.Text = "";
         }
 
         private void buttonCancelar_Click(object sender, RoutedEventArgs e)
@@ -141,6 +142,7 @@ namespace ClienteProyectoDeMensajeria
             {
                 MessageBox.Show(ex.Message);
             }
+            textBoxNombreChat.Text = "";
         }
     }
 }

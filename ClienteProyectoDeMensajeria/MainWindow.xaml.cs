@@ -51,7 +51,8 @@ namespace ClienteProyectoDeMensajeria
                     RestClient client = new RestClient(url);
                     client.Timeout = -1;
                     var request = new RestRequest(Method.POST);
-                    //request.AddParameter("text/plain", "", ParameterType.RequestBody);
+                    request.AddParameter("text/plain", "", ParameterType.RequestBody);
+                    System.Net.ServicePointManager.ServerCertificateValidationCallback = (senderX, certificate, chain, sslPolicyErrors) => { return true; };
                     try
                     {
                         IRestResponse response = client.Execute(request);                        

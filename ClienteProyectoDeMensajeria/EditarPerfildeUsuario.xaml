@@ -21,7 +21,7 @@
         <Label Content="Telefono" HorizontalAlignment="Left" Margin="305,232,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#DDFFFFFF" FontSize="16"/>
         <Label Content="Género" HorizontalAlignment="Left" Margin="25,240,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#DDFFFFFF" FontSize="16"/>
         <ComboBox x:Name="comboBoxGenero"  materialDesign:TextFieldAssist.TextBoxViewMargin="2" HorizontalAlignment="Left" Margin="25,269,0,0" VerticalAlignment="Top" Width="140" Background="White" Text="Seleccione un género" IsEditable="True" IsReadOnly="True" Loaded="comboBoxGenero_Loaded" SelectionChanged="comboBoxGenero_SelectionChanged" Height="28" />
-        <Image x:Name="imagenPerfil"  HorizontalAlignment="Stretch" Height="110" Margin="50,40,635,0" VerticalAlignment="Top" Width="115" Stretch="Fill" >
+        <Image x:Name="imagenPerfil"  HorizontalAlignment="Stretch" Height="110" Margin="50,40,635,0" VerticalAlignment="Top" Width="115" Stretch="Fill" Loaded="imagenPerfil_Loaded" >
         </Image>
         <Button x:Name="buttonCargarFoto" Content="Cargar foto" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="50,155,0,0" VerticalAlignment="Top" Width="112" FontSize="16" Background="White" Foreground="#FF673AB7" FontWeight="Normal" Click="buttonCargarFoto_Click"/>
 
