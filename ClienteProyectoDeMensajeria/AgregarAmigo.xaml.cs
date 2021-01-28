@@ -52,7 +52,7 @@ namespace ClienteProyectoDeMensajeria
                     client.Timeout = -1;
                     var requestAgregarAmigo = new RestRequest(Method.POST);
                     IRestResponse responseAgregarAmigo = client.Execute(requestAgregarAmigo);
-                    MessageBox.Show("agregado? " + response.Content);
+                    MessageBox.Show(response.Content +" agregado");
                 }
                 else
                     MessageBox.Show("No existe este usuario en WhatsApp Chacalón");
@@ -80,11 +80,15 @@ namespace ClienteProyectoDeMensajeria
             try
             {
                 IRestResponse response = client.Execute(request);
-                var amigos = Json.Decode(response.Content);
-                foreach (var amigo in amigos)
+                if (response.ResponseStatus != ResponseStatus.Completed)
+                    MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
+                        "' Sucedió algo mal, intente más tarde");
+                if(response.Content.Length > 0)
                 {
-                    listAmigos.Items.Add(amigo.amigoNombreUsuario);
-                }
+                    var amigos = Json.Decode(response.Content);
+                    foreach (var amigo in amigos)                    
+                        listAmigos.Items.Add(amigo.amigoNombreUsuario);                    
+                }                
             }
             catch (Exception ex)
             {
