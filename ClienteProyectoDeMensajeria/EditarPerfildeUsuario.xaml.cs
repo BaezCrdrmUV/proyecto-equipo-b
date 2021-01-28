@@ -41,7 +41,7 @@ namespace ClienteProyectoDeMensajeria
                     string telefono = textBoxTelefono.Text;
                     int idFotoPerfil = 0;
 
-                    string url = "http://cfa7025ffe33.ngrok.io/cuenta/modificarUsuario?idCuenta=" + MainWindow.usuarioLogeado.idCuenta + "&nombreUsuario=" + nombreUsuario + "&correo=" + correo + "&contrasena=" + contrasenia +
+                    string url = "http://25.21.180.245:8000/cuenta/modificarUsuario?idCuenta=" + MainWindow.usuarioLogeado.idCuenta + "&nombreUsuario=" + nombreUsuario + "&correo=" + correo + "&contrasena=" + contrasenia +
                         "&telefono=" + telefono + "&idFotoCuentaUsuario=" + idFotoPerfil + "&Genero_idGenero=" + genero;
                     var client = new RestClient(url);
                     client.Timeout = -1;

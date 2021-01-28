@@ -46,12 +46,12 @@ namespace ClienteProyectoDeMensajeria
                 {                    
                     string correo = textBoxCorreo.Text;
                     string contrasena = textboxContrasena.Password;
-                    string url = "http://localhost:5000/cuenta/login?correo=" + correo + "&contrasena=" + contrasena;
+                    string url = "http://25.21.180.245:8000/cuenta/login?correo=" + correo + "&contrasena=" + contrasena;
 
                     RestClient client = new RestClient(url);
                     client.Timeout = -1;
                     var request = new RestRequest(Method.POST);
-                    request.AddParameter("text/plain", "", ParameterType.RequestBody);
+                    //request.AddParameter("text/plain", "", ParameterType.RequestBody);
                     try
                     {
                         IRestResponse response = client.Execute(request);                        

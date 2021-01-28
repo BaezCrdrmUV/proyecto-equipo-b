@@ -45,7 +45,7 @@ namespace ClienteProyectoDeMensajeria
                     string telefono = textBoxTelefono.Text;
                       
 
-                    string url = "http://localhost:5000/cuenta/registrarUsuario?nombreUsuario=" + nombreUsuario + "&correo=" + correo + "&contrasena=" + contrasenia +
+                    string url = "http://25.21.180.245:8000/cuenta/registrarUsuario?nombreUsuario=" + nombreUsuario + "&correo=" + correo + "&contrasena=" + contrasenia +
                         "&telefono=" + telefono + "&idFotoCuentaUsuario=" + idFotoPerfil + "&Genero_idGenero=" + genero;
                     var client = new RestClient(url);
                     client.Timeout = -1;
@@ -83,7 +83,7 @@ namespace ClienteProyectoDeMensajeria
         private void registrarMiImagenPerfil()
         {
             System.Net.ServicePointManager.ServerCertificateValidationCallback = (senderX, certificate, chain, sslPolicyErrors) => { return true; };
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/multimedia/registrarFotoCuentaUsuario");
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://25.21.180.245:8000/multimedia/registrarFotoCuentaUsuario");
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "POST";
 

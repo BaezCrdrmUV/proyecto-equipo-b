@@ -69,6 +69,7 @@ namespace ClienteProyectoDeMensajeria
         private void buttonCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
             MainWindow.usuarioLogeado = null;
+            mensajes.Clear();
             eventCerrarSesion?.Invoke(this, e);
         }
 
@@ -124,7 +125,7 @@ namespace ClienteProyectoDeMensajeria
 
         private void listChats_Loaded(object sender, RoutedEventArgs e)
         {
-            string url = "http://localhost:5000/chat/obtenerChatsDeUsuario?nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario;
+            string url = "http://25.21.180.245:8000/chat/obtenerChatsDeUsuario?nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario;
             RestClient client = new RestClient(url);
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
@@ -156,7 +157,7 @@ namespace ClienteProyectoDeMensajeria
 
         private void obtenerMensajes()
         {
-            string url = "http://localhost:5000/chat/obtenerMensajesChat?Chat_nombreChat=" + listChats.SelectedItem;
+            string url = "http://25.21.180.245:8000/chat/obtenerMensajesChat?Chat_nombreChat=" + listChats.SelectedItem;
             RestClient client = new RestClient(url);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
@@ -186,7 +187,7 @@ namespace ClienteProyectoDeMensajeria
         }
 
         public BitmapImage obtenerImagen(int idImagen) {
-            string url = "http://localhost:5000/multimedia/obtenerFotoDeMensaje?idMensajeImagen=" + idImagen;
+            string url = "http://25.21.180.245:8000/multimedia/obtenerFotoDeMensaje?idMensajeImagen=" + idImagen;
             RestClient client = new RestClient(url);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
@@ -199,9 +200,7 @@ namespace ClienteProyectoDeMensajeria
                                "' Sucedió algo mal, intente más tarde"); return null; }
                 else if (response.Content.Length > 0)
                 {
-                    var cadena = response.Content.Substring(1, response.Content.Length - 2).Replace(@"\/", "/");
-                    byte[] d = Convert.FromBase64String(cadena);
-                    MessageBox.Show(cadena);
+                    var cadena = response.Content.Substring(1, response.Content.Length - 2).Replace(@"\/", "/");                                       
                     byte[] bytesDeImagen = Convert.FromBase64String(cadena);
                     image = new BitmapImage();
                     using (var mem = new MemoryStream(bytesDeImagen))
@@ -217,9 +216,9 @@ namespace ClienteProyectoDeMensajeria
                 } 
                 return image;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Por el momento no se puede mostrar la imágen");
                 return null;
             }
         }
@@ -230,7 +229,7 @@ namespace ClienteProyectoDeMensajeria
             if (modoEdicionMensaje)
             {
                 var mensajeSeleccionado = listViewMensajes.SelectedItem as Mensaje;
-                string urlEdicion = "http://localhost:5000/chat/editarMensaje?idMensaje=" + mensajeSeleccionado.idMensaje + "&favorito=" + 0 + "&mensaje=" + textboxMensaje.Text;
+                string urlEdicion = "http://25.21.180.245:8000/chat/editarMensaje?idMensaje=" + mensajeSeleccionado.idMensaje + "&favorito=" + 0 + "&mensaje=" + textboxMensaje.Text;
                 RestClient client = new RestClient(urlEdicion);
                 client.Timeout = -1;
                 var request = new RestRequest(Method.POST);
@@ -246,6 +245,7 @@ namespace ClienteProyectoDeMensajeria
                     }
                     else
                         MessageBox.Show("no se pudo enviar tu mensaje");
+                    modoEdicionMensaje = false;
                 }
                 catch (Exception ex)
                 {
@@ -255,7 +255,7 @@ namespace ClienteProyectoDeMensajeria
             else
             {
                 var fecha = DateTime.Now.ToString("yyyy-MM-dd");
-                string url = "http://localhost:5000/chat/enviarMensaje?fecha=" + fecha +
+                string url = "http://25.21.180.245:8000/chat/enviarMensaje?fecha=" + fecha +
                 "&favorito=" + 0 + "&mensaje=" + textboxMensaje.Text + "&tipoMensaje=" + "texto" + "&idMensajeImagen=" + 0 +
                     "&mensajeAudio=" + 0 + "&UsuarioChat_nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario + "&Chat_nombreChat=" +
                     nombreChat_Actual;
@@ -310,7 +310,7 @@ namespace ClienteProyectoDeMensajeria
         private void buttonEliminarMsj_Click(object sender, RoutedEventArgs e)
         {
             var mensajeSeleccionado = listViewMensajes.SelectedItem as Mensaje;
-            string url = "http://localhost:5000/chat/eliminarMensaje?idMensaje=" + mensajeSeleccionado.idMensaje;
+            string url = "http://25.21.180.245:8000/chat/eliminarMensaje?idMensaje=" + mensajeSeleccionado.idMensaje;
             RestClient client = new RestClient(url);
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
@@ -364,7 +364,7 @@ namespace ClienteProyectoDeMensajeria
                 
                 //mando a llamar a guardar imagen
                 System.Net.ServicePointManager.ServerCertificateValidationCallback = (senderX, certificate, chain, sslPolicyErrors) => { return true; };
-                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://localhost:5000/multimedia/registrarFotoMensaje");
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://25.21.180.245:8000/multimedia/registrarFotoMensaje");
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "POST";
 
@@ -393,7 +393,7 @@ namespace ClienteProyectoDeMensajeria
         private void enviarMensajeImagen(int idImagen)
         {
             var fecha = DateTime.Now.ToString("yyyy-MM-dd");
-            string url = "http://localhost:5000/chat/enviarMensaje?fecha=" + fecha +
+            string url = "http://25.21.180.245:8000/chat/enviarMensaje?fecha=" + fecha +
             "&favorito=" + 0 + "&mensaje=" + textboxMensaje.Text + "&tipoMensaje=" + "imagen" + "&idMensajeImagen=" + idImagen +
                 "&mensajeAudio=" + 0 + "&UsuarioChat_nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario + "&Chat_nombreChat=" +
                 nombreChat_Actual;

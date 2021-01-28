@@ -33,7 +33,7 @@ namespace ClienteProyectoDeMensajeria
         {
             string nombreDeUsuario = textBoxNombreUsuario.Text;
 
-            string urlValidarUsuario = "http://localhost:5000/cuenta/validarExistencia?nombreUsuario=" + nombreDeUsuario;
+            string urlValidarUsuario = "http://25.21.180.245:8000/cuenta/validarExistencia?nombreUsuario=" + nombreDeUsuario;
 
             RestClient client = new RestClient(urlValidarUsuario);
             client.Timeout = -1;
@@ -46,7 +46,7 @@ namespace ClienteProyectoDeMensajeria
                         "' Sucedió algo mal, intente más tarde");
                 else if (response.Content.Equals("1"))
                 {
-                    string urlAgregarAmigo = "http://localhost:5000/chat/agregarAmigo?nombreUsuario=" +
+                    string urlAgregarAmigo = "http://25.21.180.245:8000/chat/agregarAmigo?nombreUsuario=" +
                         MainWindow.usuarioLogeado.nombreUsuario + "&amigoNombreUsuario=" + nombreDeUsuario;
                     client = new RestClient(urlAgregarAmigo);
                     client.Timeout = -1;
@@ -72,7 +72,7 @@ namespace ClienteProyectoDeMensajeria
         private void listAmigos_Loaded(object sender, RoutedEventArgs e)
         {
             if (listAmigos.Items.Count > 0) listAmigos.Items.Clear();
-            string url = "http://localhost:5000/chat/obtenerAmigos?nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario;
+            string url = "http://25.21.180.245:8000/chat/obtenerAmigos?nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario;
             RestClient client = new RestClient(url);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
@@ -105,7 +105,7 @@ namespace ClienteProyectoDeMensajeria
 
         private void buttonNuevoChat_Click(object sender, RoutedEventArgs e)
         {
-            string url = "http://localhost:5000/chat/registrarChat?nombreChat=" + textBoxNombreChat.Text + "&tipoChat=normal";
+            string url = "http://25.21.180.245:8000/chat/registrarChat?nombreChat=" + textBoxNombreChat.Text + "&tipoChat=normal";
 
             RestClient client = new RestClient(url);
             client.Timeout = -1;
@@ -114,9 +114,9 @@ namespace ClienteProyectoDeMensajeria
             {
                 IRestResponse response = client.Execute(request);
                 if (response.Content.Equals("1")){
-                    string url_Yo = "http://localhost:5000/chat/agregarUsuario?nombreChat=" + textBoxNombreChat.Text + 
+                    string url_Yo = "http://25.21.180.245:8000/chat/agregarUsuario?nombreChat=" + textBoxNombreChat.Text + 
                         "&nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario;
-                    string url_Amigo = "http://localhost:5000/chat/agregarUsuario?nombreChat=" + textBoxNombreChat.Text +
+                    string url_Amigo = "http://25.21.180.245:8000/chat/agregarUsuario?nombreChat=" + textBoxNombreChat.Text +
                         "&nombreUsuario=" + listAmigos.SelectedItem;
                     client = new RestClient(url_Yo);
                     client.Timeout = -1;

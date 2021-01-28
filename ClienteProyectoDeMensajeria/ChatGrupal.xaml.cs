@@ -26,7 +26,7 @@ namespace ClienteProyectoDeMensajeria
         private void listViewTodosMisAmigos_Loaded(object sender, RoutedEventArgs e)
         {
             if (listViewTodosMisAmigos.Items.Count > 0) listViewTodosMisAmigos.Items.Clear();
-            string url = "http://localhost:5000/chat/obtenerAmigos?nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario;
+            string url = "http://25.21.180.245:8000/chat/obtenerAmigos?nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario;
             RestClient client = new RestClient(url);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
@@ -58,7 +58,7 @@ namespace ClienteProyectoDeMensajeria
 
         private void buttonGuardar_Click(object sender, RoutedEventArgs e)
         {
-            string url = "http://localhost:5000/chat/registrarChat?nombreChat=" + textBoxNombreGrupo.Text + "&tipoChat=grupal";
+            string url = "http://25.21.180.245:8000/chat/registrarChat?nombreChat=" + textBoxNombreGrupo.Text + "&tipoChat=grupal";
 
             RestClient client = new RestClient(url);
             client.Timeout = -1;
@@ -68,7 +68,7 @@ namespace ClienteProyectoDeMensajeria
                 IRestResponse response = client.Execute(request);
                 if (response.Content.Equals("1"))
                 {
-                    string url_Yo = "http://localhost:5000/chat/agregarUsuario?nombreChat=" + textBoxNombreGrupo.Text +
+                    string url_Yo = "http://25.21.180.245:8000/chat/agregarUsuario?nombreChat=" + textBoxNombreGrupo.Text +
                        "&nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario;
 
                     client = new RestClient(url_Yo);
@@ -81,7 +81,7 @@ namespace ClienteProyectoDeMensajeria
                         foreach (var amigo in listViewAmigosGrupo.Items)
                         {
                         MessageBox.Show(amigo.ToString());
-                        string url_Amigo = "http://localhost:5000/chat/agregarUsuario?nombreChat=" + textBoxNombreGrupo.Text +
+                        string url_Amigo = "http://25.21.180.245:8000/chat/agregarUsuario?nombreChat=" + textBoxNombreGrupo.Text +
                        "&nombreUsuario=" + amigo.ToString();
                         client = new RestClient(url_Amigo);
                         client.Timeout = -1;
