@@ -9,9 +9,9 @@
              d:DesignHeight="500" d:DesignWidth="850" Background="Black">
     <Grid HorizontalAlignment="Left" Height="500" VerticalAlignment="Top" Width="850">
         <ContentControl HorizontalAlignment="Left" Height="285" Margin="210,80,0,0" VerticalAlignment="Top" Width="630" Background="#FF616161" BorderBrush="#FFB84141" OpacityMask="Black">
-            <Button Content="Editar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="570,25,0,0" VerticalAlignment="Top" Width="50"/>
+            <Button x:Name="buttonEditarMsj" Content="Editar" Visibility="Collapsed" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="570,25,0,0" VerticalAlignment="Top" Width="50" Click="buttonEditarMsj_Click"/>
         </ContentControl>
-        <Button Content="Eliminar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="780,168,-30,0" VerticalAlignment="Top" Width="50"/>
+        <Button x:Name="buttonEliminarMsj" Content="Eliminar" Visibility="Collapsed" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="780,168,-30,0" VerticalAlignment="Top" Width="50" Click="buttonEliminarMsj_Click"/>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="205" Background="#FF444444">
         </Border>
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="80" VerticalAlignment="Top" Width="630" Background="#FF444444" Margin="210,0,0,0">
@@ -28,7 +28,7 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="405" VerticalAlignment="Top" Width="205" Background="#FF444444" Margin="0,85,0,0">
             <ListBox x:Name="listChats" Margin="9" Loaded="listChats_Loaded" Foreground="#DDFFFFFF" SelectionChanged="listChats_SelectionChanged" />
         </Border>
-        <ListView x:Name="listViewMensajes" HorizontalAlignment="Left" Height="240" Margin="230,100,0,0" VerticalAlignment="Top" Width="530" Background="White" Foreground="#DDFFFFFF">
+        <ListView x:Name="listViewMensajes" HorizontalAlignment="Left" Height="240" Margin="230,100,0,0" VerticalAlignment="Top" Width="530" Background="White" Foreground="#DDFFFFFF" SelectionChanged="listViewMensajes_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel x:Name="panelmensajes" Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">

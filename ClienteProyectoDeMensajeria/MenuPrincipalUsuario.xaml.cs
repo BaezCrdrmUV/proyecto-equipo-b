@@ -30,6 +30,7 @@ namespace ClienteProyectoDeMensajeria
         String url;
 
         //Valores para el chat
+        public bool modoEdicionMensaje = false;
         public string nombreChat_Actual;
         public ObservableCollection<Mensaje> mensajes = new ObservableCollection<Mensaje>();
         public ObservableCollection<String> misChats = new ObservableCollection<String>();
@@ -117,29 +118,27 @@ namespace ClienteProyectoDeMensajeria
         }
 
         private void listChats_Loaded(object sender, RoutedEventArgs e)
-        {            
-                string url = "http://localhost:5000/chat/obtenerChatsDeUsuario?nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario;
-
-                RestClient client = new RestClient(url);
-                client.Timeout = -1;
-                var request = new RestRequest(Method.POST);
-                try
-                {
-                    IRestResponse response = client.Execute(request);
+        {
+            string url = "http://localhost:5000/chat/obtenerChatsDeUsuario?nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario;
+            RestClient client = new RestClient(url);
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            try {
+                IRestResponse response = client.Execute(request);
+                if (response.ResponseStatus != ResponseStatus.Completed)
+                    MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
+                        "' Sucedió algo mal, intente más tarde");
+                if (response.Content.Length > 0){
                     var chatsDeserializados = JsonConvert.DeserializeObject<List<Chat>>(response.Content);
-                    
                     if (misChats.Count > 0) misChats.Clear();
-                    
-                    foreach (var chat in chatsDeserializados)
-                    {
+                    foreach (var chat in chatsDeserializados){
                         misChats.Add(chat.Chat_nombreChat);
                     }
-                listChats.ItemsSource = misChats;
+                    listChats.ItemsSource = misChats;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }            
+            }catch(Exception ex){
+                MessageBox.Show(ex.Message);
+            }            
         }
 
         private void listChats_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -147,39 +146,121 @@ namespace ClienteProyectoDeMensajeria
             LabelNombreAmigo.Content = listChats.SelectedItem;
             nombreChat_Actual = listChats.SelectedItem.ToString();
             textboxMensaje.Text = "";
+            obtenerMensajes();
+        }
 
-            string url = "http://localhost:5000/chat/obtenerMensajesChat?Chat_nombreChat="+ listChats.SelectedItem;
-
+        private void obtenerMensajes()
+        {
+            string url = "http://localhost:5000/chat/obtenerMensajesChat?Chat_nombreChat=" + listChats.SelectedItem;
             RestClient client = new RestClient(url);
             client.Timeout = -1;
             var request = new RestRequest(Method.GET);
             try
             {
                 IRestResponse response = client.Execute(request);
+                if (response.ResponseStatus != ResponseStatus.Completed)
+                    MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
+                        "' Sucedió algo mal, intente más tarde");
                 var mensajesDeserializados = JsonConvert.DeserializeObject<List<Mensaje>>(response.Content);
-                
-                if (mensajes.Count >0) mensajes.Clear();
-                
-                foreach( var msj in mensajesDeserializados)
+                if (mensajes.Count > 0) mensajes.Clear();
+                foreach (var msj in mensajesDeserializados)
                 {
                     mensajes.Add(msj);
                 }
                 listViewMensajes.ItemsSource = mensajes;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-           
         }
 
         private void buttonEnviarMensaje_Click(object sender, RoutedEventArgs e)
-        {;
-            var fecha = DateTime.Now.ToString("yyyy-MM-dd");
-            string url = "http://localhost:5000/chat/enviarMensaje?fecha=" +fecha  +
-            "&favorito=" + 0 + "&mensaje=" + textboxMensaje.Text + "&tipoMensaje=" + "texto" + "&idMensajeImagen=" + 0 +
-                "&mensajeAudio=" + 0 + "&UsuarioChat_nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario + "&Chat_nombreChat=" +
-                nombreChat_Actual;
-            MessageBox.Show(url);
+        {
+            if (modoEdicionMensaje)
+            {
+                var mensajeSeleccionado = listViewMensajes.SelectedItem as Mensaje;
+                string urlEdicion = "http://localhost:5000/chat/editarMensaje?idMensaje=" + mensajeSeleccionado.idMensaje + "&favorito=" + 0 + "&mensaje=" + textboxMensaje.Text;
+                RestClient client = new RestClient(urlEdicion);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.POST);
+                try
+                {
+                    IRestResponse response = client.Execute(request);
+                    if (response.ResponseStatus != ResponseStatus.Completed)
+                        MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
+                                   "' Sucedió algo mal, intente más tarde");
+                    else if (response.Content.Equals("1"))
+                    {
+                        obtenerMensajes();
+                    }
+                    else
+                        MessageBox.Show("no se pudo enviar tu mensaje");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                var fecha = DateTime.Now.ToString("yyyy-MM-dd");
+                string url = "http://localhost:5000/chat/enviarMensaje?fecha=" + fecha +
+                "&favorito=" + 0 + "&mensaje=" + textboxMensaje.Text + "&tipoMensaje=" + "texto" + "&idMensajeImagen=" + 0 +
+                    "&mensajeAudio=" + 0 + "&UsuarioChat_nombreUsuario=" + MainWindow.usuarioLogeado.nombreUsuario + "&Chat_nombreChat=" +
+                    nombreChat_Actual;
+                RestClient client = new RestClient(url);
+                client.Timeout = -1;
+                var request = new RestRequest(Method.POST);
+                try
+                {
+                    IRestResponse response = client.Execute(request);
+                    if (response.ResponseStatus != ResponseStatus.Completed)
+                        MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
+                                   "' Sucedió algo mal, intente más tarde");
+                    else if (response.Content.Equals("1"))
+                    {
+                        Mensaje mensaje = new Mensaje
+                        {
+                            date = fecha,
+                            favorito = 0,
+                            mensaje = textboxMensaje.Text,
+                            tipoMensaje = "texto",
+                            idMensajeImagen = 0,
+                            mensajeAudio = 0,
+                            UsuarioChat_nombreUsuario = MainWindow.usuarioLogeado.nombreUsuario,
+                            Chat_nombreChat = nombreChat_Actual
+                        };
+                        mensajes.Add(mensaje);
+                    }
+                    else
+                        MessageBox.Show("no se pudo enviar tu mensaje");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                textboxMensaje.Text = "";
+            }            
+        }
+
+        private void listViewMensajes_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            buttonEditarMsj.Visibility = Visibility.Visible;
+            buttonEliminarMsj.Visibility = Visibility.Visible;
+        }
+
+        private void buttonEditarMsj_Click(object sender, RoutedEventArgs e)
+        {
+            modoEdicionMensaje = true;
+            var mensajeSeleccionado = listViewMensajes.SelectedItem as Mensaje;
+            textboxMensaje.Text = mensajeSeleccionado.mensaje;
+        }
+
+        private void buttonEliminarMsj_Click(object sender, RoutedEventArgs e)
+        {
+            var mensajeSeleccionado = listViewMensajes.SelectedItem as Mensaje;
+            string url = "http://localhost:5000/chat/eliminarMensaje?idMensaje=" + mensajeSeleccionado.idMensaje;
             RestClient client = new RestClient(url);
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
@@ -189,24 +270,13 @@ namespace ClienteProyectoDeMensajeria
                 if (response.ResponseStatus != ResponseStatus.Completed)
                     MessageBox.Show(response.ResponseStatus + " '" + response.StatusCode.ToString() +
                                "' Sucedió algo mal, intente más tarde");
-                else if(response.Content.Equals("1"))
+                else if (response.Content.Equals("1"))
                 {
-                    Mensaje mensaje = new Mensaje
-                    {
-                        date = fecha,
-                        favorito = 0,
-                        mensaje = textboxMensaje.Text,
-                        tipoMensaje = "texto",
-                        idMensajeImagen = 0,
-                        mensajeAudio = 0,
-                        UsuarioChat_nombreUsuario = MainWindow.usuarioLogeado.nombreUsuario,
-                        Chat_nombreChat = nombreChat_Actual
-                    };
-                    mensajes.Add(mensaje);
+                    mensajes.Remove(mensajeSeleccionado);
                 }
-                else
-                    MessageBox.Show("no se pudo enviar tu mensaje");
-            }catch(Exception ex)
+                else MessageBox.Show("No se puso eliminar el mensaje");
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
