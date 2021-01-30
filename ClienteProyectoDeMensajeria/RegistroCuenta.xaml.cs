@@ -82,25 +82,32 @@ namespace ClienteProyectoDeMensajeria
 
         private void registrarMiImagenPerfil()
         {
-            System.Net.ServicePointManager.ServerCertificateValidationCallback = (senderX, certificate, chain, sslPolicyErrors) => { return true; };
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://25.21.180.245:8000/multimedia/registrarFotoCuentaUsuario");
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "POST";
-
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            try
             {
-                string json = "{\"stringBase64\":"+"\""+imagenPerfil_Base64+"\"}";                
-                streamWriter.Write(json);
-            }
+                System.Net.ServicePointManager.ServerCertificateValidationCallback = (senderX, certificate, chain, sslPolicyErrors) => { return true; };
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create("http://25.21.180.245:8000/multimedia/registrarFotoCuentaUsuario");
+                httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Method = "POST";
 
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+                    string json = "{\"stringBase64\":" + "\"" + imagenPerfil_Base64 + "\"}";
+                    streamWriter.Write(json);
+                }
+
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    string result2 = result;
+                    idFotoPerfil = Int32.Parse(result2);
+                    MessageBox.Show("Estamos registrandolo...");
+                }
+            }catch(Exception e)
             {
-                var result = streamReader.ReadToEnd();
-                string result2 = result;
-                idFotoPerfil = Int32.Parse(result2);
-                MessageBox.Show("Estamos registrandolo...");
+                MessageBox.Show("No pudimos guardar su imagen, intente mas tarde");
             }
+            
         }
 
         private void buttonCargarFoto_Click(object sender, RoutedEventArgs e)

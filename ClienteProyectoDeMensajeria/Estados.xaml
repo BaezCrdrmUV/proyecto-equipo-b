@@ -8,21 +8,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <ListView x:Name="ListViewEstados" HorizontalAlignment="Left" Height="290" Margin="10,130,0,0" VerticalAlignment="Top" Width="155">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+        <ListView x:Name="ListViewEstados" HorizontalAlignment="Left" Height="300" Margin="170,65,0,0" VerticalAlignment="Top" Width="135" Loaded="ListViewEstados_Loaded" SelectionChanged="ListViewEstados_SelectionChanged">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel x:Name="panelMensajes" Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <TextBlock Text="{Binding fecha}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" />
+                        <TextBlock Text="{Binding idUsuario}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" FontFamily="Arial" FontSize="14" Background="#FF4D0378" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="325" Margin="170,40,0,0" VerticalAlignment="Top" Width="525" Background="#FFC5C3C3"/>
-        <Button x:Name="buttonAgregarEstado" Content="Agregar estado" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="19,40,0,0" VerticalAlignment="Top" Width="130"/>
+        <Image x:Name="imagenEstado" HorizontalAlignment="Left" Height="300" Margin="325,65,0,0" VerticalAlignment="Top" Width="395" Stretch="Fill"/>
+        <Button x:Name="buttonCargarEstado" Content="nuevo estado" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="30,19,0,0" VerticalAlignment="Top" Width="125" Click="buttonCargarEstado_Click"/>
         <Button x:Name="buttonComentar" Content="Comentar" materialDesign:ButtonAssist.CornerRadius="15"  HorizontalAlignment="Left" Margin="670,406,0,0" VerticalAlignment="Top" Width="95" Height="30"/>
         <TextBox x:Name="textBoxComentarEstado" materialDesign:TextFieldAssist.TextFieldCornerRadius="15" HorizontalAlignment="Left" Height="30" Margin="185,406,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="455" Background="White"/>
-        <Image x:Name="Megusta" HorizontalAlignment="Left" Height="31" Margin="185,370,0,0" VerticalAlignment="Top" Width="45" OpacityMask="#FF9E5454"/>
-        <Image x:Name="Medivierte" HorizontalAlignment="Left" Height="31" Margin="325,370,0,0" VerticalAlignment="Top" Width="45" OpacityMask="#FF9E5454"/>
-        <Image x:Name="Meentristece" HorizontalAlignment="Left" Height="31" Margin="255,370,0,0" VerticalAlignment="Top" Width="45" OpacityMask="#FF9E5454"/>
-        <Image x:Name="Meenoja" HorizontalAlignment="Left" Height="31" Margin="255,370,0,0" VerticalAlignment="Top" Width="45" OpacityMask="#FF9E5454"/>
         <Button x:Name="buttonCerrar" Content="Cerrar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="700,8,0,0" VerticalAlignment="Top" Width="90" Click="buttonCerrar_Click"/>
+        <Image x:Name="imagenNuevoEstado" HorizontalAlignment="Left" Height="80" Margin="42,68,0,0" VerticalAlignment="Top" Width="105" Stretch="Fill"/>
+        <Button x:Name="buttonAgregarEstado" Content="Agregar" materialDesign:ButtonAssist.CornerRadius="15" HorizontalAlignment="Left" Margin="42,165,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="88" Click="buttonAgregarEstado_Click"/>
     </Grid>
 </UserControl>

@@ -96,6 +96,7 @@
       <DependentUpon>ChatGrupal.xaml</DependentUpon>
     </Compile>
     <Compile Include="ClasesReutilizables\Chat.cs" />
+    <Compile Include="ClasesReutilizables\Estado.cs" />
     <Compile Include="ClasesReutilizables\Mensaje.cs" />
     <Compile Include="ClasesReutilizables\Validacion.cs" />
     <Compile Include="EditarPerfildeUsuario.xaml.cs">
